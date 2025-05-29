@@ -1,0 +1,22 @@
+/* === Cropper override styles === */
+.custom-cropper {
+  background-color: black !important;
+}
+
+.custom-cropper .cropper-modal {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.custom-cropper .cropper-view-box {
+  outline: 1.5px solid white !important;
+  box-shadow: none !important;
+}
+
+.custom-cropper .cropper-face {
+  background-color: transparent !important;
+}
+
+.custom-cropper .cropper-point {
+  background: transparent !important;
+  border: none !important;
+}

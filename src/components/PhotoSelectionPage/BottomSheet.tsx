@@ -1,0 +1,118 @@
+import React, { useState, useEffect, useLayoutEffect } from "react";
+import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import styled from "styled-components";
+
+const SheetWrapper = styled(motion.div)`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  touch-action: none;
+  z-index: 1000;
+  will-change: transform;
+  height: 100%;
+`;
+
+const DragIndicator = styled.div`
+  width: 40px;
+  height: 5px;
+  background-color: #ccc;
+  border-radius: 2.5px;
+  margin: 8px auto 12px;
+`;
+
+const SheetContent = styled.div`
+  padding: 0 16px;
+  background: white;
+  height: 100%;
+  overflow: auto;
+`;
+
+interface BottomSheetProps {
+  children: React.ReactNode;
+  peekHeightPercent?: number;
+  maxHeightPercent?: number;
+  isPersistent?: boolean;
+  onPositionChange?: (positionPercent: number) => void; // Значение от 0 до 100
+}
+
+const BottomSheet: React.FC<BottomSheetProps> = ({
+  children,
+  peekHeightPercent = 15,
+  maxHeightPercent = 70,
+  isPersistent = true,
+  onPositionChange,
+}) => {
+  const controls = useAnimation();
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    const updateSize = () => setWindowHeight(window.innerHeight);
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  if (windowHeight === 0) return null;
+
+  const peekHeightPx = windowHeight * (peekHeightPercent / 100);
+  const maxHeightPx = windowHeight * (maxHeightPercent / 100);
+  const topY = windowHeight - maxHeightPx;
+  const bottomY = windowHeight - peekHeightPx;
+  const dragRange = bottomY - topY;
+
+  const getPercentFromY = (y: number) => {
+    const clamped = Math.min(Math.max(y, topY), bottomY);
+    const progress = 1 - (clamped - topY) / dragRange;
+    return Math.round(progress * 100);
+  };
+
+  const handleDrag = (_: any, info: any) => {
+    const currentY = info.point.y;
+    const percent = getPercentFromY(currentY);
+    onPositionChange?.(percent);
+  };
+
+  const handleDragEnd = (_: any, info: any) => {
+    const currentY = info.point.y;
+    const percent = getPercentFromY(currentY);
+    onPositionChange?.(percent);
+
+    // Притягивание к ближайшему краю
+    const middleY = (topY + bottomY) / 2;
+    const snapTo = currentY < middleY ? topY : bottomY;
+
+    controls.start({
+      y: snapTo,
+      transition: { type: "tween", ease: "easeOut", duration: 0.3 },
+    });
+
+    const snappedPercent = getPercentFromY(snapTo);
+    onPositionChange?.(snappedPercent);
+  };
+
+  return (
+    <AnimatePresence>
+      {isPersistent && (
+        <SheetWrapper
+          drag="y"
+          dragConstraints={{ top: topY, bottom: bottomY }}
+          dragElastic={0.05}
+          onDrag={handleDrag}
+          onDragEnd={handleDragEnd}
+          animate={controls}
+          initial={{ y: bottomY }}
+        >
+          <DragIndicator />
+          <SheetContent>{children}</SheetContent>
+        </SheetWrapper>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default BottomSheet;
