@@ -1,4 +1,5 @@
 // Supported effect types
+
 export type EffectType =
   | "filter"
   | "hairstyle"
@@ -7,18 +8,22 @@ export type EffectType =
   | "lipcolor"
   | "tryon"
   | "enhance"
-  | "swap";
+  | "gender"
+  | "age";
 
 // API URL mapping
 const API_ENDPOINTS: Record<EffectType, string> = {
   filter: "https://www.ailabapi.com/api/portrait/effects/face-filter",
-  hairstyle: "https://www.ailabapi.com/api/portrait/effects/hairstyle-editor-pro",
+  hairstyle:
+    "https://www.ailabapi.com/api/portrait/effects/hairstyle-editor-pro",
   smile: "https://www.ailabapi.com/api/portrait/effects/emotion-editor",
   retouch: "https://www.ailabapi.com/api/portrait/effects/smart-beauty",
   lipcolor: "https://www.ailabapi.com/api/portrait/effects/lips-color-changer",
   tryon: "https://www.ailabapi.com/api/portrait/editing/try-on-clothes-pro",
   enhance: "https://www.ailabapi.com/api/portrait/effects/enhance-face",
-  swap: "https://www.ailabapi.com/api/portrait/effects/face-attribute-editing",
+  gender:
+    "https://www.ailabapi.com/api/portrait/effects/face-attribute-editing",
+  age: "https://www.ailabapi.com/api/portrait/effects/face-attribute-editing",
 };
 
 function pickParams<T>(
@@ -26,6 +31,10 @@ function pickParams<T>(
   keys: (keyof T)[],
   defaults: Partial<T>
 ): T {
+  if (typeof params !== "object" || params === null) {
+    params = {};
+  }
+
   const result: Partial<T> = { ...defaults };
   keys.forEach((key) => {
     if (key in params) {
@@ -36,11 +45,14 @@ function pickParams<T>(
 }
 
 // Insert your API key here
-const API_KEY = process.env.AI_LAB_API_KEY;
-
+const API_KEY = import.meta.env.VITE_AI_LAB_API_KEY;
+// const API_KEY = "TEST_API";
 // === IMAGE URL TO FILE ===
 
-async function resolveImageInput(input: File | string, fileName = "image.jpg"): Promise<File> {
+async function resolveImageInput(
+  input: File | string,
+  fileName = "image.jpg"
+): Promise<File> {
   if (typeof input === "string") {
     const res = await fetch(input);
     const blob = await res.blob();
@@ -105,25 +117,35 @@ export interface TryOnParams {
 export interface SwapParams {
   action_type: string;
   quality_control: string;
+  target: number;
   // face_location: string;
 }
 
 // === EFFECT FUNCTIONS ===
 
-export async function applyFilter(image: File | string, rawParams: any = {}): Promise<string> {
+export async function applyFilter(
+  image: File | string,
+  rangeParam: number,
+  rawParams: any = {}
+): Promise<string> {
   const resolved = await resolveImageInput(image);
+  console.log(rawParams, "test");
+
   const params = pickParams<FilterParams>(
     rawParams,
     ["resource_type", "strength"],
     {
       resource_type: "10001", // по умолчанию можно задать "style" или "filter"
-      strength: "1",
+      strength: rangeParam,
     }
   );
   return sendFormData("filter", { image: resolved }, params);
 }
 
-export async function applyHairstyle(image: File | string, rawParams: any = {}): Promise<string> {
+export async function applyHairstyle(
+  image: File | string,
+  rawParams: any = {}
+): Promise<string> {
   const resolved = await resolveImageInput(image);
   const params = pickParams<HairstyleParams>(
     rawParams,
@@ -132,49 +154,53 @@ export async function applyHairstyle(image: File | string, rawParams: any = {}):
       task_type: "async",
       hair_style: "BuzzCut",
       auto: 1,
-      color: "#000000",
+      color: "blonde",
       image_size: 1,
     }
   );
   return sendFormData("hairstyle", { image: resolved }, params);
 }
 
-
-export async function applySmile(image: File | string, rawParams: any = {}): Promise<string> {
+export async function applySmile(
+  image: File | string,
+  rawParams: any = {}
+): Promise<string> {
   const resolved = await resolveImageInput(image);
-  const params = pickParams<SmileParams>(
-    rawParams,
-    ["service_choice"],
-    {
-      service_choice: 10,
-    }
-  );
+  const params = pickParams<SmileParams>(rawParams, ["service_choice"], {
+    service_choice: 10,
+  });
   return sendFormData("smile", { image_target: resolved }, params);
 }
 
-
-export async function applyRetouch(image: File | string, rawParams: any = {}): Promise<string> {
+export async function applyRetouch(
+  image: File | string,
+  rangeParam: number,
+  rawParams: any = {}
+): Promise<string> {
   const resolved = await resolveImageInput(image);
   const params = pickParams<RetouchParams>(
     rawParams,
     ["multi_face", "beauty_level", "task_type"],
     {
       multi_face: "1",
-      beauty_level: 1,
+      beauty_level: rangeParam,
       task_type: "sync",
     }
   );
   return sendFormData("retouch", { image_target: resolved }, params);
 }
 
-
-export async function applyLipColor(image: File | string, rawParams: any = {}): Promise<string> {
+export async function applyLipColor(
+  image: File | string,
+  rgbaValue: any,
+  rawParams: any = {}
+): Promise<string> {
   const resolved = await resolveImageInput(image);
-
+  console.log(rgbaValue);
   const defaultInfo = [
     {
-      rgba: { r: 255, g: 51, b: 102, a: 80 }, // #FF3366, alpha 80%
-    }
+      rgba: rgbaValue, // #FF3366, alpha 80%
+    },
   ];
 
   const infos: LipColorInfo[] = Array.isArray(rawParams.lip_color_infos)
@@ -185,17 +211,25 @@ export async function applyLipColor(image: File | string, rawParams: any = {}): 
     lip_color_infos: infos,
   };
 
-  return sendFormData("lipcolor", { image: resolved }, {
-    lip_color_infos: JSON.stringify(params.lip_color_infos),
-  });
+  return sendFormData(
+    "lipcolor",
+    { image: resolved },
+    {
+      lip_color_infos: JSON.stringify(params.lip_color_infos),
+    }
+  );
 }
 
-
-
 export async function applyTryOn(rawParams: any = {}): Promise<string> {
-  const person_image = await resolveImageInput(rawParams.person_image, "person.jpg");
+  const person_image = await resolveImageInput(
+    rawParams.person_image,
+    "person.jpg"
+  );
   const top_garment = await resolveImageInput(rawParams.top_garment, "top.jpg");
-  const bottom_garment = await resolveImageInput(rawParams.bottom_garment, "bottom.jpg");
+  const bottom_garment = await resolveImageInput(
+    rawParams.bottom_garment,
+    "bottom.jpg"
+  );
 
   const params = pickParams<TryOnParams>(
     rawParams,
@@ -218,28 +252,48 @@ export async function applyTryOn(rawParams: any = {}): Promise<string> {
   return sendRequest("tryon", formData);
 }
 
-
 export async function applyEnhance(image: File | string): Promise<string> {
   const resolved = await resolveImageInput(image);
   return sendFormData("enhance", { image: resolved }, {});
 }
 
-
-export async function applySwap(image: File | string, rawParams: any = {}): Promise<string> {
+export async function applyGender(
+  image: File | string,
+  gender: number,
+  rawParams: any = {}
+): Promise<string> {
   const resolved = await resolveImageInput(image);
   const params = pickParams<SwapParams>(
     rawParams,
-    ["action_type", "quality_control", "face_location"],
+    ["action_type", "quality_control"],
     {
-      action_type: "TO_KID",
+      action_type: "V2_GENDER",
       quality_control: "HIGH",
+      target: gender,
       // face_location: "auto",
     }
   );
-  return sendFormData("swap", { image: resolved }, params);
+  return sendFormData("gender", { image: resolved }, params);
 }
 
-
+export async function applyAge(
+  image: File | string,
+  age: number,
+  rawParams: any = {}
+): Promise<string> {
+  const resolved = await resolveImageInput(image);
+  const params = pickParams<SwapParams>(
+    rawParams,
+    ["action_type", "quality_control"],
+    {
+      action_type: "V2_AGE",
+      quality_control: "HIGH",
+      target: age,
+      // face_location: "auto",
+    }
+  );
+  return sendFormData("age", { image: resolved }, params);
+}
 // === GENERIC REQUESTS ===
 
 function createFormData(
@@ -280,7 +334,8 @@ async function sendRequest(
   });
 
   const data = await response.json();
-  if (data.code === 200) {
+  console.log(data);
+  if (data.error_code === 0) {
     return data;
   } else {
     throw new Error("Ошибка обработки изображения");
@@ -297,5 +352,6 @@ export const EFFECT_FUNCTIONS: Record<EffectType, Function> = {
   lipcolor: applyLipColor,
   tryon: applyTryOn,
   enhance: applyEnhance,
-  swap: applySwap,
+  gender: applyGender,
+  age: applyAge,
 };

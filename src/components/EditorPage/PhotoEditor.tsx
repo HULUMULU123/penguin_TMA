@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import "./cropper.css";
@@ -17,7 +17,7 @@ import CropperFooter from "./CropperFooter";
 import RangeSlider from "./RangeSlider";
 import SubInstruments from "./SubInstruments";
 
-// Типизация props и состояний
+// Типизация props
 interface PhotoEditorProps {
   src: string;
 }
@@ -25,27 +25,41 @@ interface PhotoEditorProps {
 export default function PhotoEditor({ src }: PhotoEditorProps) {
   const cropperRef = useRef<Cropper | null>(null);
 
+  // Состояния
   const [isCropping, setIsCropping] = useState(false);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [activeInstrument, setActiveInstrument] = useState<string | null>(null);
   const [activeSave, setActiveSave] = useState(false);
+  const [currentImgSrc, setCurrentImgSrc] = useState(src);
 
+  // Сброс изображения при смене src
+  useEffect(() => {
+    setCurrentImgSrc(src);
+  }, [src]);
+
+  // Уведомление об успешном сохранении
   const notify = () => toast.success("Сохранено");
+
+  // Показывать ли тулбар (когда не кадрируем)
   const showToolBar = !isCropping;
 
-  const renderHeader = () =>
-    showToolBar ? (
-      <EditorHeader
-        active={activeFilter || activeInstrument}
-        setActiveFilter={setActiveFilter}
-        setActiveInstrument={setActiveInstrument}
-        activeSave={activeSave}
-        notify={notify}
-      />
-    ) : (
-      <CropHeader />
-    );
+  // Рендер хедера в зависимости от состояния
+  const renderHeader = () => {
+    if (showToolBar) {
+      return (
+        <EditorHeader
+          active={activeFilter || activeInstrument}
+          setActiveFilter={setActiveFilter}
+          setActiveInstrument={setActiveInstrument}
+          activeSave={activeSave}
+          notify={notify}
+        />
+      );
+    }
+    return <CropHeader />;
+  };
 
+  // Рендер основной секции с изображением или кадрированием
   const renderImageSection = () => (
     <ImageSection>
       {!isCropping ? (
@@ -59,7 +73,7 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
         >
           <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
             <img
-              src={src}
+              src={currentImgSrc}
               alt="To edit"
               style={{
                 width: "100%",
@@ -88,12 +102,16 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
     </ImageSection>
   );
 
+  // Рендер нижнего тулбара в зависимости от активного фильтра/инструмента
   const renderBottomToolbar = () => {
-    if (subFilters[activeFilter]?.length) {
+    if (activeFilter && subFilters[activeFilter]?.length) {
       return (
         <SubFilters
           filterItems={subFilters[activeFilter]}
           setActiveSave={setActiveSave}
+          imgSrc={src}
+          activeFilter={activeFilter}
+          setCurrentImgSrc={setCurrentImgSrc}
         />
       );
     }
@@ -102,9 +120,15 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
       return <CropperFooter setIsCropping={setIsCropping} />;
     }
 
-    if (subInstruments[activeInstrument]?.length) {
+    if (activeInstrument && subInstruments[activeInstrument]?.length) {
       return (
-        <SubInstruments instrumentItems={subInstruments[activeInstrument]} />
+        <SubInstruments
+          instrumentItems={subInstruments[activeInstrument]}
+          setActiveSave={setActiveSave}
+          imgSrc={src}
+          activeInsrument={activeInstrument}
+          setCurrentImgSrc={setCurrentImgSrc}
+        />
       );
     }
 

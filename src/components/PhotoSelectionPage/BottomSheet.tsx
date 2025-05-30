@@ -1,5 +1,10 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
-import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import React, { useState, useLayoutEffect } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useAnimation,
+  useDragControls,
+} from "framer-motion";
 import styled from "styled-components";
 
 const SheetWrapper = styled(motion.div)`
@@ -17,12 +22,20 @@ const SheetWrapper = styled(motion.div)`
   height: 100%;
 `;
 
+const DragHandleArea = styled.div`
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  user-select: none;
+`;
+
 const DragIndicator = styled.div`
   width: 40px;
   height: 5px;
   background-color: #ccc;
   border-radius: 2.5px;
-  margin: 8px auto 12px;
 `;
 
 const SheetContent = styled.div`
@@ -37,7 +50,7 @@ interface BottomSheetProps {
   peekHeightPercent?: number;
   maxHeightPercent?: number;
   isPersistent?: boolean;
-  onPositionChange?: (positionPercent: number) => void; // Значение от 0 до 100
+  onPositionChange?: (positionPercent: number) => void;
 }
 
 const BottomSheet: React.FC<BottomSheetProps> = ({
@@ -48,6 +61,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   onPositionChange,
 }) => {
   const controls = useAnimation();
+  const dragControls = useDragControls();
   const [windowHeight, setWindowHeight] = useState(0);
 
   useLayoutEffect(() => {
@@ -82,7 +96,6 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
     const percent = getPercentFromY(currentY);
     onPositionChange?.(percent);
 
-    // Притягивание к ближайшему краю
     const middleY = (topY + bottomY) / 2;
     const snapTo = currentY < middleY ? topY : bottomY;
 
@@ -100,6 +113,8 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
       {isPersistent && (
         <SheetWrapper
           drag="y"
+          dragListener={false}
+          dragControls={dragControls}
           dragConstraints={{ top: topY, bottom: bottomY }}
           dragElastic={0.05}
           onDrag={handleDrag}
@@ -107,7 +122,9 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
           animate={controls}
           initial={{ y: bottomY }}
         >
-          <DragIndicator />
+          <DragHandleArea onPointerDown={(e) => dragControls.start(e)}>
+            <DragIndicator />
+          </DragHandleArea>
           <SheetContent>{children}</SheetContent>
         </SheetWrapper>
       )}

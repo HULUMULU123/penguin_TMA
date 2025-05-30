@@ -1,0 +1,131 @@
+.slider-container {
+  width: 100%;
+  max-width: 300px;
+  padding: 16px 0;
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.age-label {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  font-size: 14px;
+}
+
+.value-indicator {
+  position: absolute;
+  top: -28px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  color: #222;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 12px;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+}
+
+.styled-range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  /* Фон градиента, где заполненная часть белая, остальное прозрачное */
+  background: linear-gradient(
+    to right,
+    white 0%,
+    white var(--percent),
+    rgba(255, 255, 255, 0.3) var(--percent),
+    rgba(255, 255, 255, 0.3) 100%
+  );
+}
+
+.styled-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 18px;
+  width: 18px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+  margin-top: -6px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.styled-range::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  background: white;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.gender-selector-container {
+  background-color: rgba(0, 0, 0, 0.4); /* чёрный с прозрачностью 40% */
+  padding: 16px 24px;
+  border-radius: 10px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.gender-selector {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-family: Arial, sans-serif;
+  color: white;
+  user-select: none;
+}
+
+.gender-label {
+  font-weight: 600;
+  font-size: 14px;
+  min-width: 40px;
+}
+
+.gender-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  position: relative;
+  color: white;
+}
+
+.gender-option input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  background: transparent;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.gender-option input[type="radio"]:checked {
+  background-color: white;
+  border-color: white;
+}
+
+.gender-option input[type="radio"]:focus-visible {
+  outline: 0px solid transparent;
+  outline-offset: 0px;
+}

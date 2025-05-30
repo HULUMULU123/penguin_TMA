@@ -41,7 +41,26 @@ export const Footer = styled.div`
 export const Toolbar = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start; /* space-around лучше заменить */
+  height: 70%; /* или конкретная высота, например 400px */
+  overflow-y: auto;
+  padding-right: 8px; /* чтобы scrollbar не налезал на контент */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+
+  /* Стили для скроллбара в WebKit */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 `;
 
 export const HandleBar = styled.div`

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BottomSheet from "../../components/PhotoSelectionPage/BottomSheet";
 
-import avatar from "../../assets/avatar.png";
+import avatar from "../../assets/test_filter.jpg";
 import camera from "../../assets/icons/camera.svg";
 import gallery from "../../assets/icons/gallery.svg";
 import penguin from "../../assets/penguin.png";
