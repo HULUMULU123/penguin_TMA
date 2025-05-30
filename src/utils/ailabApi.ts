@@ -1,5 +1,3 @@
-// ailabApi.ts
-
 // Supported effect types
 export type EffectType =
   | "filter"
@@ -14,8 +12,7 @@ export type EffectType =
 // API URL mapping
 const API_ENDPOINTS: Record<EffectType, string> = {
   filter: "https://www.ailabapi.com/api/portrait/effects/face-filter",
-  hairstyle:
-    "https://www.ailabapi.com/api/portrait/effects/hairstyle-editor-pro",
+  hairstyle: "https://www.ailabapi.com/api/portrait/effects/hairstyle-editor-pro",
   smile: "https://www.ailabapi.com/api/portrait/effects/emotion-editor",
   retouch: "https://www.ailabapi.com/api/portrait/effects/smart-beauty",
   lipcolor: "https://www.ailabapi.com/api/portrait/effects/lips-color-changer",
@@ -24,131 +21,240 @@ const API_ENDPOINTS: Record<EffectType, string> = {
   swap: "https://www.ailabapi.com/api/portrait/effects/face-attribute-editing",
 };
 
+function pickParams<T>(
+  params: Record<string, any>,
+  keys: (keyof T)[],
+  defaults: Partial<T>
+): T {
+  const result: Partial<T> = { ...defaults };
+  keys.forEach((key) => {
+    if (key in params) {
+      result[key] = params[key];
+    }
+  });
+  return result as T;
+}
+
 // Insert your API key here
 const API_KEY = process.env.AI_LAB_API_KEY;
 
-// === PARAMETER INTERFACES ===
+// === IMAGE URL TO FILE ===
+
+async function resolveImageInput(input: File | string, fileName = "image.jpg"): Promise<File> {
+  if (typeof input === "string") {
+    const res = await fetch(input);
+    const blob = await res.blob();
+    return new File([blob], fileName, { type: blob.type || "image/jpeg" });
+  }
+  return input;
+}
+
+// === PARAMETER INTERFACES (без image) ===
 
 export interface FilterParams {
   resource_type: string;
-  strength: string;
+  strength: number;
 }
 
 export interface HairstyleParams {
   task_type: string;
   hair_style: string;
-  auto: string;
+  auto: number;
   color: string;
-  image_size: string;
+  image_size: number;
 }
 
 export interface SmileParams {
-  service_choice: string;
+  service_choice: number;
 }
 
 export interface RetouchParams {
   multi_face: string;
-  beauty_level: string;
+  beauty_level: number;
   task_type: string;
+}
+
+export interface LipColorInfo {
+  rgba: {
+    r: number; // 0–255
+    g: number; // 0–255
+    b: number; // 0–255
+    a: number; // 0–100
+  };
+  face_rect?: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
 }
 
 export interface LipColorParams {
-  lip_color_infos: string;
+  lip_color_infos: LipColorInfo[];
 }
 
 export interface TryOnParams {
+  person_image: File | string;
+  top_garment: File | string;
+  bottom_garment: File | string;
   task_type: string;
-  person_image: File;
-  top_garment: File;
-  bottom_garment: File;
-  resolution: string;
-  restore_face: string;
+  resolution: number;
+  restore_face: boolean;
 }
 
 export interface SwapParams {
   action_type: string;
   quality_control: string;
-  face_location: string;
+  // face_location: string;
 }
 
-export async function applyFilter(
-  image: File,
-  params: FilterParams
-): Promise<string> {
-  return sendFormData("filter", { image }, params);
+// === EFFECT FUNCTIONS ===
+
+export async function applyFilter(image: File | string, rawParams: any = {}): Promise<string> {
+  const resolved = await resolveImageInput(image);
+  const params = pickParams<FilterParams>(
+    rawParams,
+    ["resource_type", "strength"],
+    {
+      resource_type: "10001", // по умолчанию можно задать "style" или "filter"
+      strength: "1",
+    }
+  );
+  return sendFormData("filter", { image: resolved }, params);
 }
 
-export async function applyHairstyle(
-  image: File,
-  params: HairstyleParams
-): Promise<string> {
-  return sendFormData("hairstyle", { image }, params);
+export async function applyHairstyle(image: File | string, rawParams: any = {}): Promise<string> {
+  const resolved = await resolveImageInput(image);
+  const params = pickParams<HairstyleParams>(
+    rawParams,
+    ["task_type", "hair_style", "auto", "color", "image_size"],
+    {
+      task_type: "async",
+      hair_style: "BuzzCut",
+      auto: 1,
+      color: "#000000",
+      image_size: 1,
+    }
+  );
+  return sendFormData("hairstyle", { image: resolved }, params);
 }
 
-export async function applySmile(
-  image_target: File,
-  params: SmileParams
-): Promise<string> {
-  return sendFormData("smile", { image_target }, params);
+
+export async function applySmile(image: File | string, rawParams: any = {}): Promise<string> {
+  const resolved = await resolveImageInput(image);
+  const params = pickParams<SmileParams>(
+    rawParams,
+    ["service_choice"],
+    {
+      service_choice: 10,
+    }
+  );
+  return sendFormData("smile", { image_target: resolved }, params);
 }
 
-export async function applyRetouch(
-  image_target: File,
-  params: RetouchParams
-): Promise<string> {
-  return sendFormData("retouch", { image_target }, params);
+
+export async function applyRetouch(image: File | string, rawParams: any = {}): Promise<string> {
+  const resolved = await resolveImageInput(image);
+  const params = pickParams<RetouchParams>(
+    rawParams,
+    ["multi_face", "beauty_level", "task_type"],
+    {
+      multi_face: "1",
+      beauty_level: 1,
+      task_type: "sync",
+    }
+  );
+  return sendFormData("retouch", { image_target: resolved }, params);
 }
 
-export async function applyLipColor(
-  image: File,
-  params: LipColorParams
-): Promise<string> {
-  return sendFormData("lipcolor", { image }, params);
+
+export async function applyLipColor(image: File | string, rawParams: any = {}): Promise<string> {
+  const resolved = await resolveImageInput(image);
+
+  const defaultInfo = [
+    {
+      rgba: { r: 255, g: 51, b: 102, a: 80 }, // #FF3366, alpha 80%
+    }
+  ];
+
+  const infos: LipColorInfo[] = Array.isArray(rawParams.lip_color_infos)
+    ? rawParams.lip_color_infos.slice(0, 3) // максимум 3 лица
+    : defaultInfo;
+
+  const params: LipColorParams = {
+    lip_color_infos: infos,
+  };
+
+  return sendFormData("lipcolor", { image: resolved }, {
+    lip_color_infos: JSON.stringify(params.lip_color_infos),
+  });
 }
 
-export async function applyTryOn(params: TryOnParams): Promise<string> {
+
+
+export async function applyTryOn(rawParams: any = {}): Promise<string> {
+  const person_image = await resolveImageInput(rawParams.person_image, "person.jpg");
+  const top_garment = await resolveImageInput(rawParams.top_garment, "top.jpg");
+  const bottom_garment = await resolveImageInput(rawParams.bottom_garment, "bottom.jpg");
+
+  const params = pickParams<TryOnParams>(
+    rawParams,
+    ["task_type", "resolution", "restore_face"],
+    {
+      task_type: "async",
+      resolution: -1,
+      restore_face: true,
+    }
+  );
+
   const formData = new FormData();
-
   formData.append("task_type", params.task_type);
-  formData.append("person_image", params.person_image);
-  formData.append("top_garment", params.top_garment);
-  formData.append("bottom_garment", params.bottom_garment);
+  formData.append("person_image", person_image);
+  formData.append("top_garment", top_garment);
+  formData.append("bottom_garment", bottom_garment);
   formData.append("resolution", params.resolution);
   formData.append("restore_face", params.restore_face);
 
   return sendRequest("tryon", formData);
 }
 
-export async function applyEnhance(image: File): Promise<string> {
-  return sendFormData("enhance", { image }, {});
+
+export async function applyEnhance(image: File | string): Promise<string> {
+  const resolved = await resolveImageInput(image);
+  return sendFormData("enhance", { image: resolved }, {});
 }
 
-export async function applySwap(
-  image: File,
-  params: SwapParams
-): Promise<string> {
-  return sendFormData("swap", { image }, params);
+
+export async function applySwap(image: File | string, rawParams: any = {}): Promise<string> {
+  const resolved = await resolveImageInput(image);
+  const params = pickParams<SwapParams>(
+    rawParams,
+    ["action_type", "quality_control", "face_location"],
+    {
+      action_type: "TO_KID",
+      quality_control: "HIGH",
+      // face_location: "auto",
+    }
+  );
+  return sendFormData("swap", { image: resolved }, params);
 }
 
-// === GENERIC REQUEST ===
+
+// === GENERIC REQUESTS ===
 
 function createFormData(
   files: Record<string, File | string>,
   params: Record<string, string>
 ): FormData {
   const formData = new FormData();
-
-  // Add files and strings
   Object.entries(files).forEach(([key, value]) => {
     formData.append(key, value);
   });
-
   Object.entries(params).forEach(([key, value]) => {
     if (!formData.has(key)) {
       formData.append(key, value);
     }
   });
-
   return formData;
 }
 
@@ -174,10 +280,22 @@ async function sendRequest(
   });
 
   const data = await response.json();
-
   if (data.code === 200) {
     return data;
   } else {
     throw new Error("Ошибка обработки изображения");
   }
 }
+
+// === FUNCTION MAPPING ===
+
+export const EFFECT_FUNCTIONS: Record<EffectType, Function> = {
+  filter: applyFilter,
+  hairstyle: applyHairstyle,
+  smile: applySmile,
+  retouch: applyRetouch,
+  lipcolor: applyLipColor,
+  tryon: applyTryOn,
+  enhance: applyEnhance,
+  swap: applySwap,
+};
