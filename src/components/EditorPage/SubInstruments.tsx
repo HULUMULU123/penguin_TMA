@@ -13,6 +13,7 @@ import { AgeSelector } from "./AgeSelector";
 import { GenderSelector } from "./GenderSelector";
 
 import { EFFECT_FUNCTIONS } from "../../utils/ailabApi";
+import TopGarmentUploader from "./TopGarmentUploader";
 
 export default function SubInstruments({
   instrumentItems,
@@ -27,6 +28,8 @@ export default function SubInstruments({
 
   const [age, setAge] = useState(25);
   const [gender, setGender] = useState(0);
+
+  const [topGarment, setTopGarment] = useState();
 
   const [loading, setLoading] = useState(false);
 
@@ -50,6 +53,12 @@ export default function SubInstruments({
         response = await EFFECT_FUNCTIONS[activeInsrument](
           imgSrc,
           gender,
+          currentOption
+        );
+      } else if (activeInsrument === "tryon") {
+        response = await EFFECT_FUNCTIONS[activeInsrument](
+          imgSrc,
+          topGarment,
           currentOption
         );
       } else if (isRangeSlider && currentOption) {
@@ -83,6 +92,8 @@ export default function SubInstruments({
         <AgeSelector age={age} onChange={setAge} />
       ) : activeInsrument === "gender" ? (
         <GenderSelector gender={gender} onChange={setGender} />
+      ) : activeInsrument === "tryon" ? (
+        <TopGarmentUploader setTopGarment={setTopGarment} />
       ) : isRangeSlider ? (
         <RangeSlider
           value={sliderValue}

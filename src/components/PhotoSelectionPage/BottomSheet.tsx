@@ -55,7 +55,7 @@ interface BottomSheetProps {
 
 const BottomSheet: React.FC<BottomSheetProps> = ({
   children,
-  peekHeightPercent = 15,
+  peekHeightPercent = 20,
   maxHeightPercent = 70,
   isPersistent = true,
   onPositionChange,

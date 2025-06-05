@@ -23,6 +23,7 @@ export const ButtonsFace = [
   { key: "glasses", name: "Очки", src: glasses },
   { key: "retouch", name: "Ретуш", src: makeup },
   { key: "lipcolor", name: "Помада", src: makeup },
+  { key: "enhance", name: "Улучшить", src: makeup },
 ];
 
 export const ButtonsInstruments = [
@@ -32,6 +33,7 @@ export const ButtonsInstruments = [
   { key: "filter", name: "Фильтры", src: background },
   { key: "age", name: "Age", src: background },
   { key: "gender", name: "Gender", src: background },
+  { key: "tryon", name: "Одежда", src: background },
 ];
 
 export const subFilters = {
@@ -470,6 +472,15 @@ export const subFilters = {
     {
       id: 0,
       name: "Помада",
+      img: filter,
+      numFilters: 0,
+      rangeType: true,
+    },
+  ],
+  enhance: [
+    {
+      id: 0,
+      name: "Улучшить",
       img: filter,
       numFilters: 0,
       rangeType: true,
@@ -1123,6 +1134,15 @@ export const subInstruments = {
     {
       id: 0,
       name: "Swap",
+      img: filter,
+      numFilters: 0,
+      rangeType: true,
+    },
+  ],
+  tryon: [
+    {
+      id: 0,
+      name: "tryon",
       img: filter,
       numFilters: 0,
       rangeType: true,

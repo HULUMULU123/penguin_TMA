@@ -1,45 +1,52 @@
 import { create } from "zustand";
-
 import axios from "axios";
 
 type GlobalState = {
-  access: string;
-  refresh: string;
+  // access: string;
+  // refresh: string;
+  token: string;
   isLoading: boolean;
-  error: any;
+  error: string | null;
   userData: any;
-  sendData: (data: any) => void;
+  sendData: (initData: any) => void;
 };
 
 const useGlobal = create<GlobalState>((set) => ({
-  isLoading: true,
+  isLoading: false,
   error: null,
-  userData: "",
-  access: "",
-  refresh: "",
+  userData: null,
+  token: "",
+  // access: "",
+  // refresh: "",
 
-  sendData: async (data) => {
+  sendData: async (initData) => {
     set({ isLoading: true, error: null });
+
     try {
-      //   axios
-      //     .post("http://test", data)
-      //     .then((res) => {
-      //       localStorage.setItem("access", res.data.access);
-      //       localStorage.setItem("refresh", res.data.refresh);
-      //       set({
-      //         userData: res.data.user,
-      //         isLoading: false,
-      //         access: res.data.access,
-      //         refresh: res.data.refresh,
-      //       });
-      //     })
-      // .catch((error: any) => {
-      //   set({ error: error.message, isLoading: false });
-      // });
-      console.log(data);
-      set({ userData: data });
+      const response = await axios.post(
+        "https://tgbotface.fun/api/telegram/login",
+        { initData },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+      const { token, user } = response.data;
+      console.log(token, user);
+      set({
+        token,
+        userData: user,
+        isLoading: false,
+      });
+
+      sessionStorage.setItem("token", token);
     } catch (error: any) {
-      set({ error: error.message, isLoading: false });
+      const msg =
+        error.response?.data?.detail || error.message || "Ошибка авторизации";
+      set({ error: msg, isLoading: false });
     }
   },
 }));

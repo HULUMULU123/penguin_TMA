@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import BottomSheet from "../../components/PhotoSelectionPage/BottomSheet";
 
 import avatar from "../../assets/test_filter.jpg";
+import avatar1 from "../../assets/test_filter_hair.jpg";
 import camera from "../../assets/icons/camera.svg";
 import gallery from "../../assets/icons/gallery.svg";
 import penguin from "../../assets/penguin.png";
@@ -10,160 +11,64 @@ import { useNavigate } from "react-router-dom";
 import useGlobal from "../../hooks/useGlobal";
 import PhotoPermission from "../../components/PhotoSelectionPage/PhotoPermission";
 import Loader from "../../components/Loader/Loader";
-// ФИЛЬТРЫ
-const filters = ["ЛИЦА", "ИЗБРАННОЕ", "СЕЛФИ", "ВСЕ"];
+import toast, { Toaster } from "react-hot-toast";
+import { useWebApp } from "@vkruglikov/react-telegram-web-app";
+import {
+  Avatar,
+  Container,
+  Nickname,
+  PostCount,
+  UserInfo,
+  Username,
+  FiltersWrapper,
+  FilterButton,
+  Grid,
+  Image,
+  BottomButton,
+} from "../../components/PhotoSelectionPage/PhotoSelectionPage.styles";
+import {
+  handleClickBuyCredits,
+  handleFileUpload,
+  openFileDialog,
+} from "../../components/PhotoSelectionPage/helpers";
+import Header from "../../components/PhotoSelectionPage/Header";
+import Filters from "../../components/PhotoSelectionPage/Filters";
 
 // ИЗОБРАЖЕНИЯ (замени пути на свои)
-const images = [avatar, avatar, avatar, avatar, avatar, avatar, avatar];
-
-const Container = styled.div`
-  background-color: white;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 16px;
-`;
-
-const Avatar = styled.img`
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  margin-right: 12px;
-  object-fit: cover;
-`;
-
-const UserInfo = styled.div`
-  flex-grow: 1;
-`;
-
-const Username = styled.h1`
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0;
-  color: #010b00;
-`;
-
-const Nickname = styled.p`
-  font-size: 14px;
-  color: gray;
-  margin: 0;
-`;
-
-const PostCount = styled.div`
-  background: #f12f5c;
-  background: linear-gradient(
-    50deg,
-    rgba(241, 47, 92, 1) 0%,
-    rgba(173, 42, 163, 1) 63%,
-    rgba(72, 22, 218, 1) 100%
-  );
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 0.6rem 1rem;
-  border-radius: 24px;
-`;
-
-const FiltersWrapper = styled.div`
-  display: flex;
-  gap: 8px;
-  padding: 0 16px;
-  overflow-x: auto;
-  margin-top: 8px;
-  /* Скрываем скроллбар */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-  }
-`;
-
-const FilterButton = styled.button<{ active: boolean }>`
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 1.5px solid;
-  font-size: 14px;
-  white-space: nowrap;
-  color: #c11fbe;
-  font-weight: 800;
-  ${({ active }) =>
-    active
-      ? `
-    background-color: #fbe7fa;
-    border-color: #fbe7fa;
-    
-  `
-      : `
-    background-color: white;
-    border-color: #e1c2df;
-    
-  `}
-`;
-
-const Grid = styled.div`
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
-  padding: 0px;
-  flex-grow: 0;
-`;
-
-const Image = styled.img`
-  width: calc((100% - 2 * 3px) / 3); // 2 gaps по 2px между 3 колонками
-  margin-bottom: 0px;
-  height: calc((100% - 2 * 3px) / 3);
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-`;
-
-const BottomBar = styled.div`
-  display: flex;
-  justify-content: space-around;
-  padding: 16px;
-  background-color: white;
-  border-top: 1px solid #eee;
-`;
-
-const BottomButton = styled.button`
-  background-color: #c11fbe;
-  color: white;
-  font-weight: bold;
-  width: 48%;
-  padding: 1rem 0;
-  border-radius: 40px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  border: none;
-  justify-content: center;
-  font-weight: 800;
-  font-family: "Unbounded", sans-serif;
-`;
+const images = [
+  { src: avatar, type: "faces" },
+  { src: avatar, type: "selfie" },
+  { src: avatar, type: "favorites" },
+  { src: avatar, type: "faces" },
+  { src: avatar, type: "selfie" },
+  { src: avatar, type: "favorites" },
+  { src: avatar, type: "faces" },
+  { src: avatar, type: "selfie" },
+  { src: avatar, type: "favorites" },
+  { src: avatar, type: "faces" },
+  { src: avatar, type: "selfie" },
+  { src: avatar, type: "favorites" },
+  { src: avatar1, type: "faces" },
+];
 
 export default function ProfilePage() {
-  const [activeFilter, setActiveFilter] = useState("ВСЕ");
+  const [activeFilter, setActiveFilter] = useState("all");
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-  const userData = useGlobal((state) => state.userData);
+
   const navigate = useNavigate();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const webApp = useWebApp();
 
   useEffect(() => {
-    setTimeout(() => {
-      const permission = localStorage.getItem("photoPermission");
-      setHasPermission(permission === "true");
-    }, 3000);
+    const permission = localStorage.getItem("photoPermission");
+    setHasPermission(permission === "true");
   }, [hasPermission]);
 
   const handleClick = (imgSrc: string) => {
     navigate("/editor", { state: { imgSrc } });
   };
+
+  const notify = () => toast.error("Камера в данный момент недоступна");
 
   if (hasPermission === null) return <Loader />; // можно показывать лоадер
   if (!hasPermission)
@@ -171,49 +76,38 @@ export default function ProfilePage() {
 
   return (
     <Container>
-      <Header>
-        <Avatar src={userData?.photo_url} alt="avatar" />
-        <UserInfo>
-          <Username>{`${userData?.first_name} ${userData?.last_name}`}</Username>
-          <Nickname>@{userData?.username}</Nickname>
-        </UserInfo>
-        <PostCount>120</PostCount>
-      </Header>
+      <Header />
 
-      <FiltersWrapper>
-        {filters.map((f) => (
-          <FilterButton
-            key={f}
-            active={f === activeFilter}
-            onClick={() => setActiveFilter(f)}
-          >
-            {f}
-          </FilterButton>
-        ))}
-      </FiltersWrapper>
+      <Filters activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
 
       <Grid>
-        {images.map((img, idx) => (
-          <Image
-            key={idx}
-            src={img}
-            alt={`img-${idx}`}
-            onClick={() => handleClick(img)}
-          />
-        ))}
-        {/* Пустые ячейки */}
-        {Array.from({ length: 9 - images.length }).map((_, idx) => (
-          <div key={idx}></div>
-        ))}
+        {images
+          .filter((img) => activeFilter === "all" || img.type === activeFilter)
+          .map((img, idx) => (
+            <Image
+              key={idx}
+              src={img.src}
+              alt={`img-${idx}`}
+              onClick={() => handleClick(img.src)}
+            />
+          ))}
       </Grid>
+
       <BottomSheet>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <BottomButton>
+          <BottomButton onClick={notify}>
             <img src={camera} alt="Camera Icon" /> КАМЕРА
           </BottomButton>
-          <BottomButton>
-            <img src={gallery} alt="Camera Icon" /> ФОТО
+          <BottomButton onClick={() => openFileDialog(fileInputRef)}>
+            <img src={gallery} alt="Gallery Icon" /> ФОТО
           </BottomButton>
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileUpload}
+          />
         </div>
         <div>
           <h3
@@ -318,12 +212,33 @@ export default function ProfilePage() {
                 textTransform: "uppercase",
                 fontWeight: "800",
               }}
+              onClick={() => handleClickBuyCredits(webApp)}
             >
               купить
             </button>
           </div>
         </div>
       </BottomSheet>
+      <Toaster
+        position="top-center"
+        toastOptions={
+          {
+            // style: {
+            //   background: "rgba(193, 31, 190, 1)",
+            //   padding: "0.5rem",
+            //   color: "white",
+            //   textAlign: "center",
+            //   borderRadius: "30px",
+            //   fontSize: "15px",
+            // },
+            // iconTheme: {
+            //   primary: "white",
+            //   secondary: "rgba(193, 31, 190, 1)",
+            // },
+          }
+        }
+        containerStyle={{ bottom: "10rem" }}
+      />
     </Container>
   );
 }

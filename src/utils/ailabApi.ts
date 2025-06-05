@@ -1,5 +1,4 @@
-// Supported effect types
-
+// Типы поддерживаемых эффектов
 export type EffectType =
   | "filter"
   | "hairstyle"
@@ -11,19 +10,17 @@ export type EffectType =
   | "gender"
   | "age";
 
-// API URL mapping
+// URL API для каждого типа эффекта
 const API_ENDPOINTS: Record<EffectType, string> = {
-  filter: "https://www.ailabapi.com/api/portrait/effects/face-filter",
-  hairstyle:
-    "https://www.ailabapi.com/api/portrait/effects/hairstyle-editor-pro",
-  smile: "https://www.ailabapi.com/api/portrait/effects/emotion-editor",
-  retouch: "https://www.ailabapi.com/api/portrait/effects/smart-beauty",
-  lipcolor: "https://www.ailabapi.com/api/portrait/effects/lips-color-changer",
-  tryon: "https://www.ailabapi.com/api/portrait/editing/try-on-clothes-pro",
-  enhance: "https://www.ailabapi.com/api/portrait/effects/enhance-face",
-  gender:
-    "https://www.ailabapi.com/api/portrait/effects/face-attribute-editing",
-  age: "https://www.ailabapi.com/api/portrait/effects/face-attribute-editing",
+  filter: "https://tgbotface.fun/api/face-filter",
+  hairstyle: "https://tgbotface.fun/api/hairstyle",
+  smile: "https://tgbotface.fun/api/emotion-editor",
+  retouch: "https://tgbotface.fun/api/smart-beauty",
+  lipcolor: "https://tgbotface.fun/api/lips-color-changer",
+  tryon: "https://tgbotface.fun/api/try-on-closes",
+  enhance: "https://tgbotface.fun/api/enhance-face",
+  gender: "https://tgbotface.fun/api/face-attribute",
+  age: "https://tgbotface.fun/api/face-attribute",
 };
 
 function pickParams<T>(
@@ -44,9 +41,6 @@ function pickParams<T>(
   return result as T;
 }
 
-// Insert your API key here
-const API_KEY = import.meta.env.VITE_AI_LAB_API_KEY;
-// const API_KEY = "TEST_API";
 // === IMAGE URL TO FILE ===
 
 async function resolveImageInput(
@@ -147,18 +141,31 @@ export async function applyHairstyle(
   rawParams: any = {}
 ): Promise<string> {
   const resolved = await resolveImageInput(image);
+
   const params = pickParams<HairstyleParams>(
     rawParams,
     ["task_type", "hair_style", "auto", "color", "image_size"],
     {
       task_type: "async",
-      hair_style: "BuzzCut",
+      hair_style: "UnderCut",
       auto: 1,
-      color: "blonde",
       image_size: 1,
     }
   );
-  return sendFormData("hairstyle", { image: resolved }, params);
+
+  const responseData = await sendFormData(
+    "hairstyle",
+    { image: resolved },
+    params
+  );
+
+  if (!responseData?.task_id) {
+    throw new Error("task_id не получен от API");
+  }
+
+  // Дожидаемся результата
+  const resultUrl = await pollAsyncResult(responseData.task_id);
+  return resultUrl;
 }
 
 export async function applySmile(
@@ -220,16 +227,17 @@ export async function applyLipColor(
   );
 }
 
-export async function applyTryOn(rawParams: any = {}): Promise<string> {
-  const person_image = await resolveImageInput(
-    rawParams.person_image,
-    "person.jpg"
-  );
-  const top_garment = await resolveImageInput(rawParams.top_garment, "top.jpg");
-  const bottom_garment = await resolveImageInput(
-    rawParams.bottom_garment,
-    "bottom.jpg"
-  );
+export async function applyTryOn(
+  image: File | string,
+  topGarment: File | string,
+  rawParams: any = {}
+): Promise<string> {
+  const person_image = await resolveImageInput(image, "person.jpg");
+  const top_garment = await resolveImageInput(topGarment, "top.jpg");
+  // const bottom_garment = await resolveImageInput(
+  //   rawParams.bottom_garment,
+  //   "bottom.jpg"
+  // );
 
   const params = pickParams<TryOnParams>(
     rawParams,
@@ -245,7 +253,7 @@ export async function applyTryOn(rawParams: any = {}): Promise<string> {
   formData.append("task_type", params.task_type);
   formData.append("person_image", person_image);
   formData.append("top_garment", top_garment);
-  formData.append("bottom_garment", bottom_garment);
+
   formData.append("resolution", params.resolution);
   formData.append("restore_face", params.restore_face);
 
@@ -254,6 +262,7 @@ export async function applyTryOn(rawParams: any = {}): Promise<string> {
 
 export async function applyEnhance(image: File | string): Promise<string> {
   const resolved = await resolveImageInput(image);
+  console.log(resolved);
   return sendFormData("enhance", { image: resolved }, {});
 }
 
@@ -325,10 +334,11 @@ async function sendRequest(
   effectType: EffectType,
   formData: FormData
 ): Promise<string> {
+  const token = sessionStorage.getItem("token");
   const response = await fetch(API_ENDPOINTS[effectType], {
     method: "POST",
     headers: {
-      "ailabapi-api-key": API_KEY,
+      Authorization: `Bearer ${token}`,
     },
     body: formData,
   });
@@ -340,6 +350,41 @@ async function sendRequest(
   } else {
     throw new Error("Ошибка обработки изображения");
   }
+}
+
+async function pollAsyncResult(taskId: string): Promise<string> {
+  const MAX_ATTEMPTS = 20;
+  const DELAY_MS = 3000;
+  const token = sessionStorage.getItem("token");
+
+  for (let i = 0; i < MAX_ATTEMPTS; i++) {
+    const res = await fetch(
+      `https://tgbotface.fun/api/result?task_id=${taskId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+
+    const data = await res.json();
+    console.log("Результат опроса:", data);
+
+    if (data?.task_status === 2 && data?.data?.images?.length > 0) {
+      return data;
+    }
+
+    // fallback: если нет data.images, но есть direct result
+    if (data?.image_url) {
+      return data;
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, DELAY_MS));
+  }
+
+  throw new Error("Время ожидания результата истекло");
 }
 
 // === FUNCTION MAPPING ===

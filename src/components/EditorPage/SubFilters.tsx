@@ -104,9 +104,12 @@ export default function SubFilters({
         response?.result?.image ||
         response?.data?.image ||
         response?.result_image;
+      console.log(response?.data);
       const newImg =
-        response?.data?.image_url || `data:image/png;base64,${base64}`;
-      console.log(newImg);
+        response?.data?.images[0] ||
+        response?.data?.image_url ||
+        `data:image/png;base64,${base64}`;
+      console.log(newImg, "newIMG");
       if (newImg) {
         // Обновляем изображение
         setActiveSave(true);

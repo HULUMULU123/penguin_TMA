@@ -87,8 +87,8 @@ function App() {
   const webApp = useWebApp();
   const sendData = useGlobal((state) => state.sendData);
   useEffect(() => {
-    if (webApp.initDataUnsafe?.user) {
-      sendData(webApp.initDataUnsafe?.user);
+    if (webApp.initData) {
+      sendData(webApp.initData);
     }
   }, [webApp]);
   return (
