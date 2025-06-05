@@ -14,6 +14,7 @@ import { GenderSelector } from "./GenderSelector";
 
 import { EFFECT_FUNCTIONS } from "../../utils/ailabApi";
 import TopGarmentUploader from "./TopGarmentUploader";
+import ProgressBar from "./ProgressBar";
 
 export default function SubInstruments({
   instrumentItems,
@@ -108,7 +109,7 @@ export default function SubInstruments({
           />
         </SelectVariationWrapper>
       )}
-
+      {loading ? <ProgressBar /> : null}
       <button onClick={applyEffect} disabled={loading}>
         {loading ? "Применение..." : "Применить"}
       </button>

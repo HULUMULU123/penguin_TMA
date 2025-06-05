@@ -8,7 +8,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 import { EditorContainer, ImageSection } from "./PhotoEditor.styles";
 import { subFilters, subInstruments } from "./photoTools";
-
+import test_photo from "../../assets/avatar.png";
 import ToolBar from "./ToolBar";
 import SubFilters from "./SubFilters";
 import EditorHeader from "./EditorHeader";
@@ -16,6 +16,7 @@ import CropHeader from "./CropHeader";
 import CropperFooter from "./CropperFooter";
 import RangeSlider from "./RangeSlider";
 import SubInstruments from "./SubInstruments";
+import useGlobal from "../../hooks/useGlobal";
 
 // Типизация props
 interface PhotoEditorProps {
@@ -31,7 +32,8 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
   const [activeInstrument, setActiveInstrument] = useState<string | null>(null);
   const [activeSave, setActiveSave] = useState(false);
   const [currentImgSrc, setCurrentImgSrc] = useState(src);
-
+  const [activeHairStyle, setActiveHairStyle] = useState(false);
+  const uploadPhoto = useGlobal((state) => state.uploadPhoto);
   // Сброс изображения при смене src
   useEffect(() => {
     setCurrentImgSrc(src);
@@ -53,10 +55,37 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
           setActiveInstrument={setActiveInstrument}
           activeSave={activeSave}
           notify={notify}
+          imageUrl={currentImgSrc}
         />
       );
     }
     return <CropHeader />;
+  };
+
+  const getCroppedImage = () => {
+    const cropper = cropperRef.current?.cropper;
+    if (!cropper) return;
+
+    // Получаем обрезанное изображение как Blob
+    cropper.getCroppedCanvas().toBlob(
+      (blob) => {
+        if (blob) {
+          const croppedUrl = URL.createObjectURL(blob);
+          console.log("Cropped image URL:", croppedUrl);
+
+          // например, передать в другой компонент, отправить на сервер и т.д.
+          // можно также сохранить File:
+          const croppedFile = new File([blob], "cropped.jpg", {
+            type: "image/jpeg",
+          });
+          console.log(croppedFile);
+          uploadPhoto(croppedFile);
+          // Например: setCroppedImageFile(croppedFile)
+        }
+      },
+      "image/jpeg",
+      0.9
+    ); // качество JPEG (0.9 можно изменить)
   };
 
   // Рендер основной секции с изображением или кадрированием
@@ -86,7 +115,7 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
         </TransformWrapper>
       ) : (
         <Cropper
-          src={src}
+          src={test_photo}
           style={{
             height: "100%",
             width: "100%",
@@ -109,15 +138,21 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
         <SubFilters
           filterItems={subFilters[activeFilter]}
           setActiveSave={setActiveSave}
-          imgSrc={src}
+          imgSrc={currentImgSrc}
           activeFilter={activeFilter}
           setCurrentImgSrc={setCurrentImgSrc}
+          setActiveHairStyle={setActiveHairStyle}
         />
       );
     }
 
     if (!showToolBar) {
-      return <CropperFooter setIsCropping={setIsCropping} />;
+      return (
+        <CropperFooter
+          setIsCropping={setIsCropping}
+          getCroppedImage={getCroppedImage}
+        />
+      );
     }
 
     if (activeInstrument && subInstruments[activeInstrument]?.length) {
@@ -125,7 +160,7 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
         <SubInstruments
           instrumentItems={subInstruments[activeInstrument]}
           setActiveSave={setActiveSave}
-          imgSrc={src}
+          imgSrc={currentImgSrc}
           activeInsrument={activeInstrument}
           setCurrentImgSrc={setCurrentImgSrc}
         />
@@ -138,6 +173,7 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
         setActiveInstrument={setActiveInstrument}
         setIsCropping={setIsCropping}
         showToolBar={showToolBar}
+        activeHairStyle={activeHairStyle}
       />
     );
   };

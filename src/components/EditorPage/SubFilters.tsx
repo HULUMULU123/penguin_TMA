@@ -11,6 +11,7 @@ import SelectVariation from "./SelectVariation";
 import { EFFECT_FUNCTIONS } from "../../utils/ailabApi";
 import RangeSlider from "./RangeSlider";
 import LipsColorSlider from "./LipsColorSlider";
+import ProgressBar from "./ProgressBar";
 
 const ITEMS_PER_LOAD = 6;
 
@@ -20,6 +21,7 @@ export default function SubFilters({
   imgSrc,
   activeFilter,
   setCurrentImgSrc,
+  setActiveHairStyle,
 }) {
   const [activeItem, setActiveItem] = useState(0);
   const [localActiveFilter, setLocalActiveFilter] = useState(0);
@@ -74,6 +76,13 @@ export default function SubFilters({
     setRgbaValue({ r: 255, g: 0, b: 0, a: 1 });
   }, [activeItem]);
 
+  useEffect(() => {
+    if (filterItems.length > 0 && activeItem !== 0) {
+      applyEffect();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeItem]);
+
   const applyEffect = async () => {
     setLoading(true);
     try {
@@ -92,6 +101,7 @@ export default function SubFilters({
           currentOption
         );
       } else if (currentOption) {
+        if (activeFilter === "hairstyle") setActiveHairStyle(true);
         // Для вариаций с несколькими фильтрами используем localActiveFilter
         const optionToApply =
           currentOption.numFilters && currentOption.numFilters > 1
@@ -126,15 +136,19 @@ export default function SubFilters({
     setActiveItem(option.id);
     setLocalActiveFilter(0);
     setRangeValue(50);
-    setRgbaValue({ r: 255, g: 0, b: 0, a: 1 });
+    if (option.rgba) {
+      setRgbaValue(option.rgba); // если есть rgba, устанавливаем его
+    } else {
+      setRgbaValue({ r: 255, g: 0, b: 0, a: 1 }); // сброс к дефолту
+    }
     setActiveSave(true);
   };
 
   return (
     <BottomWrapper>
-      {activeFilter === "lipcolor" ? (
-        <LipsColorSlider value={rgbaValue} onChange={setRgbaValue} />
-      ) : shouldShowRangeSlider ? (
+      {/* {activeFilter === "lipcolor" ? (
+        <LipsColorSlider value={rgbaValue} onChange={setRgbaValue} />) :  */}
+      {shouldShowRangeSlider ? (
         <RangeSlider value={rangeValue} onChange={setRangeValue} />
       ) : (
         currentOption?.numFilters > 1 && (
@@ -147,14 +161,14 @@ export default function SubFilters({
           </SelectVariationWrapper>
         )
       )}
-
-      <button
+      {loading ? <ProgressBar /> : null}
+      {/* <button
         onClick={applyEffect}
         disabled={loading}
         style={{ margin: "10px 0" }}
       >
         {loading ? "Применение..." : "Применить"}
-      </button>
+      </button> */}
 
       <SubFiltersList>
         {filterItems.slice(0, visibleCount).map((option) => (

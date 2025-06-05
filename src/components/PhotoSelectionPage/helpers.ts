@@ -1,8 +1,12 @@
-export const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+export const handleFileUpload = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  uploadPhoto: any
+) => {
   const file = e.target.files?.[0];
   if (file) {
     console.log("Загруженный файл:", file);
     // TODO: обработка файла,
+    uploadPhoto(file);
   }
 };
 

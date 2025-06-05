@@ -13,14 +13,14 @@ import blur from "../../assets/icons/blur.svg";
 import filter from "../../assets/filter.jpg";
 
 export const ButtonsFace = [
-  { key: "skin", name: "Кожа", src: skin },
-  { key: "size", name: "Размеры", src: size },
+  // { key: "skin", name: "Кожа", src: skin },
+  // { key: "size", name: "Размеры", src: size },
   { key: "hairstyle", name: "Прически", src: hair },
-  { key: "hairColor", name: "Цвет волос", src: hairColor },
+  { key: "haircolor", name: "Цвет волос", src: hairColor },
   { key: "smile", name: "Улыбки", src: smile },
-  { key: "face", name: "Черты", src: face },
-  { key: "makeup", name: "Макияж", src: makeup },
-  { key: "glasses", name: "Очки", src: glasses },
+  // { key: "face", name: "Черты", src: face },
+  // { key: "makeup", name: "Макияж", src: makeup },
+  // { key: "glasses", name: "Очки", src: glasses },
   { key: "retouch", name: "Ретуш", src: makeup },
   { key: "lipcolor", name: "Помада", src: makeup },
   { key: "enhance", name: "Улучшить", src: makeup },
@@ -28,23 +28,23 @@ export const ButtonsFace = [
 
 export const ButtonsInstruments = [
   { key: "crop", name: "Обрезать", src: crop },
-  { key: "background", name: "Фоны", src: background },
-  { key: "blur", name: "Размытие", src: blur },
+  // { key: "background", name: "Фоны", src: background },
+  // { key: "blur", name: "Размытие", src: blur },
   { key: "filter", name: "Фильтры", src: background },
   { key: "age", name: "Age", src: background },
   { key: "gender", name: "Gender", src: background },
-  { key: "tryon", name: "Одежда", src: background },
+  // { key: "tryon", name: "Одежда", src: background },
 ];
 
 export const subFilters = {
   hairstyle: [
-    // {
-    //   id: 0,
-    //   name: "Оригинал",
-    //   img: filter,
-    //   hair_style: "Original",
-    //   numFilters: 0,
-    // },
+    {
+      id: 0,
+      name: "Оригинал",
+      img: filter,
+      hair_style: "Original",
+      numFilters: 0,
+    },
     {
       id: 1,
       name: "Ёжик",
@@ -392,6 +392,41 @@ export const subFilters = {
       numFilters: 0,
     },
   ],
+  haircolor: [
+    { id: 0, name: "Оригинал", img: filter, hair_color: "-" },
+
+    { id: 1, name: "Блонд", img: filter, hair_color: "blonde" },
+    {
+      id: 2,
+      name: "Платиновый блонд",
+      img: filter,
+      hair_color: "platinumBlonde",
+    },
+    { id: 3, name: "Шатен", img: filter, hair_color: "brown" },
+    { id: 4, name: "Светло-каштановый", img: filter, hair_color: "lightBrown" },
+    { id: 5, name: "Синий", img: filter, hair_color: "blue" },
+    { id: 6, name: "Светло-синий", img: filter, hair_color: "lightBlue" },
+    { id: 7, name: "Фиолетовый", img: filter, hair_color: "purple" },
+    {
+      id: 8,
+      name: "Светло-фиолетовый",
+      img: filter,
+      hair_color: "lightPurple",
+    },
+    { id: 9, name: "Розовый", img: filter, hair_color: "pink" },
+    { id: 10, name: "Чёрный", img: filter, hair_color: "black" },
+    { id: 11, name: "Белый", img: filter, hair_color: "white" },
+    { id: 12, name: "Серый", img: filter, hair_color: "grey" },
+    { id: 13, name: "Серебристый", img: filter, hair_color: "silver" },
+    { id: 14, name: "Красный", img: filter, hair_color: "red" },
+    { id: 15, name: "Оранжевый", img: filter, hair_color: "orange" },
+    { id: 16, name: "Зелёный", img: filter, hair_color: "green" },
+    { id: 17, name: "Градиент", img: filter, hair_color: "gradient" },
+    { id: 18, name: "Многоцветный", img: filter, hair_color: "multicolored" },
+    { id: 19, name: "Тёмно-синий", img: filter, hair_color: "darkBlue" },
+    { id: 20, name: "Бордовый", img: filter, hair_color: "burgundy" },
+    { id: 21, name: "Тёмно-зелёный", img: filter, hair_color: "darkGreen" },
+  ],
 
   smile: [
     {
@@ -471,10 +506,83 @@ export const subFilters = {
   lipcolor: [
     {
       id: 0,
-      name: "Помада",
+      name: "Красная помада",
       img: filter,
       numFilters: 0,
-      rangeType: true,
+      rangeType: false,
+      rgba: { r: 255, g: 0, b: 0, a: 1 },
+    },
+    {
+      id: 1,
+      name: "Нюдовая помада",
+      img: filter,
+      numFilters: 0,
+      rangeType: false,
+      rgba: { r: 210, g: 180, b: 160, a: 1 },
+    },
+    {
+      id: 2,
+      name: "Розовая помада",
+      img: filter,
+      numFilters: 0,
+      rangeType: false,
+      rgba: { r: 255, g: 105, b: 180, a: 1 },
+    },
+    {
+      id: 3,
+      name: "Бордовая помада",
+      img: filter,
+      numFilters: 0,
+      rangeType: false,
+      rgba: { r: 128, g: 0, b: 32, a: 1 },
+    },
+    {
+      id: 4,
+      name: "Фиолетовая помада",
+      img: filter,
+      numFilters: 0,
+      rangeType: false,
+      rgba: { r: 138, g: 43, b: 226, a: 1 },
+    },
+    {
+      id: 5,
+      name: "Оранжевая помада",
+      img: filter,
+      numFilters: 0,
+      rangeType: false,
+      rgba: { r: 255, g: 165, b: 0, a: 1 },
+    },
+    {
+      id: 6,
+      name: "Коричневая помада",
+      img: filter,
+      numFilters: 0,
+      rangeType: false,
+      rgba: { r: 139, g: 69, b: 19, a: 1 },
+    },
+    {
+      id: 7,
+      name: "Вишнёвая помада",
+      img: filter,
+      numFilters: 0,
+      rangeType: false,
+      rgba: { r: 222, g: 49, b: 99, a: 1 },
+    },
+    {
+      id: 8,
+      name: "Малиновая помада",
+      img: filter,
+      numFilters: 0,
+      rangeType: false,
+      rgba: { r: 227, g: 11, b: 92, a: 1 },
+    },
+    {
+      id: 9,
+      name: "Песочная помада",
+      img: filter,
+      numFilters: 0,
+      rangeType: false,
+      rgba: { r: 194, g: 178, b: 128, a: 1 },
     },
   ],
   enhance: [
@@ -489,12 +597,12 @@ export const subFilters = {
 };
 
 export const subInstruments = {
-  background: [
-    { id: 0, name: "Оригинал" },
-    { id: 1, name: "Фон 1" },
-    { id: 2, name: "Фон 2" },
-    { id: 3, name: "Фон 3" },
-  ],
+  // background: [
+  //   { id: 0, name: "Оригинал" },
+  //   { id: 1, name: "Фон 1" },
+  //   { id: 2, name: "Фон 2" },
+  //   { id: 3, name: "Фон 3" },
+  // ],
   filter: [
     {
       id: 0,
@@ -1139,13 +1247,13 @@ export const subInstruments = {
       rangeType: true,
     },
   ],
-  tryon: [
-    {
-      id: 0,
-      name: "tryon",
-      img: filter,
-      numFilters: 0,
-      rangeType: true,
-    },
-  ],
+  // tryon: [
+  //   {
+  //     id: 0,
+  //     name: "tryon",
+  //     img: filter,
+  //     numFilters: 0,
+  //     rangeType: true,
+  //   },
+  // ],
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import BottomSheet from "../../components/PhotoSelectionPage/BottomSheet";
 
-import avatar from "../../assets/test_filter.jpg";
+import avatar from "../../assets/test_filter_1.jpg";
 import avatar1 from "../../assets/test_filter_hair.jpg";
 import camera from "../../assets/icons/camera.svg";
 import gallery from "../../assets/icons/gallery.svg";
@@ -59,12 +59,22 @@ export default function ProfilePage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const webApp = useWebApp();
 
+  const fetchPhotos = useGlobal((state) => state.fetchPhotos);
+  const photos = useGlobal((state) => state.photos);
+  const uploadPhoto = useGlobal((state) => state.uploadPhoto);
+
   useEffect(() => {
     const permission = localStorage.getItem("photoPermission");
     setHasPermission(permission === "true");
   }, [hasPermission]);
+  useEffect(() => {
+    fetchPhotos();
+
+    console.log(photos);
+  }, []);
 
   const handleClick = (imgSrc: string) => {
+    console.log("imgSrc", imgSrc);
     navigate("/editor", { state: { imgSrc } });
   };
 
@@ -78,8 +88,8 @@ export default function ProfilePage() {
     <Container>
       <Header />
 
-      <Filters activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
-
+      {/* <Filters activeFilter={activeFilter} setActiveFilter={setActiveFilter} /> */}
+      {/* 
       <Grid>
         {images
           .filter((img) => activeFilter === "all" || img.type === activeFilter)
@@ -91,6 +101,17 @@ export default function ProfilePage() {
               onClick={() => handleClick(img.src)}
             />
           ))}
+      </Grid> */}
+
+      <Grid>
+        {photos?.map((img) => (
+          <Image
+            key={img.id}
+            src={img.url}
+            alt={`img-${img.id}`}
+            onClick={() => handleClick(img.url)}
+          />
+        ))}
       </Grid>
 
       <BottomSheet>
@@ -106,7 +127,7 @@ export default function ProfilePage() {
             accept="image/*"
             ref={fileInputRef}
             style={{ display: "none" }}
-            onChange={handleFileUpload}
+            onChange={(e) => handleFileUpload(e, uploadPhoto)}
           />
         </div>
         <div>

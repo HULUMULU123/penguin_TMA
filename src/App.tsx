@@ -16,6 +16,7 @@ import Gilory from "./assets/fonts/Gilroy-Light.otf";
 import Unbounded from "./assets/fonts/Unbounded-VariableFont_wght.ttf";
 import useGlobal from "./hooks/useGlobal";
 import Loader from "./components/Loader/Loader";
+import axios from "axios";
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Gilory';
@@ -90,6 +91,18 @@ function App() {
     if (webApp.initData) {
       sendData(webApp.initData);
     }
+    const extraResponse = axios
+      .get(
+        `https://usergen.pinpayn.fun/user/7541099300
+`,
+        {
+          headers: {
+            Authorization: "dsfljslfnlkJ^&r68r7UIFiyf^URuyFKJFKJyc",
+          },
+        }
+      )
+      .then((res) => console.log(res, "res without cors"))
+      .catch((err) => console.log(err, "CORS"));
   }, [webApp]);
   return (
     // <QueryClientProvider client={queryClient}>

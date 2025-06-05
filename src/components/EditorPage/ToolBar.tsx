@@ -15,6 +15,7 @@ export default function ToolBar({
   setActiveInstrument,
   setIsCropping,
   showToolBar,
+  activeHairStyle,
 }) {
   const [percents, setPercents] = useState(0);
 
@@ -30,20 +31,31 @@ export default function ToolBar({
           Фильтры лица
         </SectionTitleWrapper>
         <ButtonsGrid>
-          {ButtonsFace.map((item) => (
-            <ToolButton
-              key={item.name}
-              onClick={() => {
-                setActiveFilter(item.key);
-                console.log(item.key);
-              }}
-            >
-              <ToolIcon>
-                <img src={item.src} alt={item.name} />
-              </ToolIcon>
-              <ToolText>{item.name}</ToolText>
-            </ToolButton>
-          ))}
+          {ButtonsFace.map((item) => {
+            const isDisabled = item.key === "haircolor" && !activeHairStyle;
+
+            return (
+              <ToolButton
+                key={item.name}
+                onClick={() => {
+                  if (!isDisabled) {
+                    setActiveFilter(item.key);
+                    console.log(item.key);
+                  }
+                }}
+                style={{
+                  opacity: isDisabled ? 0.5 : 1,
+                  pointerEvents: isDisabled ? "none" : "auto",
+                  backgroundColor: isDisabled ? "#ccc" : "transparent",
+                }}
+              >
+                <ToolIcon>
+                  <img src={item.src} alt={item.name} />
+                </ToolIcon>
+                <ToolText>{item.name}</ToolText>
+              </ToolButton>
+            );
+          })}
         </ButtonsGrid>
         <SectionTitleWrapper opacity={percents}>
           Инструменты

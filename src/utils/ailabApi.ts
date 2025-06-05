@@ -2,6 +2,7 @@
 export type EffectType =
   | "filter"
   | "hairstyle"
+  | "haircolor"
   | "smile"
   | "retouch"
   | "lipcolor"
@@ -14,6 +15,7 @@ export type EffectType =
 const API_ENDPOINTS: Record<EffectType, string> = {
   filter: "https://tgbotface.fun/api/face-filter",
   hairstyle: "https://tgbotface.fun/api/hairstyle",
+  haircolor: "https://tgbotface.fun/api/hairstyle",
   smile: "https://tgbotface.fun/api/emotion-editor",
   retouch: "https://tgbotface.fun/api/smart-beauty",
   lipcolor: "https://tgbotface.fun/api/lips-color-changer",
@@ -24,7 +26,7 @@ const API_ENDPOINTS: Record<EffectType, string> = {
 };
 
 function pickParams<T>(
-  params: Record<string, any>,
+  params: Partial<T>,
   keys: (keyof T)[],
   defaults: Partial<T>
 ): T {
@@ -41,18 +43,95 @@ function pickParams<T>(
   return result as T;
 }
 
-// === IMAGE URL TO FILE ===
+// Функция для преобразования URL изображения или File в File объект
 
-async function resolveImageInput(
+// Старая функция без проверки размера
+
+// async function resolveImageInput(
+//   input: File | string,
+//   fileName = "image.jpg"
+// ): Promise<File> {
+//   if (typeof input === "string") {
+//     const res = await fetch(input);
+//     const blob = await res.blob();
+//     return new File([blob], fileName, { type: blob.type || "image/jpeg" });
+//   }
+//   return input;
+// }
+
+export async function resolveImageInput(
   input: File | string,
   fileName = "image.jpg"
 ): Promise<File> {
+  let file: File;
+
+  // Загрузка из URL, если input - строка
   if (typeof input === "string") {
     const res = await fetch(input);
+    if (!res.ok) {
+      throw new Error(
+        `Не удалось загрузить изображение по URL: ${res.statusText}`
+      );
+    }
     const blob = await res.blob();
-    return new File([blob], fileName, { type: blob.type || "image/jpeg" });
+    file = new File([blob], fileName, { type: blob.type || "image/jpeg" });
+  } else {
+    file = input;
   }
-  return input;
+
+  // Загружаем изображение
+  const bitmap = await createImageBitmap(file);
+  const width = bitmap.width;
+  const height = bitmap.height;
+
+  // Проверка минимального размера
+  if (width < 200 || height < 200) {
+    throw new Error(
+      `Изображение слишком маленькое. Минимальное разрешение 200x200, текущее ${width}x${height}`
+    );
+  }
+
+  // Проверка, является ли файл JPEG
+  const isJpeg = file.type === "image/jpeg" || /\.(jpe?g)$/i.test(file.name);
+
+  // Проверка, нужно ли перекодировать или сжимать
+  const needResize = width > 1999 || height > 1999;
+  const needReencode = !isJpeg || needResize;
+
+  // Если не нужно менять — возвращаем оригинал
+  if (!needReencode) return file;
+
+  // Подготовка canvas
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Не удалось получить 2D контекст для canvas");
+
+  // Масштабируем, если нужно
+  if (needResize) {
+    const scale = Math.min(1999 / width, 1999 / height);
+    canvas.width = Math.floor(width * scale);
+    canvas.height = Math.floor(height * scale);
+  } else {
+    canvas.width = width;
+    canvas.height = height;
+  }
+
+  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+
+  // Преобразование в JPEG
+  const jpegBlob: Blob = await new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => {
+        if (blob) resolve(blob);
+        else reject(new Error("Не удалось конвертировать изображение в JPEG"));
+      },
+      "image/jpeg",
+      0.8
+    );
+  });
+  return new File([jpegBlob], fileName.replace(/\.\w+$/, ".jpg"), {
+    type: "image/jpeg",
+  });
 }
 
 // === PARAMETER INTERFACES (без image) ===

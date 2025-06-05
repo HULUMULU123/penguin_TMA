@@ -11,8 +11,38 @@ export default function EditorHeader({
   setActiveInstrument,
   activeSave,
   notify,
+  imageUrl,
 }) {
   const navigate = useNavigate();
+  const generateFileName = () => {
+    const random = Math.random().toString(36).substring(2, 10);
+    return `penguin_${random}.jpeg`;
+  };
+
+  const handleSave = async () => {
+    try {
+      // Загружаем изображение как blob
+      const response = await fetch(imageUrl);
+      if (!response.ok) throw new Error("Не удалось загрузить изображение");
+
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = generateFileName(); // penguin_xxxxx.jpeg
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Чистим blob URL
+      URL.revokeObjectURL(blobUrl);
+
+      if (notify) notify();
+    } catch (err) {
+      console.error("Ошибка при сохранении изображения:", err);
+    }
+  };
 
   return (
     <>
@@ -67,7 +97,7 @@ export default function EditorHeader({
             alignContent: "center",
           }}
           disabled={!activeSave}
-          onClick={notify}
+          onClick={handleSave}
         >
           <img src={update} />
         </button>
