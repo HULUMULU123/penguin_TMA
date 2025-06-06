@@ -120,7 +120,8 @@ export const BottomButton = styled.button`
   background-color: #c11fbe;
   color: white;
   font-weight: bold;
-  width: 48%;
+  /* width: 48%; */
+  width: 100%;
   padding: 1rem 0;
   border-radius: 40px;
   display: flex;

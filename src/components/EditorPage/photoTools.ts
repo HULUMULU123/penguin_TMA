@@ -596,7 +596,7 @@ export const subFilters = {
   enhance: [
     {
       id: 0,
-      name: "Улучшить",
+      name: "enhance",
       img: filter,
       numFilters: 0,
       rangeType: true,

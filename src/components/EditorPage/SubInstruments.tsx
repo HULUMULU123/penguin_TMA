@@ -122,7 +122,7 @@ export default function SubInstruments({
           />
         </SelectVariationWrapper>
       )}
-      {loading ? <ProgressBar /> : null}
+      {loading ? <ProgressBar isVariation={isRangeSlider} /> : null}
       {/* <button onClick={applyEffect} disabled={loading}>
         {loading ? "Применение..." : "Применить"}
       </button> */}

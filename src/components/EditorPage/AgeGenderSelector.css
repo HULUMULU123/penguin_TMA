@@ -79,6 +79,8 @@
   border-radius: 10px;
   max-width: 320px;
   margin: 0 auto;
+  position: absolute;
+  bottom: 10rem;
 }
 
 .gender-selector {

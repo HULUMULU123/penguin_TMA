@@ -47,6 +47,7 @@ export const Toolbar = styled.div`
   padding-right: 8px; /* чтобы scrollbar не налезал на контент */
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  margin-top: -1.5rem;
 
   /* Стили для скроллбара в WebKit */
   &::-webkit-scrollbar {
@@ -170,14 +171,14 @@ export const SubInstrumentImg = styled.div<{ active: boolean }>`
 `;
 
 export const SubFilterSpan = styled.span`
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   font-size: 10px;
   color: #000;
 `;
 
 export const BottomWrapper = styled.div`
   position: fixed; /* если ты хочешь привязать к низу экрана */
-  bottom: 0;
+  bottom: 4rem;
   left: 0;
   right: 0;
 
@@ -190,6 +191,8 @@ export const BottomWrapper = styled.div`
 
 // ===============SelectVariation================
 export const SelectVariationWrapper = styled.div`
+  position: absolute;
+  bottom: 12rem;
   margin: 0;
   background: rgba(0, 0, 0, 0.4);
   padding: 0.1rem;

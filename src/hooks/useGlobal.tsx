@@ -38,6 +38,7 @@ const useGlobal = create<GlobalState>((set, get) => ({
 
       const { token, user } = response.data;
       sessionStorage.setItem("token", token);
+
       // const count_generations_test = 10230;
       // const count_video_generations_test = 12;
       // Тестирование данных о пользователе из-за CORS
@@ -47,33 +48,38 @@ const useGlobal = create<GlobalState>((set, get) => ({
       //   count_video_generations: count_video_generations_test,
       // };
       // set({ userData: enrichedUser_test, isLoading: false });
-      // Дополнительные данные
-      const extraResponse = await axios.get(
-        `https://usergen.pinpayn.fun/user/7541099300`,
-        {
-          headers: {
-            Authorization: "dsfljslfnlkJ^&r68r7UIFiyf^URuyFKJFKJyc",
-          },
-        }
-      );
 
-      const { count_generations = 0, count_video_generations = 0 } =
-        extraResponse.data;
-      // Для тестов потому что Cors ereror
+      // Дополнительные данные пока не работает
+      try {
+        const extraResponse = await axios.get(
+          `https://usergen.pinpayn.fun/user/7541099300`,
+          {
+            headers: {
+              Authorization: "dsfljslfnlkJ^&r68r7UIFiyf^URuyFKJFKJyc",
+            },
+          }
+        );
 
-      const enrichedUser = {
-        ...user,
-        count_generations,
-        count_video_generations,
-      };
+        const { count_generations = 0, count_video_generations = 0 } =
+          extraResponse.data;
+        // Для тестов потому что Cors ereror
 
-      set({ userData: enrichedUser, isLoading: false });
-      console.log(enrichedUser, "userData");
+        const enrichedUser = {
+          ...user,
+          count_generations,
+          count_video_generations,
+        };
+
+        set({ userData: enrichedUser, isLoading: false });
+        console.log(enrichedUser, "userData");
+      } catch (error: any) {
+        console.log(error, "setuser");
+        set({ userData: user, isLoading: false });
+      }
     } catch (error: any) {
       const msg =
         error.response?.data?.detail || error.message || "Ошибка авторизации";
 
-      set({ userData: enrichedUser, isLoading: false });
       set({ error: msg, isLoading: false });
     }
   },

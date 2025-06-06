@@ -37,10 +37,10 @@ const ImageUploadBottomSheet = ({
 }) => (
   <BottomSheet>
     <ButtonContainer>
-      <BottomSheetButton onClick={notify}>
+      {/* <BottomSheetButton onClick={notify}>
         <img src={camera} alt="Camera Icon" />
         КАМЕРА
-      </BottomSheetButton>
+      </BottomSheetButton> */}
       <BottomSheetButton onClick={() => openFileDialog(fileInputRef)}>
         <img src={gallery} alt="Gallery Icon" />
         ФОТО

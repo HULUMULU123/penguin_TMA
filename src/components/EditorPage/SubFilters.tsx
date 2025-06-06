@@ -96,6 +96,8 @@ export default function SubFilters({
           rgbaValue,
           currentOption
         );
+      } else if (activeFilter === "enhance" && currentOption) {
+        response = await EFFECT_FUNCTIONS[activeFilter](imgSrc);
       } else if (shouldShowRangeSlider && currentOption) {
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
@@ -152,7 +154,7 @@ export default function SubFilters({
     <BottomWrapper>
       {/* {activeFilter === "lipcolor" ? (
         <LipsColorSlider value={rgbaValue} onChange={setRgbaValue} />) :  */}
-      {shouldShowRangeSlider ? (
+      {shouldShowRangeSlider && currentOption?.name !== "enhance" ? (
         // <RangeSlider value={rangeValue} onChange={setRangeValue} />
         <SelectVariationRange setValue={setRangeValue} />
       ) : (
@@ -166,7 +168,13 @@ export default function SubFilters({
           </SelectVariationWrapper>
         )
       )}
-      {loading ? <ProgressBar /> : null}
+      {loading ? (
+        <ProgressBar
+          isVariation={
+            shouldShowRangeSlider && currentOption?.name !== "enhance"
+          }
+        />
+      ) : null}
       {/* <button
         onClick={applyEffect}
         disabled={loading}

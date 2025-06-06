@@ -2,7 +2,13 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 // Контейнер прогресс-бара
-const BarContainer = styled.div`
+interface VariationProps {
+  isVariation: boolean;
+}
+
+const BarContainer = styled.div<VariationProps>`
+  position: absolute;
+  bottom: ${(props) => (props.isVariation ? "15rem" : "12rem")};
   width: 30%;
   max-width: 300px;
   height: 5px;
@@ -20,7 +26,7 @@ const Progress = styled.div`
   border-radius: 10px 0 0 10px;
 `;
 
-const ProgressBar: React.FC = () => {
+const ProgressBar = ({ isVariation }) => {
   const progressRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -49,7 +55,7 @@ const ProgressBar: React.FC = () => {
   }, []);
 
   return (
-    <BarContainer>
+    <BarContainer isVariation={isVariation}>
       <Progress ref={progressRef} />
     </BarContainer>
   );

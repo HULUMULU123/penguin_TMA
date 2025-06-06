@@ -12,7 +12,7 @@ export const SectionTitleWrapper = ({
   useEffect(() => {
     if (ref.current) {
       ref.current.style.opacity = (opacity / 100).toString();
-      ref.current.style.marginBottom = `${(opacity / 100) * 2}rem`;
+      ref.current.style.marginBottom = `${(opacity / 100) * 1}rem`;
     }
   }, [opacity]);
 

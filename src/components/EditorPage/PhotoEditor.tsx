@@ -95,12 +95,13 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
     <ImageSection>
       {!isCropping ? (
         <TransformWrapper
-          wheel={{ step: 0.1 }}
-          pinch={{ disabled: false }}
+          wheel={{ disabled: true }}
+          pinch={{ disabled: true }}
           doubleClick={{ disabled: true }}
+          panning={{ disabled: true }}
           limitToBounds
           centerOnInit
-          initialScale={2}
+          initialScale={1}
         >
           <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
             <img

@@ -70,7 +70,7 @@ export default function ProfilePage() {
   const fetchPhotos = useGlobal((state) => state.fetchPhotos);
   const photos = useGlobal((state) => state.photos);
   const uploadPhoto = useGlobal((state) => state.uploadPhoto);
-
+  const userData = useGlobal((state) => state.userData);
   useEffect(() => {
     const permission = localStorage.getItem("photoPermission");
     setHasPermission(permission === "true");
@@ -145,12 +145,12 @@ export default function ProfilePage() {
           }}
         >
           <span style={{ color: "#000", fontSize: "11.56px" }}>Баланс</span>
-          <PostCount>120</PostCount>
+          <PostCount>{userData?.count_generations || 0}</PostCount>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <BottomButton onClick={notify}>
+          {/* <BottomButton onClick={notify}>
             <img src={camera} alt="Camera Icon" /> КАМЕРА
-          </BottomButton>
+          </BottomButton> */}
           <BottomButton onClick={() => openFileDialog(fileInputRef)}>
             <img src={gallery} alt="Gallery Icon" /> ФОТО
           </BottomButton>
