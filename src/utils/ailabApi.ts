@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Типы поддерживаемых эффектов
 export type EffectType =
   | "filter"

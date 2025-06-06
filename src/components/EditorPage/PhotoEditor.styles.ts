@@ -201,7 +201,7 @@ export const VariationList = styled.ul`
   margin: 0;
   display: flex;
 
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 0;
 `;
 

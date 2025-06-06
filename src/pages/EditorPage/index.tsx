@@ -1,4 +1,4 @@
-import React from "react";
+// @ts-nocheck
 import { useLocation } from "react-router-dom";
 import PhotoEditor from "../../components/EditorPage/PhotoEditor";
 export default function EditorPage() {

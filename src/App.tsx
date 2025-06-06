@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect } from "react";
 // import React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";

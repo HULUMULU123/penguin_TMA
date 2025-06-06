@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import BottomSheet from "./BottomSheet"; // замените на актуальный импорт
 import camera from "../assets/camera.png";
 import gallery from "../assets/gallery.png";

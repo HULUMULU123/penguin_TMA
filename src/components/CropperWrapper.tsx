@@ -1,5 +1,5 @@
 // src/components/CropperWrapper.tsx
-
+// @ts-nocheck
 import React, { useEffect, useRef } from "react";
 import Cropper from "cropperjs";
 

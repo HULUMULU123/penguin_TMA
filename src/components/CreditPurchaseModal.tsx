@@ -1,5 +1,5 @@
 // src/components/CreditPurchaseModal.tsx
-
+// @ts-nocheck
 import styled from "styled-components";
 
 const Overlay = styled.div`

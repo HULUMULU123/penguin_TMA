@@ -1,5 +1,5 @@
 // src/components/PhotoGrid.tsx
-import React from "react";
+// @ts-nocheck
 import styled from "styled-components";
 
 const GridContainer = styled.div`

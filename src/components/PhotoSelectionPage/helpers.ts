@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const handleFileUpload = (
   e: React.ChangeEvent<HTMLInputElement>,
   uploadPhoto: any

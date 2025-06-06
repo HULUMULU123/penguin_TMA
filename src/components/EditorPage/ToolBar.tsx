@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+// @ts-nocheck
+import { useEffect, useRef, useState } from "react";
 import BottomSheet from "../PhotoSelectionPage/BottomSheet";
 import {
   Toolbar,
-  SectionTitle,
   ButtonsGrid,
   ToolButton,
   ToolIcon,

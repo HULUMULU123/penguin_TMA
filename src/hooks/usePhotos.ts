@@ -1,26 +1,26 @@
 // src/hooks/usePhotos.ts
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 
-export interface Photo {
-  id: string;
-  url: string;
-  name: string;
-  category: string;
-}
+// export interface Photo {
+//   id: string;
+//   url: string;
+//   name: string;
+//   category: string;
+// }
 
-async function fetchPhotos(): Promise<Photo[]> {
-  const response = await fetch("https://api.example.com/photos"); // убедись, что URL правильный
-  if (!response.ok) {
-    throw new Error("Не удалось загрузить фото");
-  }
-  return response.json();
-}
+// async function fetchPhotos(): Promise<Photo[]> {
+//   const response = await fetch("https://api.example.com/photos");
+//   if (!response.ok) {
+//     throw new Error("Не удалось загрузить фото");
+//   }
+//   return response.json();
+// }
 
-function usePhotos() {
-  return useQuery<Photo[], Error>({
-    queryKey: ["photos"],
-    queryFn: fetchPhotos,
-  });
-}
+// function usePhotos() {
+//   return useQuery<Photo[], Error>({
+//     queryKey: ["photos"],
+//     queryFn: fetchPhotos,
+//   });
+// }
 
-export default usePhotos;
+// export default usePhotos;

@@ -1,4 +1,3 @@
-import React from "react";
 import { VariationItem, VariationList } from "./PhotoEditor.styles";
 
 interface SelectVariationProps {

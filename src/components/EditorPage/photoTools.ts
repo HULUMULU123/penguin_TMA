@@ -506,6 +506,14 @@ export const subFilters = {
   lipcolor: [
     {
       id: 0,
+      name: "Оригинал",
+      img: filter,
+      numFilters: 0,
+      rangeType: false,
+      rgba: { r: 0, g: 0, b: 0, a: 1 },
+    },
+    {
+      id: 1,
       name: "Красная помада",
       img: filter,
       numFilters: 0,
@@ -513,7 +521,7 @@ export const subFilters = {
       rgba: { r: 255, g: 0, b: 0, a: 1 },
     },
     {
-      id: 1,
+      id: 2,
       name: "Нюдовая помада",
       img: filter,
       numFilters: 0,
@@ -521,7 +529,7 @@ export const subFilters = {
       rgba: { r: 210, g: 180, b: 160, a: 1 },
     },
     {
-      id: 2,
+      id: 3,
       name: "Розовая помада",
       img: filter,
       numFilters: 0,
@@ -529,7 +537,7 @@ export const subFilters = {
       rgba: { r: 255, g: 105, b: 180, a: 1 },
     },
     {
-      id: 3,
+      id: 4,
       name: "Бордовая помада",
       img: filter,
       numFilters: 0,
@@ -537,7 +545,7 @@ export const subFilters = {
       rgba: { r: 128, g: 0, b: 32, a: 1 },
     },
     {
-      id: 4,
+      id: 5,
       name: "Фиолетовая помада",
       img: filter,
       numFilters: 0,
@@ -545,7 +553,7 @@ export const subFilters = {
       rgba: { r: 138, g: 43, b: 226, a: 1 },
     },
     {
-      id: 5,
+      id: 6,
       name: "Оранжевая помада",
       img: filter,
       numFilters: 0,
@@ -553,7 +561,7 @@ export const subFilters = {
       rgba: { r: 255, g: 165, b: 0, a: 1 },
     },
     {
-      id: 6,
+      id: 7,
       name: "Коричневая помада",
       img: filter,
       numFilters: 0,
@@ -561,7 +569,7 @@ export const subFilters = {
       rgba: { r: 139, g: 69, b: 19, a: 1 },
     },
     {
-      id: 7,
+      id: 8,
       name: "Вишнёвая помада",
       img: filter,
       numFilters: 0,
@@ -569,7 +577,7 @@ export const subFilters = {
       rgba: { r: 222, g: 49, b: 99, a: 1 },
     },
     {
-      id: 8,
+      id: 9,
       name: "Малиновая помада",
       img: filter,
       numFilters: 0,
@@ -577,7 +585,7 @@ export const subFilters = {
       rgba: { r: 227, g: 11, b: 92, a: 1 },
     },
     {
-      id: 9,
+      id: 10,
       name: "Песочная помада",
       img: filter,
       numFilters: 0,

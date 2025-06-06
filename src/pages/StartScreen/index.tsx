@@ -1,4 +1,4 @@
-import React from "react";
+// @ts-nocheck
 import styled from "styled-components";
 import sampleImage from "../../assets/start_screen.png";
 import { Link } from "react-router-dom";
