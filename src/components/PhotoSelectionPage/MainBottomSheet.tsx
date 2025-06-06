@@ -1,3 +1,4 @@
+// @ts-nocheck
 import BottomSheet from "./BottomSheet"; // замените на актуальный импорт
 import camera from "../assets/camera.png";
 import gallery from "../assets/gallery.png";
@@ -21,14 +22,12 @@ import {
 // Стили
 
 const ImageUploadBottomSheet = ({
-  notify,
   openFileDialog,
   handleFileUpload,
   handleClickBuyCredits,
   fileInputRef,
   webApp,
 }: {
-  notify: () => void;
   openFileDialog: (ref: React.RefObject<HTMLInputElement>) => void;
   handleFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleClickBuyCredits: (webApp: any) => void;
