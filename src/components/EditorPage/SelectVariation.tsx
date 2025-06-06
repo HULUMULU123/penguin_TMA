@@ -1,11 +1,17 @@
 import React from "react";
 import { VariationItem, VariationList } from "./PhotoEditor.styles";
 
+interface SelectVariationProps {
+  activeFilter: number;
+  setActiveFilter: (value: number) => void;
+  filterLen: number;
+}
+
 export default function SelectVariation({
   activeFilter,
   setActiveFilter,
   filterLen,
-}) {
+}: SelectVariationProps) {
   return (
     <VariationList>
       {Array.from({ length: filterLen }, (_, id) => (

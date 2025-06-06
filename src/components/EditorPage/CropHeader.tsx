@@ -1,5 +1,3 @@
-import React from "react";
-import { Header } from "./PhotoEditor.styles";
 export default function CropHeader() {
   return (
     <div

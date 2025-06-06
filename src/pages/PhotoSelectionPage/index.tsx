@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import BottomSheet from "../../components/PhotoSelectionPage/BottomSheet";
@@ -34,6 +35,13 @@ import {
 import Header from "../../components/PhotoSelectionPage/Header";
 import Filters from "../../components/PhotoSelectionPage/Filters";
 
+export const Placeholder = styled.div`
+  width: calc((100% - 2 * 3px) / 3);
+  aspect-ratio: 9 / 13; /* или другая пропорция под твои фото */
+  background-color: #f5eaea;
+  border-radius: 4px;
+  pointer-events: none;
+`;
 // ИЗОБРАЖЕНИЯ (замени пути на свои)
 const images = [
   { src: avatar, type: "faces" },
@@ -112,9 +120,33 @@ export default function ProfilePage() {
             onClick={() => handleClick(img.url)}
           />
         ))}
+
+        {/* Добавим заглушки */}
+        {Array.from({ length: 12 - (photos?.length || 0) }).map((_, idx) => (
+          <Placeholder key={`placeholder-${idx}`} />
+        ))}
       </Grid>
 
       <BottomSheet>
+        <div
+          style={{
+            position: "absolute",
+            top: "-50px",
+            right: "30px",
+            display: "flex",
+
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "0.5rem",
+
+            backgroundColor: "#fff",
+            padding: "0.3rem 0.5rem",
+            borderRadius: "30px",
+          }}
+        >
+          <span style={{ color: "#000", fontSize: "11.56px" }}>Баланс</span>
+          <PostCount>120</PostCount>
+        </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <BottomButton onClick={notify}>
             <img src={camera} alt="Camera Icon" /> КАМЕРА

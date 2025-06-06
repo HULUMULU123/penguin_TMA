@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useLayoutEffect } from "react";
 import {
   motion,

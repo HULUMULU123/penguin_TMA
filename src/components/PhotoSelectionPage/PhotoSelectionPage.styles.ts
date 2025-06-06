@@ -47,7 +47,7 @@ export const PostCount = styled.div`
     rgba(72, 22, 218, 1) 100%
   );
   color: white;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   padding: 0.6rem 1rem;
   border-radius: 24px;
@@ -91,7 +91,7 @@ export const FilterButton = styled.button<{ active: boolean }>`
 `;
 
 export const Grid = styled.div`
-  margin-top: 1rem;
+  margin-top: 0.2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 3px;
@@ -101,11 +101,10 @@ export const Grid = styled.div`
 `;
 
 export const Image = styled.img`
-  width: calc((100% - 2 * 3px) / 3); // 2 gaps по 2px между 3 колонками
+  width: calc((100% - 2 * 3px) / 3); // 3 колонки, 2 промежутка
+  height: auto; // сохраняет естественную высоту
+  object-fit: cover; // обрезает, но не растягивает
   margin-bottom: 0px;
-  height: calc((100% - 2 * 3px) / 3);
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
 `;
 
 export const BottomBar = styled.div`

@@ -1,7 +1,14 @@
-import React from "react";
 import { CropperButton, CropperFooterDiv } from "./PhotoEditor.styles";
 
-export default function CropperFooter({ setIsCropping, getCroppedImage }) {
+interface CropperFooterProps {
+  setIsCropping: (value: boolean) => void;
+  getCroppedImage: () => void;
+}
+
+export default function CropperFooter({
+  setIsCropping,
+  getCroppedImage,
+}: CropperFooterProps) {
   return (
     <CropperFooterDiv>
       <CropperButton saveBtn={false} onClick={() => setIsCropping(false)}>

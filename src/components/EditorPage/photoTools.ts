@@ -1,14 +1,14 @@
-import skin from "../../assets/icons/skin.svg";
-import size from "../../assets/icons/size.svg";
+// import skin from "../../assets/icons/skin.svg";
+// import size from "../../assets/icons/size.svg";
 import hair from "../../assets/icons/hair.svg";
 import hairColor from "../../assets/icons/hairColor.svg";
 import smile from "../../assets/icons/smile.svg";
-import face from "../../assets/icons/face.svg";
+// import face from "../../assets/icons/face.svg";
 import makeup from "../../assets/icons/makeUp.svg";
-import glasses from "../../assets/icons/glasses.svg";
+// import glasses from "../../assets/icons/glasses.svg";
 import crop from "../../assets/icons/crop.svg";
 import background from "../../assets/icons/background.svg";
-import blur from "../../assets/icons/blur.svg";
+// import blur from "../../assets/icons/blur.svg";
 
 import filter from "../../assets/filter.jpg";
 

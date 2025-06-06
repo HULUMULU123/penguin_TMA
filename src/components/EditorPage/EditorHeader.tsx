@@ -1,10 +1,19 @@
-import React from "react";
 import { Header } from "./PhotoEditor.styles";
 
 import update from "../../assets/icons/update.svg";
 import back from "../../assets/icons/back.svg";
 import cross from "../../assets/icons/cross.svg";
 import { useNavigate } from "react-router-dom";
+
+interface EditorHeaderProps {
+  active: string | null;
+  setActiveFilter: (value: string | null) => void;
+  setActiveInstrument: (value: string | null) => void;
+  activeSave: boolean;
+  notify: () => void;
+  imageUrl: string;
+}
+
 export default function EditorHeader({
   active,
   setActiveFilter,
@@ -12,7 +21,7 @@ export default function EditorHeader({
   activeSave,
   notify,
   imageUrl,
-}) {
+}: EditorHeaderProps) {
   const navigate = useNavigate();
   const generateFileName = () => {
     const random = Math.random().toString(36).substring(2, 10);

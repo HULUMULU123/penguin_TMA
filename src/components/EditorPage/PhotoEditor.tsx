@@ -1,4 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
+// @ts-nocheck
+
+import { useRef, useState, useEffect } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import "./cropper.css";
@@ -14,7 +16,7 @@ import SubFilters from "./SubFilters";
 import EditorHeader from "./EditorHeader";
 import CropHeader from "./CropHeader";
 import CropperFooter from "./CropperFooter";
-import RangeSlider from "./RangeSlider";
+// import RangeSlider from "./RangeSlider";
 import SubInstruments from "./SubInstruments";
 import useGlobal from "../../hooks/useGlobal";
 

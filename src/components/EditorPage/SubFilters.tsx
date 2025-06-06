@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import {
   SubFiltersList,
@@ -9,9 +10,10 @@ import {
 } from "./PhotoEditor.styles";
 import SelectVariation from "./SelectVariation";
 import { EFFECT_FUNCTIONS } from "../../utils/ailabApi";
-import RangeSlider from "./RangeSlider";
-import LipsColorSlider from "./LipsColorSlider";
+// import RangeSlider from "./RangeSlider";
+// import LipsColorSlider from "./LipsColorSlider";
 import ProgressBar from "./ProgressBar";
+import SelectVariationRange from "./SetVariationRange";
 
 const ITEMS_PER_LOAD = 6;
 
@@ -72,16 +74,16 @@ export default function SubFilters({
 
   useEffect(() => {
     setLocalActiveFilter(0);
-    setRangeValue(50);
+    setRangeValue(0);
     setRgbaValue({ r: 255, g: 0, b: 0, a: 1 });
   }, [activeItem]);
 
   useEffect(() => {
-    if (filterItems.length > 0 && activeItem !== 0) {
+    if ((filterItems.length > 0 && activeItem !== 0) || rangeValue !== 0) {
       applyEffect();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeItem]);
+  }, [activeItem, rangeValue]);
 
   const applyEffect = async () => {
     setLoading(true);
@@ -135,7 +137,7 @@ export default function SubFilters({
   const handleClick = (option) => {
     setActiveItem(option.id);
     setLocalActiveFilter(0);
-    setRangeValue(50);
+    setRangeValue(0);
     if (option.rgba) {
       setRgbaValue(option.rgba); // если есть rgba, устанавливаем его
     } else {
@@ -144,12 +146,15 @@ export default function SubFilters({
     setActiveSave(true);
   };
 
+  const visibleItems = filterItems.slice(0, visibleCount);
+
   return (
     <BottomWrapper>
       {/* {activeFilter === "lipcolor" ? (
         <LipsColorSlider value={rgbaValue} onChange={setRgbaValue} />) :  */}
       {shouldShowRangeSlider ? (
-        <RangeSlider value={rangeValue} onChange={setRangeValue} />
+        // <RangeSlider value={rangeValue} onChange={setRangeValue} />
+        <SelectVariationRange setValue={setRangeValue} />
       ) : (
         currentOption?.numFilters > 1 && (
           <SelectVariationWrapper>
@@ -171,12 +176,17 @@ export default function SubFilters({
       </button> */}
 
       <SubFiltersList>
-        {filterItems.slice(0, visibleCount).map((option) => (
-          <SubFilterItem key={option.id} onClick={() => handleClick(option)}>
-            <SubFilterImg active={option.id === activeItem} src={option.img} />
-            <SubFilterSpan>{option.name}</SubFilterSpan>
-          </SubFilterItem>
-        ))}
+        {visibleItems.length > 1 &&
+          visibleItems.map((option) => (
+            <SubFilterItem key={option.id} onClick={() => handleClick(option)}>
+              <SubFilterImg
+                active={option.id === activeItem}
+                src={option.img}
+              />
+              <SubFilterSpan>{option.name}</SubFilterSpan>
+            </SubFilterItem>
+          ))}
+
         {visibleCount < filterItems.length && (
           <div ref={observerRef} style={{ height: 1 }} />
         )}

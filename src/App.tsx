@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import React from "react";
+import { useEffect } from "react";
+// import React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useWebApp } from "@vkruglikov/react-telegram-web-app";
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 // Страницы
 import SplashScreen from "./pages/StartScreen";
 import PhotoSelectionPage from "./pages/PhotoSelectionPage";
@@ -15,8 +15,8 @@ import styled, { createGlobalStyle } from "styled-components";
 import Gilory from "./assets/fonts/Gilroy-Light.otf";
 import Unbounded from "./assets/fonts/Unbounded-VariableFont_wght.ttf";
 import useGlobal from "./hooks/useGlobal";
-import Loader from "./components/Loader/Loader";
-import axios from "axios";
+// import Loader from "./components/Loader/Loader";
+
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Gilory';
@@ -91,18 +91,6 @@ function App() {
     if (webApp.initData) {
       sendData(webApp.initData);
     }
-    const extraResponse = axios
-      .get(
-        `https://usergen.pinpayn.fun/user/7541099300
-`,
-        {
-          headers: {
-            Authorization: "dsfljslfnlkJ^&r68r7UIFiyf^URuyFKJFKJyc",
-          },
-        }
-      )
-      .then((res) => console.log(res, "res without cors"))
-      .catch((err) => console.log(err, "CORS"));
   }, [webApp]);
   return (
     // <QueryClientProvider client={queryClient}>

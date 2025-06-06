@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// @ts-nocheck
+import React, { useEffect, useState } from "react";
 import {
   SubFiltersList,
   SubFilterItem,
@@ -15,6 +16,7 @@ import { GenderSelector } from "./GenderSelector";
 import { EFFECT_FUNCTIONS } from "../../utils/ailabApi";
 import TopGarmentUploader from "./TopGarmentUploader";
 import ProgressBar from "./ProgressBar";
+import SelectVariationRange from "./SetVariationRange";
 
 export default function SubInstruments({
   instrumentItems,
@@ -37,7 +39,16 @@ export default function SubInstruments({
   const currentOption = instrumentItems.find((item) => item.id === activeItem);
   const isRangeSlider =
     currentOption?.numFilters === 0 && currentOption?.rangeType === true;
-
+  useEffect(() => {
+    if (
+      (instrumentItems.length > 0 && activeItem !== 0) ||
+      sliderValue !== 0 ||
+      age !== 0
+    ) {
+      applyEffect();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeItem, sliderValue, age, gender]);
   // Функция для применения эффекта
   const applyEffect = async () => {
     setLoading(true);
@@ -90,16 +101,18 @@ export default function SubInstruments({
   return (
     <BottomWrapper>
       {activeInsrument === "age" ? (
-        <AgeSelector age={age} onChange={setAge} />
+        // <AgeSelector age={age} onChange={setAge} />
+        <SelectVariationRange value={age} setValue={setAge} />
       ) : activeInsrument === "gender" ? (
         <GenderSelector gender={gender} onChange={setGender} />
       ) : activeInsrument === "tryon" ? (
         <TopGarmentUploader setTopGarment={setTopGarment} />
       ) : isRangeSlider ? (
-        <RangeSlider
-          value={sliderValue}
-          onChange={(value) => setSliderValue(value)}
-        />
+        // <RangeSlider
+        //   value={sliderValue}
+        //   onChange={(value) => setSliderValue(value)}
+        // />
+        <SelectVariationRange value={sliderValue} setValue={setSliderValue} />
       ) : (
         <SelectVariationWrapper>
           <SelectVariation
@@ -110,25 +123,26 @@ export default function SubInstruments({
         </SelectVariationWrapper>
       )}
       {loading ? <ProgressBar /> : null}
-      <button onClick={applyEffect} disabled={loading}>
+      {/* <button onClick={applyEffect} disabled={loading}>
         {loading ? "Применение..." : "Применить"}
-      </button>
+      </button> */}
 
       <SubFiltersList>
-        {instrumentItems.map((option) => (
-          <SubFilterItem
-            key={option.id}
-            onClick={() => {
-              setActiveItem(option.id);
-              setSliderValue(100);
-              setActiveFilter(0);
-              setActiveSave(true);
-            }}
-          >
-            <SubInstrumentImg active={option.id === activeItem} />
-            <SubFilterSpan>{option.name}</SubFilterSpan>
-          </SubFilterItem>
-        ))}
+        {instrumentItems.length > 1 &&
+          instrumentItems.map((option) => (
+            <SubFilterItem
+              key={option.id}
+              onClick={() => {
+                setActiveItem(option.id);
+                setSliderValue(100);
+                setActiveFilter(0);
+                setActiveSave(true);
+              }}
+            >
+              <SubInstrumentImg active={option.id === activeItem} />
+              <SubFilterSpan>{option.name}</SubFilterSpan>
+            </SubFilterItem>
+          ))}
       </SubFiltersList>
     </BottomWrapper>
   );
