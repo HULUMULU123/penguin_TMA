@@ -97,7 +97,7 @@ export default function ProfilePage() {
 
   const notify = () => toast.error("Камера в данный момент недоступна");
 
-  if (hasPermission === null) return <Loader />; // можно показывать лоадер
+  if (hasPermission === null || !userData) return <Loader />; // можно показывать лоадер
   if (!hasPermission)
     return <PhotoPermission setHasPermission={setHasPermission} />;
 
