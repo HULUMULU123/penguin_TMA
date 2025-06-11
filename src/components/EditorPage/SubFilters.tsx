@@ -108,11 +108,17 @@ export default function SubFilters({
       } else if (currentOption) {
         // Для вариаций с несколькими фильтрами используем localActiveFilter
         console.log(activeHairStyle, currentOption?.hair_color);
+        console.log(
+          activeFilter === "haircolor",
+          currentOption?.hair_color,
+          activeHairStyle
+        );
         if (
           activeFilter === "haircolor" &&
           currentOption?.hair_color &&
           activeHairStyle
         ) {
+          console.log(currentOption?.hair_color);
           response = await EFFECT_FUNCTIONS[activeFilter](
             imgSrc,
             activeHairStyle,
