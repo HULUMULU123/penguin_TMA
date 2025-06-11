@@ -123,7 +123,11 @@ export default function SubFilters({
       if (base64) {
         newImg = `data:image/png;base64,${base64}`;
       } else {
-        newImg = response?.data?.images[0] || response?.data?.image_url;
+        newImg =
+          Array.isArray(response?.data?.images) &&
+          response.data.images.length > 0
+            ? response.data.images[0]
+            : response?.data?.image_url;
       }
 
       console.log(newImg, "newIMG");
