@@ -113,12 +113,12 @@ export default function SubFilters({
           response = await EFFECT_FUNCTIONS[activeFilter](
             imgSrc,
             activeHairStyle,
-            localActiveFilter
+            currentOption
           );
         } else if (activeFilter === "hairstyle" && !activeHairStyle) {
           response = await EFFECT_FUNCTIONS[activeFilter](
             imgSrc,
-            localActiveFilter
+            currentOption
           );
         } else {
           const optionToApply =
