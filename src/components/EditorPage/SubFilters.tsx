@@ -118,11 +118,11 @@ export default function SubFilters({
             currentOption?.hair_color
           );
         } else if (activeFilter === "hairstyle" && !activeHairStyle) {
-          setActiveHairStyle(currentOption?.hair_style);
           response = await EFFECT_FUNCTIONS[activeFilter](
             imgSrc,
             currentOption?.hair_style
           );
+          setActiveHairStyle(currentOption?.hair_style);
         } else {
           const optionToApply =
             currentOption.numFilters && currentOption.numFilters > 1
