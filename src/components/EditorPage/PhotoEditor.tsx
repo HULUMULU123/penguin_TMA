@@ -34,7 +34,7 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
   const [activeInstrument, setActiveInstrument] = useState<string | null>(null);
   const [activeSave, setActiveSave] = useState(false);
   const [currentImgSrc, setCurrentImgSrc] = useState(src);
-  const [activeHairStyle, setActiveHairStyle] = useState(false);
+  const [activeHairStyle, setActiveHairStyle] = useState("");
   const uploadPhoto = useGlobal((state) => state.uploadPhoto);
   // Сброс изображения при смене src
   useEffect(() => {
@@ -118,7 +118,7 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
         </TransformWrapper>
       ) : (
         <Cropper
-          src={test_photo}
+          src={currentImgSrc}
           style={{
             height: "100%",
             width: "100%",
@@ -145,6 +145,7 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
           activeFilter={activeFilter}
           setCurrentImgSrc={setCurrentImgSrc}
           setActiveHairStyle={setActiveHairStyle}
+          activeHairStyle={activeHairStyle}
         />
       );
     }

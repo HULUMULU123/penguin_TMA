@@ -9,7 +9,7 @@ type GlobalState = {
   userData: any;
   photos: any[];
   sendData: (initData: any) => void;
-  uploadPhoto: (file: File) => Promise<void>;
+  uploadPhoto: (file: File | string) => Promise<void>;
   fetchPhotos: () => Promise<void>;
   deletePhoto: (photoId: number) => Promise<void>;
 };
@@ -85,7 +85,7 @@ const useGlobal = create<GlobalState>((set, get) => ({
   },
 
   // 🔹 Загрузка одного фото
-  uploadPhoto: async (file: File) => {
+  uploadPhoto: async (file: File | string) => {
     const token = sessionStorage.getItem("token");
     if (!token) return set({ error: "Нет токена авторизации" });
     const processedFile = await resolveImageInput(file);

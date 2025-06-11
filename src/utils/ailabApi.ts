@@ -218,6 +218,8 @@ export async function applyFilter(
 
 export async function applyHairstyle(
   image: File | string,
+  hair_style: string,
+  color: string = "",
   rawParams: any = {}
 ): Promise<string> {
   const resolved = await resolveImageInput(image);
@@ -227,12 +229,13 @@ export async function applyHairstyle(
     ["task_type", "hair_style", "auto", "color", "image_size"],
     {
       task_type: "async",
-      hair_style: "UnderCut",
+      hair_style: hair_style,
+      color: color,
       auto: 1,
       image_size: 1,
     }
   );
-
+  console.log(params);
   const responseData = await sendFormData(
     "hairstyle",
     { image: resolved },
@@ -472,6 +475,7 @@ async function pollAsyncResult(taskId: string): Promise<string> {
 export const EFFECT_FUNCTIONS: Record<EffectType, Function> = {
   filter: applyFilter,
   hairstyle: applyHairstyle,
+  haircolor: applyHairstyle,
   smile: applySmile,
   retouch: applyRetouch,
   lipcolor: applyLipColor,

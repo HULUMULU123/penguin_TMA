@@ -24,6 +24,7 @@ export default function SubFilters({
   activeFilter,
   setCurrentImgSrc,
   setActiveHairStyle,
+  activeHairStyle,
 }) {
   const [activeItem, setActiveItem] = useState(0);
   const [localActiveFilter, setLocalActiveFilter] = useState(0);
@@ -105,13 +106,30 @@ export default function SubFilters({
           currentOption
         );
       } else if (currentOption) {
-        if (activeFilter === "hairstyle") setActiveHairStyle(true);
+        if (activeFilter === "hairstyle" && !activeHairStyle)
+          setActiveHairStyle(localActiveFilter);
         // Для вариаций с несколькими фильтрами используем localActiveFilter
-        const optionToApply =
-          currentOption.numFilters && currentOption.numFilters > 1
-            ? { ...currentOption, selectedFilter: localActiveFilter }
-            : currentOption;
-        response = await EFFECT_FUNCTIONS[activeFilter](imgSrc, optionToApply);
+        if (activeFilter === "hairstyle" && activeHairStyle) {
+          response = await EFFECT_FUNCTIONS[activeFilter](
+            imgSrc,
+            activeHairStyle,
+            localActiveFilter
+          );
+        } else if (activeFilter === "hairstyle" && !activeHairStyle) {
+          response = await EFFECT_FUNCTIONS[activeFilter](
+            imgSrc,
+            localActiveFilter
+          );
+        } else {
+          const optionToApply =
+            currentOption.numFilters && currentOption.numFilters > 1
+              ? { ...currentOption, selectedFilter: localActiveFilter }
+              : currentOption;
+          response = await EFFECT_FUNCTIONS[activeFilter](
+            imgSrc,
+            optionToApply
+          );
+        }
       }
       console.log("Response full:", response);
       console.log("Response data:", response?.data);

@@ -4,6 +4,7 @@ import update from "../../assets/icons/update.svg";
 import back from "../../assets/icons/back.svg";
 import cross from "../../assets/icons/cross.svg";
 import { useNavigate } from "react-router-dom";
+import useGlobal from "../../hooks/useGlobal";
 
 interface EditorHeaderProps {
   active: string | null;
@@ -23,6 +24,7 @@ export default function EditorHeader({
   imageUrl,
 }: EditorHeaderProps) {
   const navigate = useNavigate();
+  const uploadPhoto = useGlobal((state) => state.uploadPhoto);
   const generateFileName = () => {
     const random = Math.random().toString(36).substring(2, 10);
     return `penguin_${random}.jpeg`;
@@ -71,6 +73,7 @@ export default function EditorHeader({
               height: "34px",
             }}
             onClick={() => {
+              uploadPhoto(imageUrl);
               navigate("/photos");
             }}
           >
