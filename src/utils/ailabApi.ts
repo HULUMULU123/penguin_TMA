@@ -286,7 +286,7 @@ export async function applyLipColor(
   console.log(rgbaValue);
   const defaultInfo = [
     {
-      rgba: rgbaValue, // #FF3366, alpha 80%
+      rgba: rgbaValue,
     },
   ];
 
@@ -297,7 +297,7 @@ export async function applyLipColor(
   const params: LipColorParams = {
     lip_color_infos: infos,
   };
-
+  console.log(JSON.stringify(params.lip_color_infos));
   return sendFormData(
     "lipcolor",
     { image: resolved },
