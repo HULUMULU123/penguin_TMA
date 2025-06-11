@@ -223,18 +223,31 @@ export async function applyHairstyle(
   rawParams: any = {}
 ): Promise<string> {
   const resolved = await resolveImageInput(image);
-
-  const params = pickParams<HairstyleParams>(
-    rawParams,
-    ["task_type", "hair_style", "auto", "color", "image_size"],
-    {
-      task_type: "async",
-      hair_style: hair_style,
-      color: color,
-      auto: 1,
-      image_size: 1,
-    }
-  );
+  let params;
+  if (color != "") {
+    params = pickParams<HairstyleParams>(
+      rawParams,
+      ["task_type", "hair_style", "auto", "color", "image_size"],
+      {
+        task_type: "async",
+        hair_style: hair_style,
+        auto: 1,
+        image_size: 1,
+      }
+    );
+  } else {
+    params = pickParams<HairstyleParams>(
+      rawParams,
+      ["task_type", "hair_style", "auto", "color", "image_size"],
+      {
+        task_type: "async",
+        hair_style: hair_style,
+        color: color,
+        auto: 1,
+        image_size: 1,
+      }
+    );
+  }
   console.log(params);
   const responseData = await sendFormData(
     "hairstyle",
