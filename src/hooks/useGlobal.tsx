@@ -123,7 +123,14 @@ const useGlobal = create<GlobalState>((set, get) => ({
         },
       });
       console.log(res.data, "res");
-      set({ photos: res.data });
+      const sortedPhotos = res.data.sort(
+        (a: any, b: any) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
+
+      console.log(sortedPhotos, "sorted res");
+      set({ photos: sortedPhotos });
+      // set({ photos: res.data });
     } catch (error: any) {
       const msg =
         error.response?.data?.detail ||

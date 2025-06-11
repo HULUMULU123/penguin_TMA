@@ -113,7 +113,8 @@ export default function SubFilters({
             : currentOption;
         response = await EFFECT_FUNCTIONS[activeFilter](imgSrc, optionToApply);
       }
-
+      console.log("Response full:", response);
+      console.log("Response data:", response?.data);
       const base64 =
         response?.result?.image ||
         response?.data?.image ||

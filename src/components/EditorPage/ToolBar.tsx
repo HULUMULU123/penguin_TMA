@@ -18,13 +18,14 @@ export default function ToolBar({
   activeHairStyle,
 }) {
   const [percents, setPercents] = useState(0);
-
+  const [windowHeightMain, setWindowHeightMain] = useState(0);
   return (
     <BottomSheet
       peekHeightPercent={30}
       maxHeightPercent={80}
       onPositionChange={(percent) => setPercents(percent)}
       isPersistent={showToolBar}
+      setWindowHeightMain={setWindowHeightMain}
     >
       <Toolbar>
         <SectionTitleWrapper opacity={percents}>

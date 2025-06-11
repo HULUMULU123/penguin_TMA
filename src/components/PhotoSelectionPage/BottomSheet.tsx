@@ -60,14 +60,18 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   maxHeightPercent = 70,
   isPersistent = true,
   onPositionChange,
+  setWindowHeightMain,
 }) => {
   const controls = useAnimation();
   const dragControls = useDragControls();
   const [windowHeight, setWindowHeight] = useState(0);
 
   useLayoutEffect(() => {
-    const updateSize = () => setWindowHeight(window.innerHeight);
+    const updateSize = () => {
+      setWindowHeight(window.innerHeight);
+    };
     updateSize();
+
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   }, []);
@@ -83,6 +87,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   const getPercentFromY = (y: number) => {
     const clamped = Math.min(Math.max(y, topY), bottomY);
     const progress = 1 - (clamped - topY) / dragRange;
+    setWindowHeightMain(Math.round(progress * 100));
     return Math.round(progress * 100);
   };
 

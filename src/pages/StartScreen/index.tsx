@@ -1,7 +1,8 @@
 // @ts-nocheck
 import styled from "styled-components";
 import sampleImage from "../../assets/start_screen.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 // Создаем стилизованные компоненты
 const Container = styled.div`
   position: relative;
@@ -68,7 +69,7 @@ const Subtitle = styled.p`
   margin: 12px 0 28px;
 `;
 
-const StartButton = styled(Link)`
+const StartButton = styled.button`
   font-family: "Unbounded", sans-serif;
   width: 90%;
   max-width: 340px;
@@ -88,6 +89,18 @@ const StartButton = styled(Link)`
 `;
 
 export default function StartScreen() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const permission = localStorage.getItem("startPermission");
+    if (permission) {
+      navigate("/photos");
+    }
+  }, []);
+
+  const handelClick = () => {
+    localStorage.setItem("startPermission", "true");
+    navigate("/photos");
+  };
   return (
     <Container>
       <Background />
@@ -99,7 +112,7 @@ export default function StartScreen() {
           ПОДЧЕРКНИТЕ СВОЮ КРАСОТУ
           <br />В ПАРУ КЛИКОВ
         </Subtitle>
-        <StartButton to={"/photos"}>НАЧАТЬ</StartButton>
+        <StartButton onClick={handelClick}>НАЧАТЬ</StartButton>
       </Content>
     </Container>
   );

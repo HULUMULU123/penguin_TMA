@@ -71,6 +71,7 @@ export default function ProfilePage() {
   const photos = useGlobal((state) => state.photos);
   const uploadPhoto = useGlobal((state) => state.uploadPhoto);
   const userData = useGlobal((state) => state.userData);
+  const [windowHeight, setWindowHeight] = useState(0);
   useEffect(() => {
     const permission = localStorage.getItem("photoPermission");
     setHasPermission(permission === "true");
@@ -127,7 +128,7 @@ export default function ProfilePage() {
         ))}
       </Grid>
 
-      <BottomSheet>
+      <BottomSheet setWindowHeightMain={setWindowHeight}>
         <div
           style={{
             position: "absolute",
@@ -147,7 +148,12 @@ export default function ProfilePage() {
           <span style={{ color: "#000", fontSize: "11.56px" }}>Баланс</span>
           <PostCount>{userData?.count_generations || 0}</PostCount>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           {/* <BottomButton onClick={notify}>
             <img src={camera} alt="Camera Icon" /> КАМЕРА
           </BottomButton> */}
@@ -162,7 +168,7 @@ export default function ProfilePage() {
             onChange={(e) => handleFileUpload(e, uploadPhoto)}
           />
         </div>
-        <div>
+        <div style={{ opacity: windowHeight / 100 }}>
           <h3
             style={{
               color: "#000",

@@ -95,8 +95,8 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
     <ImageSection>
       {!isCropping ? (
         <TransformWrapper
-          wheel={{ disabled: true }}
-          pinch={{ disabled: true }}
+          wheel={{ disabled: false }}
+          pinch={{ disabled: false }}
           doubleClick={{ disabled: true }}
           panning={{ disabled: true }}
           limitToBounds
