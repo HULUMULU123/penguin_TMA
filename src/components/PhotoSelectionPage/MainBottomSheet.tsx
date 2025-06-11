@@ -18,6 +18,7 @@ import {
   SectionSubtitle,
   SectionTitle,
 } from "./PhotoSelectionPage.styles";
+import useGlobal from "../../hooks/useGlobal";
 
 // Стили
 
@@ -33,48 +34,68 @@ const ImageUploadBottomSheet = ({
   handleClickBuyCredits: (webApp: any) => void;
   fileInputRef: React.RefObject<HTMLInputElement>;
   webApp: any;
-}) => (
-  <BottomSheet>
-    <ButtonContainer>
-      {/* <BottomSheetButton onClick={notify}>
+}) => {
+  const photos = useGlobal((state) => state.photos);
+  console.log(photos, "test photossss");
+  return (
+    <BottomSheet>
+      <ButtonContainer>
+        {/* <BottomSheetButton onClick={notify}>
         <img src={camera} alt="Camera Icon" />
         КАМЕРА
       </BottomSheetButton> */}
-      <BottomSheetButton onClick={() => openFileDialog(fileInputRef)}>
-        <img src={gallery} alt="Gallery Icon" />
-        ФОТО
-      </BottomSheetButton>
-      <HiddenFileInput
-        type="file"
-        accept="image/*"
-        ref={fileInputRef}
-        onChange={handleFileUpload}
-      />
-    </ButtonContainer>
+        <BottomSheetButton onClick={() => openFileDialog(fileInputRef)}>
+          <img src={gallery} alt="Gallery Icon" />
+          ФОТО
+        </BottomSheetButton>
+        <HiddenFileInput
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={handleFileUpload}
+        />
+      </ButtonContainer>
 
-    <div>
-      <SectionTitle>Недавние</SectionTitle>
-      <SectionSubtitle>
-        здесь будут последние отредактированные фото
-      </SectionSubtitle>
-      <RecentPhotos>
-        <PhotoPlaceholder />
-        <PhotoPlaceholder />
-        <PhotoPlaceholder />
-      </RecentPhotos>
+      <div>
+        <SectionTitle>Недавние</SectionTitle>
+        <SectionSubtitle>
+          здесь будут последние отредактированные фото
+        </SectionSubtitle>
+        <RecentPhotos>
+          {photos.slice(0, 3).map((photo, index) => (
+            <img
+              key={photo.id || index}
+              src={photo.url || photo.image || photo}
+              alt={`Recent photo ${index + 1}`}
+              style={{
+                width: 100,
+                height: 100,
+                objectFit: "cover",
+                marginRight: 8,
+              }}
+            />
+          ))}
 
-      <PurchaseContainer>
-        <PenguinImage src={penguin} alt="Penguin" />
-        <PurchaseText>
-          <PurchaseTitle>Покупка кредитов</PurchaseTitle>
-          <PurchaseSubtitle>новые генерации ждут</PurchaseSubtitle>
-        </PurchaseText>
-        <PurchaseButton onClick={() => handleClickBuyCredits(webApp)}>
-          купить
-        </PurchaseButton>
-      </PurchaseContainer>
-    </div>
-  </BottomSheet>
-);
+          {/* Если фото меньше 3, показываем placeholder'ы на оставшиеся места */}
+          {Array.from({
+            length: 3 - photos.length > 0 ? 3 - photos.length : 0,
+          }).map((_, idx) => (
+            <PhotoPlaceholder key={`placeholder-${idx}`} />
+          ))}
+        </RecentPhotos>
 
+        <PurchaseContainer>
+          <PenguinImage src={penguin} alt="Penguin" />
+          <PurchaseText>
+            <PurchaseTitle>Покупка кредитов</PurchaseTitle>
+            <PurchaseSubtitle>новые генерации ждут</PurchaseSubtitle>
+          </PurchaseText>
+          <PurchaseButton onClick={() => handleClickBuyCredits(webApp)}>
+            купить
+          </PurchaseButton>
+        </PurchaseContainer>
+      </div>
+    </BottomSheet>
+  );
+};
 export default ImageUploadBottomSheet;

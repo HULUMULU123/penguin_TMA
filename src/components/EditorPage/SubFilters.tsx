@@ -119,11 +119,13 @@ export default function SubFilters({
         response?.result?.image ||
         response?.data?.image ||
         response?.result_image;
-      console.log(response?.data);
-      const newImg =
-        response?.data?.images[0] ||
-        response?.data?.image_url ||
-        `data:image/png;base64,${base64}`;
+      let newImg;
+      if (base64) {
+        newImg = `data:image/png;base64,${base64}`;
+      } else {
+        newImg = response?.data?.images[0] || response?.data?.image_url;
+      }
+
       console.log(newImg, "newIMG");
       if (newImg) {
         // Обновляем изображение

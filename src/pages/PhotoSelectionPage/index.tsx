@@ -42,6 +42,13 @@ export const Placeholder = styled.div`
   border-radius: 4px;
   pointer-events: none;
 `;
+
+export const PhotoPlaceholder = styled.div`
+  background-color: rgba(245, 245, 245, 1);
+  width: 113px;
+  height: 113px;
+  border-radius: 15px;
+`;
 // ИЗОБРАЖЕНИЯ (замени пути на свои)
 const images = [
   { src: avatar, type: "faces" },
@@ -72,6 +79,7 @@ export default function ProfilePage() {
   const uploadPhoto = useGlobal((state) => state.uploadPhoto);
   const userData = useGlobal((state) => state.userData);
   const [windowHeight, setWindowHeight] = useState(0);
+
   useEffect(() => {
     const permission = localStorage.getItem("photoPermission");
     setHasPermission(permission === "true");
@@ -191,30 +199,28 @@ export default function ProfilePage() {
               marginTop: "1rem",
             }}
           >
-            <div
-              style={{
-                backgroundColor: "rgba(245, 245, 245, 1)",
-                width: "113px",
-                height: "113px",
-                borderRadius: "15px",
-              }}
-            ></div>
-            <div
-              style={{
-                backgroundColor: "rgba(245, 245, 245, 1)",
-                width: "113px",
-                height: "113px",
-                borderRadius: "15px",
-              }}
-            ></div>
-            <div
-              style={{
-                backgroundColor: "rgba(245, 245, 245, 1)",
-                width: "113px",
-                height: "113px",
-                borderRadius: "15px",
-              }}
-            ></div>
+            {photos.slice(0, 3).map((photo, index) => (
+              <img
+                key={photo.id || index}
+                src={photo.url || photo.image || photo}
+                alt={`Recent photo ${index + 1}`}
+                style={{
+                  width: 100,
+                  height: 100,
+                  objectFit: "cover",
+                  marginRight: 8,
+                  borderRadius: "15px",
+                }}
+                onClick={() => handleClick(photo.url || photo.image || photo)}
+              />
+            ))}
+
+            {/* Если фото меньше 3, показываем placeholder'ы на оставшиеся места */}
+            {Array.from({
+              length: 3 - photos.length > 0 ? 3 - photos.length : 0,
+            }).map((_, idx) => (
+              <PhotoPlaceholder key={`placeholder-${idx}`} />
+            ))}
           </div>
           <div
             style={{
