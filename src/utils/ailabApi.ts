@@ -224,7 +224,7 @@ export async function applyHairstyle(
 ): Promise<string> {
   const resolved = await resolveImageInput(image);
   let params;
-  if (color != "") {
+  if (color === "") {
     params = pickParams<HairstyleParams>(
       rawParams,
       ["task_type", "hair_style", "auto", "color", "image_size"],
