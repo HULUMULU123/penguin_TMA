@@ -109,7 +109,7 @@ export default function SubFilters({
         // Для вариаций с несколькими фильтрами используем localActiveFilter
         console.log(activeHairStyle, currentOption?.hair_color);
         if (
-          activeFilter === "hairstyle" &&
+          activeFilter === "haircolor" &&
           currentOption?.hair_color &&
           activeHairStyle
         ) {
