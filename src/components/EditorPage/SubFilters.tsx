@@ -106,8 +106,6 @@ export default function SubFilters({
           currentOption
         );
       } else if (currentOption) {
-        if (activeFilter === "hairstyle" && !activeHairStyle)
-          setActiveHairStyle(localActiveFilter);
         // Для вариаций с несколькими фильтрами используем localActiveFilter
         if (activeFilter === "hairstyle" && activeHairStyle) {
           response = await EFFECT_FUNCTIONS[activeFilter](
@@ -116,6 +114,7 @@ export default function SubFilters({
             currentOption
           );
         } else if (activeFilter === "hairstyle" && !activeHairStyle) {
+          setActiveHairStyle(currentOption?.hair_style);
           response = await EFFECT_FUNCTIONS[activeFilter](
             imgSrc,
             currentOption?.hair_style
