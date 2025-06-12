@@ -607,6 +607,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: true,
+      rangeFilters: 5,
     },
   ],
   facebeauty: [
@@ -617,6 +618,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: true,
+      rangeFilters: 5,
     },
     {
       id: 1,
@@ -625,6 +627,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: true,
+      rangeFilters: 5,
     },
     {
       id: 2,
@@ -633,6 +636,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: true,
+      rangeFilters: 5,
     },
     {
       id: 3,
@@ -641,6 +645,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: true,
+      rangeFilters: 5,
     },
     {
       id: 4,
@@ -649,6 +654,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: true,
+      rangeFilters: 5,
     },
     {
       id: 5,
@@ -657,6 +663,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: true,
+      rangeFilters: 5,
     },
   ],
 };

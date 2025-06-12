@@ -201,9 +201,14 @@ export default function SubFilters({
     <BottomWrapper>
       {/* {activeFilter === "lipcolor" ? (
         <LipsColorSlider value={rgbaValue} onChange={setRgbaValue} />) :  */}
-      {shouldShowRangeSlider && currentOption?.name !== "enhance" ? (
+      {shouldShowRangeSlider &&
+      currentOption?.name !== "enhance" &&
+      currentOption?.rangeFilters ? (
         // <RangeSlider value={rangeValue} onChange={setRangeValue} />
-        <SelectVariationRange setValue={setRangeValue} />
+        <SelectVariationRange
+          setValue={setRangeValue}
+          steps={currentOption?.rangeFilters}
+        />
       ) : (
         currentOption?.numFilters > 1 && (
           <SelectVariationWrapper>
