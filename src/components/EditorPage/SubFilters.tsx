@@ -118,6 +118,13 @@ export default function SubFilters({
           currentOption?.resource_type,
           rangeValue / 100
         );
+      } else if (activeFilter === "face" && currentOption?.shape_type) {
+        console.log(currentOption);
+        response = await EFFECT_FUNCTIONS[activeFilter](
+          imgSrc,
+          currentOption?.shape_type,
+          rangeValue / 100
+        );
       } else {
         const optionToApply =
           currentOption.numFilters && currentOption.numFilters > 1

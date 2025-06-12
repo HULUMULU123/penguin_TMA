@@ -475,6 +475,17 @@ export async function applyMakeup(
   return sendFormData("makeup", { image: resolved }, params);
 }
 
+export async function applyFace(
+  image: File | string,
+  shape_type: string,
+  strength: number
+) {
+  const resolved = await resolveImageInput(image);
+  const params = { shape_type: shape_type, strength };
+  console.log(params, "face");
+  return sendFormData("face", { image: resolved }, params);
+}
+
 // === GENERIC REQUESTS ===
 
 function createFormData(
@@ -575,4 +586,5 @@ export const EFFECT_FUNCTIONS: Record<EffectType, Function> = {
   facebeauty: applyFaceBeautyFilter,
   size: applySize,
   makeup: applyMakeup,
+  face: applyFace,
 };
