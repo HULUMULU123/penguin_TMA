@@ -525,6 +525,7 @@ async function sendFormData(
   files: Record<string, File | string>,
   params: Record<string, string>
 ): Promise<string> {
+  console.log(files, params, "inside SendFormData");
   const formData = createFormData(files, params);
   const field =
     Object.keys(params).length > 0 ? Object.keys(params)[0] : undefined;
