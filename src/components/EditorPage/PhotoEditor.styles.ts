@@ -26,7 +26,8 @@ export const ImageSection = styled.div`
   background: white;
   position: relative;
   overflow: hidden;
-  display: flex;
+  /* Для того чтобы уменьшить размер изображения */
+  /* display: flex; */
   justify-content: center;
   align-items: center;
 `;
