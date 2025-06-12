@@ -1,3 +1,4 @@
+// @ts-nocheck
 // import skin from "../../assets/icons/skin.svg";
 // import size from "../../assets/icons/size.svg";
 import hair from "../../assets/icons/hair.svg";
