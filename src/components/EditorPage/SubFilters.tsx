@@ -111,6 +111,13 @@ export default function SubFilters({
           currentOption?.field,
           rangeValue / 100
         );
+      } else if (activeFilter === "makeup" && currentOption?.resource_type) {
+        console.log(currentOption);
+        response = await EFFECT_FUNCTIONS[activeFilter](
+          imgSrc,
+          currentOption?.resource_type,
+          rangeValue / 100
+        );
       } else {
         const optionToApply =
           currentOption.numFilters && currentOption.numFilters > 1
