@@ -409,9 +409,10 @@ export async function applyFaceBeautyFilter(
   rawParams: any = {}
 ): Promise<string> {
   const resolved = await resolveImageInput(image);
-  const params = pickParams<SwapParams>(rawParams, {
+  const params = {
     field: rangeParam,
-  });
+  };
+  console.log(params, "params in facebeauty");
   return sendFormData("facebeauty", { image: resolved }, params);
 }
 
