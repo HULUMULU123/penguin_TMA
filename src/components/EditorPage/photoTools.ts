@@ -1457,7 +1457,7 @@ export const subInstruments = {
   //     name: "tryon",
   //     img: filter,
   //     numFilters: 0,
-  //     rangeType: true,
+  //  k   rangeType: true,
   //   },
   // ],
 };
