@@ -10,7 +10,7 @@ export type EffectType =
   | "tryon"
   | "enhance"
   | "gender"
-  | "age";
+  | "age"
   | "facebeauty";
 
 // URL API для каждого типа эффекта
@@ -407,18 +407,13 @@ export async function applyFaceBeautyFilter(
   field: string,
   rangeParam: number,
   rawParams: any = {}
-): Promise<string>{
-const resolved = await resolveImageInput(image);
-  const params = pickParams<SwapParams>(
-    rawParams,
-    {
-      field: rangeParam
-      
-    }
-  );
+): Promise<string> {
+  const resolved = await resolveImageInput(image);
+  const params = pickParams<SwapParams>(rawParams, {
+    field: rangeParam,
+  });
   return sendFormData("facebeauty", { image: resolved }, params);
 }
-
 
 // === GENERIC REQUESTS ===
 
