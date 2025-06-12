@@ -12,7 +12,7 @@ export default function SelectVariationRange({
   setValue,
 }: SelectVariationRangeProps) {
   const [activeVariation, setActiveVariation] = useState(0);
-  const values = [0, 20, 40, 60, 80, 100];
+  const values = [20, 40, 60, 80, 100];
   return (
     // <VariationList>
     //   {Array.from({ length: filterLen }, (_, id) => (
