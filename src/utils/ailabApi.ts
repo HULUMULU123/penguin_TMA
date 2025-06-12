@@ -24,6 +24,7 @@ const API_ENDPOINTS: Record<EffectType, string> = {
   enhance: "https://tgbotface.fun/api/enhance-face",
   gender: "https://tgbotface.fun/api/face-attribute",
   age: "https://tgbotface.fun/api/face-attribute",
+  facebeauty: "https://tgbotface.fun/api/face-beauty-pro",
 };
 
 function pickParams<T>(

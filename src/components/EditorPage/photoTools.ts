@@ -510,7 +510,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: false,
-      rgba: { r: 0, g: 0, b: 0, a: 1 },
+      rgba: { r: 0, g: 0, b: 0, a: 100 },
     },
     {
       id: 1,
@@ -518,7 +518,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: false,
-      rgba: { r: 255, g: 0, b: 0, a: 1 },
+      rgba: { r: 255, g: 0, b: 0, a: 100 },
     },
     {
       id: 2,
@@ -526,7 +526,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: false,
-      rgba: { r: 210, g: 180, b: 160, a: 1 },
+      rgba: { r: 210, g: 180, b: 160, a: 100 },
     },
     {
       id: 3,
@@ -534,7 +534,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: false,
-      rgba: { r: 255, g: 105, b: 180, a: 1 },
+      rgba: { r: 255, g: 105, b: 180, a: 100 },
     },
     {
       id: 4,
@@ -542,7 +542,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: false,
-      rgba: { r: 128, g: 0, b: 32, a: 1 },
+      rgba: { r: 128, g: 0, b: 32, a: 100 },
     },
     {
       id: 5,
@@ -550,7 +550,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: false,
-      rgba: { r: 138, g: 43, b: 226, a: 1 },
+      rgba: { r: 138, g: 43, b: 226, a: 100 },
     },
     {
       id: 6,
@@ -558,7 +558,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: false,
-      rgba: { r: 255, g: 165, b: 0, a: 1 },
+      rgba: { r: 255, g: 165, b: 0, a: 100 },
     },
     {
       id: 7,
@@ -566,7 +566,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: false,
-      rgba: { r: 139, g: 69, b: 19, a: 1 },
+      rgba: { r: 139, g: 69, b: 19, a: 100 },
     },
     {
       id: 8,
@@ -574,7 +574,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: false,
-      rgba: { r: 222, g: 49, b: 99, a: 1 },
+      rgba: { r: 222, g: 49, b: 99, a: 100 },
     },
     {
       id: 9,
@@ -582,7 +582,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: false,
-      rgba: { r: 227, g: 11, b: 92, a: 1 },
+      rgba: { r: 227, g: 11, b: 92, a: 100 },
     },
     {
       id: 10,
@@ -590,7 +590,7 @@ export const subFilters = {
       img: filter,
       numFilters: 0,
       rangeType: false,
-      rgba: { r: 194, g: 178, b: 128, a: 1 },
+      rgba: { r: 194, g: 178, b: 128, a: 100 },
     },
   ],
   enhance: [
@@ -599,6 +599,50 @@ export const subFilters = {
       name: "enhance",
       img: filter,
       numFilters: 0,
+      rangeType: true,
+    },
+  ],
+  facebeauty: [
+    {
+      id: 0,
+      name: "Отбеливание",
+      field: "whitening",
+      numfilters: 5,
+      rangeType: true,
+    },
+    {
+      id: 1,
+      name: "Смягчение кожи",
+      field: "smoothing",
+      numfilters: 5,
+      rangeType: true,
+    },
+    {
+      id: 2,
+      name: "Узкое лицо",
+      field: "thinface",
+      numfilters: 5,
+      rangeType: true,
+    },
+    {
+      id: 3,
+      name: "Маленькое лицо",
+      field: "shrink_face",
+      numfilters: 5,
+      rangeType: true,
+    },
+    {
+      id: 4,
+      name: "Большие глаза",
+      field: "enlarge_eye",
+      numfilters: 5,
+      rangeType: true,
+    },
+    {
+      id: 5,
+      name: "Удаление бровей",
+      field: "remove_eyebrow",
+      numfilters: 5,
       rangeType: true,
     },
   ],

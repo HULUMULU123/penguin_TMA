@@ -73,7 +73,9 @@ export default function EditorHeader({
               height: "34px",
             }}
             onClick={() => {
-              uploadPhoto(imageUrl);
+              if (activeSave) {
+                uploadPhoto(imageUrl);
+              }
               navigate("/photos");
             }}
           >

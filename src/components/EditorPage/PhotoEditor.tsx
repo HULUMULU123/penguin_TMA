@@ -10,7 +10,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 import { EditorContainer, ImageSection } from "./PhotoEditor.styles";
 import { subFilters, subInstruments } from "./photoTools";
-import test_photo from "../../assets/avatar.png";
+
 import ToolBar from "./ToolBar";
 import SubFilters from "./SubFilters";
 import EditorHeader from "./EditorHeader";
@@ -19,6 +19,7 @@ import CropperFooter from "./CropperFooter";
 // import RangeSlider from "./RangeSlider";
 import SubInstruments from "./SubInstruments";
 import useGlobal from "../../hooks/useGlobal";
+import { useNavigate } from "react-router-dom";
 
 // Типизация props
 interface PhotoEditorProps {
@@ -74,14 +75,17 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
         if (blob) {
           const croppedUrl = URL.createObjectURL(blob);
           console.log("Cropped image URL:", croppedUrl);
-
+          setCurrentImgSrc(croppedUrl);
+          setIsCropping(false);
           // например, передать в другой компонент, отправить на сервер и т.д.
           // можно также сохранить File:
-          const croppedFile = new File([blob], "cropped.jpg", {
-            type: "image/jpeg",
-          });
-          console.log(croppedFile);
-          uploadPhoto(croppedFile);
+
+          // Сохранение файла для отправки на сервер
+          // const croppedFile = new File([blob], "cropped.jpg", {
+          //   type: "image/jpeg",
+          // });
+          // console.log(croppedFile);
+          // uploadPhoto(croppedFile);
           // Например: setCroppedImageFile(croppedFile)
         }
       },

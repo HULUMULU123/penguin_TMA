@@ -88,7 +88,7 @@ export default function ProfilePage() {
     fetchPhotos();
 
     console.log(photos);
-  }, []);
+  }, [userData]);
 
   const handleClick = (imgSrc: string) => {
     console.log("imgSrc", imgSrc);
