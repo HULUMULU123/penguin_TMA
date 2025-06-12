@@ -528,6 +528,12 @@ async function sendFormData(
   const formData = createFormData(files, params);
   const field =
     Object.keys(params).length > 0 ? Object.keys(params)[0] : undefined;
+  console.log("Calling sendRequest from sendFormData:", {
+    effectType,
+    params,
+    field,
+  });
+
   return sendRequest(effectType, formData, field);
 }
 
