@@ -101,6 +101,7 @@ export default function SubFilters({
       } else if (activeFilter === "hairstyle" && currentOption?.hair_style) {
         console.log(currentOption);
         response = await EFFECT_FUNCTIONS[activeFilter](
+          imgSrc,
           currentOption?.hair_style
         );
       }

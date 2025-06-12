@@ -422,7 +422,6 @@ export async function applyFaceBeautyFilter(
 export async function applyHairstyle(
   image: File | string,
   hair_type: number,
-
   rawParams: any = {}
 ): Promise<string> {
   const resolved = await resolveImageInput(image);
