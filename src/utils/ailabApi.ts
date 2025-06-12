@@ -11,6 +11,7 @@ export type EffectType =
   | "enhance"
   | "gender"
   | "age";
+  | "facebeauty";
 
 // URL API для каждого типа эффекта
 const API_ENDPOINTS: Record<EffectType, string> = {
@@ -400,6 +401,25 @@ export async function applyAge(
   );
   return sendFormData("age", { image: resolved }, params);
 }
+
+export async function applyFaceBeautyFilter(
+  image: File | string,
+  field: string,
+  rangeParam: number,
+  rawParams: any = {}
+): Promise<string>{
+const resolved = await resolveImageInput(image);
+  const params = pickParams<SwapParams>(
+    rawParams,
+    {
+      field: rangeParam
+      
+    }
+  );
+  return sendFormData("facebeauty", { image: resolved }, params);
+}
+
+
 // === GENERIC REQUESTS ===
 
 function createFormData(
@@ -497,4 +517,5 @@ export const EFFECT_FUNCTIONS: Record<EffectType, Function> = {
   enhance: applyEnhance,
   gender: applyGender,
   age: applyAge,
+  facebeauty: applyFaceBeautyFilter,
 };

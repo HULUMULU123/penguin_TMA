@@ -91,56 +91,67 @@ export default function SubFilters({
     try {
       let response;
 
-      if (activeFilter === "lipcolor" && currentOption) {
+      if (activeFilter === "facebeauty" && currentOption) {
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
-          rgbaValue,
-          currentOption
+          currentOption?.field,
+          (currentOption?.rangeParam * 1.5) / 100
         );
-      } else if (activeFilter === "enhance" && currentOption) {
-        response = await EFFECT_FUNCTIONS[activeFilter](imgSrc);
-      } else if (shouldShowRangeSlider && currentOption) {
-        response = await EFFECT_FUNCTIONS[activeFilter](
-          imgSrc,
-          rangeValue / 100,
-          currentOption
-        );
-      } else if (currentOption) {
-        // Для вариаций с несколькими фильтрами используем localActiveFilter
-        console.log(activeHairStyle, currentOption?.hair_color);
-        console.log(
-          activeFilter === "haircolor",
-          currentOption?.hair_color,
-          activeHairStyle
-        );
-        if (
-          activeFilter === "haircolor" &&
-          currentOption?.hair_color &&
-          activeHairStyle
-        ) {
-          console.log(currentOption?.hair_color);
-          response = await EFFECT_FUNCTIONS[activeFilter](
-            imgSrc,
-            activeHairStyle,
-            currentOption?.hair_color
-          );
-        } else if (activeFilter === "hairstyle" && !activeHairStyle) {
-          response = await EFFECT_FUNCTIONS[activeFilter](
-            imgSrc,
-            currentOption?.hair_style
-          );
-          setActiveHairStyle(currentOption?.hair_style);
-        } else {
-          const optionToApply =
-            currentOption.numFilters && currentOption.numFilters > 1
-              ? { ...currentOption, selectedFilter: localActiveFilter }
-              : currentOption;
-          response = await EFFECT_FUNCTIONS[activeFilter](
-            imgSrc,
-            optionToApply
-          );
-        }
       }
+
+      // --------------Старая версия-------------------------
+      // if (activeFilter === "lipcolor" && currentOption) {
+      //   response = await EFFECT_FUNCTIONS[activeFilter](
+      //     imgSrc,
+      //     rgbaValue,
+      //     currentOption
+      //   );
+      // } else if (activeFilter === "enhance" && currentOption) {
+      //   response = await EFFECT_FUNCTIONS[activeFilter](imgSrc);
+      // } else if (shouldShowRangeSlider && currentOption) {
+      //   response = await EFFECT_FUNCTIONS[activeFilter](
+      //     imgSrc,
+      //     rangeValue / 100,
+      //     currentOption
+      //   );
+      // } else if (currentOption) {
+      //   // Для вариаций с несколькими фильтрами используем localActiveFilter
+      //   console.log(activeHairStyle, currentOption?.hair_color);
+      //   console.log(
+      //     activeFilter === "haircolor",
+      //     currentOption?.hair_color,
+      //     activeHairStyle
+      //   );
+      //   if (
+      //     activeFilter === "haircolor" &&
+      //     currentOption?.hair_color &&
+      //     activeHairStyle
+      //   ) {
+      //     console.log(currentOption?.hair_color);
+      //     response = await EFFECT_FUNCTIONS[activeFilter](
+      //       imgSrc,
+      //       activeHairStyle,
+      //       currentOption?.hair_color
+      //     );
+      //   } else if (activeFilter === "hairstyle" && !activeHairStyle) {
+      //     response = await EFFECT_FUNCTIONS[activeFilter](
+      //       imgSrc,
+      //       currentOption?.hair_style
+      //     );
+      //     setActiveHairStyle(currentOption?.hair_style);
+      //   } else {
+      //     const optionToApply =
+      //       currentOption.numFilters && currentOption.numFilters > 1
+      //         ? { ...currentOption, selectedFilter: localActiveFilter }
+      //         : currentOption;
+      //     response = await EFFECT_FUNCTIONS[activeFilter](
+      //       imgSrc,
+      //       optionToApply
+      //     );
+      //   }
+      // }
+      // ----------------------------------------------------------------
+
       console.log("Response full:", response);
       console.log("Response data:", response?.data);
       const base64 =

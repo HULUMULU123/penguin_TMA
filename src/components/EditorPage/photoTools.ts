@@ -15,24 +15,30 @@ import filter from "../../assets/filter.jpg";
 export const ButtonsFace = [
   // { key: "skin", name: "Кожа", src: skin },
   // { key: "size", name: "Размеры", src: size },
-  { key: "hairstyle", name: "Прически", src: hair },
-  { key: "haircolor", name: "Цвет волос", src: hairColor },
-  { key: "smile", name: "Улыбки", src: smile },
+  // ----------Старая версия---------------------
+  // { key: "hairstyle", name: "Прически", src: hair },
+  // { key: "haircolor", name: "Цвет волос", src: hairColor },
+  // { key: "smile", name: "Улыбки", src: smile },
+  // { key: "retouch", name: "Ретуш", src: makeup },
+  // { key: "lipcolor", name: "Помада", src: makeup },
+  // { key: "enhance", name: "Улучшить", src: makeup },
+  // ----------------------------------------------
   // { key: "face", name: "Черты", src: face },
   // { key: "makeup", name: "Макияж", src: makeup },
   // { key: "glasses", name: "Очки", src: glasses },
-  { key: "retouch", name: "Ретуш", src: makeup },
-  { key: "lipcolor", name: "Помада", src: makeup },
-  { key: "enhance", name: "Улучшить", src: makeup },
+  // --------------Новая версия---------------------
+  { key: "facebeauty", name: "Лицо", src: makeup },
 ];
 
 export const ButtonsInstruments = [
   { key: "crop", name: "Обрезать", src: crop },
   // { key: "background", name: "Фоны", src: background },
   // { key: "blur", name: "Размытие", src: blur },
-  { key: "filter", name: "Фильтры", src: background },
-  { key: "age", name: "Age", src: background },
-  { key: "gender", name: "Gender", src: background },
+  // ---------------Cтарая версия--------------
+  // { key: "filter", name: "Фильтры", src: background },
+  // { key: "age", name: "Age", src: background },
+  // { key: "gender", name: "Gender", src: background },
+  // -----------------------------------------------
   // { key: "tryon", name: "Одежда", src: background },
 ];
 
