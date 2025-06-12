@@ -34,6 +34,7 @@ export const ButtonsFace = [
   { key: "smile", name: "Улыбки", src: smile },
   { key: "makeup", name: "Макияж", src: makeup },
   { key: "face", name: "Черты", src: face },
+  { key: "skin", name: "Кожа", src: skin },
 ];
 
 export const ButtonsInstruments = [
@@ -1061,6 +1062,44 @@ export const subFilters = {
       name: "Средняя линия лица",
       shape_type: "21",
       img: filter,
+      numFilters: 0,
+      rangeType: true,
+      rangeFilters: 5,
+    },
+  ],
+  skin: [
+    {
+      id: 0,
+      name: "Ретушь",
+      img: filter,
+      field: "retouch_degree",
+      numFilters: 0,
+      rangeType: true,
+      rangeFilters: 5,
+    },
+    {
+      id: 1,
+      name: "Степень отбеливания",
+      img: filter,
+      field: "whitening_degree",
+      numFilters: 0,
+      rangeType: true,
+      rangeFilters: 5,
+    },
+    {
+      id: 2,
+      name: "Отбеливание",
+      img: filter,
+      field: "whitening",
+      numFilters: 0,
+      rangeType: true,
+      rangeFilters: 5,
+    },
+    {
+      id: 3,
+      name: "Сглаживание",
+      img: filter,
+      field: "smoothing",
       numFilters: 0,
       rangeType: true,
       rangeFilters: 5,

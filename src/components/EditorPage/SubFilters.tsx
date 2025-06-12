@@ -125,6 +125,29 @@ export default function SubFilters({
           currentOption?.shape_type,
           rangeValue / 100
         );
+      } else if (activeFilter === "skin" && currentOption) {
+        console.log(currentOption);
+        if (
+          currentOption?.field === "whitening" ||
+          currentOption?.field === "smoothing"
+        ) {
+          response = await EFFECT_FUNCTIONS[activeFilter](
+            imgSrc,
+            currentOption?.field,
+            rangeValue / 100
+          );
+        } else if (
+          currentOption?.field === "whitening_degree" ||
+          currentOption?.field === "retouch_degree"
+        ) {
+          {
+            response = await EFFECT_FUNCTIONS[activeFilter](
+              imgSrc,
+              currentOption?.field,
+              (rangeValue * 1.5) / 100
+            );
+          }
+        }
       } else {
         const optionToApply =
           currentOption.numFilters && currentOption.numFilters > 1

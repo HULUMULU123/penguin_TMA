@@ -15,7 +15,8 @@ export type EffectType =
   | "hairstyle"
   | "size"
   | "makeup"
-  | "face";
+  | "face"
+  | "slin";
 
 // URL API для каждого типа эффекта
 const API_ENDPOINTS: Record<EffectType, string> = {
@@ -34,6 +35,7 @@ const API_ENDPOINTS: Record<EffectType, string> = {
   size: "https://tgbotface.fun/api/face-beauty-pro",
   makeup: "https://tgbotface.fun/api/face-makeup",
   face: "https://tgbotface.fun/api/face-tidyup",
+  skin: "",
 };
 
 function pickParams<T>(
@@ -488,6 +490,18 @@ export async function applyFace(
   return sendFormData("face", { image: resolved }, params);
 }
 
+export async function applySkin(
+  image: File | string,
+  field: string,
+  rangeParam: number
+) {
+  const resolved = await resolveImageInput(image);
+  console.log(field, rangeParam);
+  const params = {
+    [field]: rangeParam, // динамический ключ
+  };
+  return sendFormData("skin", { image: resolved }, params);
+}
 // === GENERIC REQUESTS ===
 
 function createFormData(
@@ -512,21 +526,41 @@ async function sendFormData(
   params: Record<string, string>
 ): Promise<string> {
   const formData = createFormData(files, params);
-  return sendRequest(effectType, formData);
+  const field =
+    Object.keys(params).length > 0 ? Object.keys(params)[0] : undefined;
+  return sendRequest(effectType, formData, field);
 }
 
 async function sendRequest(
   effectType: EffectType,
-  formData: FormData
+  formData: FormData,
+  field?: string
 ): Promise<string> {
   const token = sessionStorage.getItem("token");
-  const response = await fetch(API_ENDPOINTS[effectType], {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    body: formData,
-  });
+  let url;
+  let response;
+  if (effectType === "skin") {
+    if (field === "whitening" || field === "smoothing") {
+      url = "https://tgbotface.fun/api/face-beauty-pro";
+    } else {
+      url = "https://tgbotface.fun/api/smart-skin";
+    }
+    response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+  } else {
+    response = await fetch(API_ENDPOINTS[effectType], {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+  }
 
   const data = await response.json();
   console.log(data);
@@ -589,4 +623,5 @@ export const EFFECT_FUNCTIONS: Record<EffectType, Function> = {
   size: applySize,
   makeup: applyMakeup,
   face: applyFace,
+  skin: applySkin,
 };
