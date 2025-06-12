@@ -12,7 +12,8 @@ export type EffectType =
   | "gender"
   | "age"
   | "facebeauty"
-  | "hairstyle";
+  | "hairstyle"
+  | "size";
 
 // URL API для каждого типа эффекта
 const API_ENDPOINTS: Record<EffectType, string> = {
@@ -28,6 +29,7 @@ const API_ENDPOINTS: Record<EffectType, string> = {
   age: "https://tgbotface.fun/api/face-attribute",
   facebeauty: "https://tgbotface.fun/api/face-beauty-pro",
   hairstyle: "https://tgbotface.fun/api/hairstyle-editor",
+  size: "https://tgbotface.fun/api/face-beauty-pro",
 };
 
 function pickParams<T>(
@@ -429,8 +431,23 @@ export async function applyHairstyle(
   const params = {
     hair_type: hair_type, // динамический ключ
   };
-  console.log(params, "params in facebeauty");
+  console.log(params, "params in hair");
   return sendFormData("hairstyle", { image: resolved }, params);
+}
+
+export async function applySize(
+  image: File | string,
+  field: string,
+  rangeParam: number,
+  rawParams: any = {}
+): Promise<string> {
+  const resolved = await resolveImageInput(image);
+  console.log(field, rangeParam);
+  const params = {
+    [field]: rangeParam, // динамический ключ
+  };
+  console.log(params, "params in size");
+  return sendFormData("facebeauty", { image: resolved }, params);
 }
 
 // === GENERIC REQUESTS ===
@@ -531,4 +548,5 @@ export const EFFECT_FUNCTIONS: Record<EffectType, Function> = {
   gender: applyGender,
   age: applyAge,
   facebeauty: applyFaceBeautyFilter,
+  size: applySize,
 };

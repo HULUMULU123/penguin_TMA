@@ -30,6 +30,7 @@ export const ButtonsFace = [
   // --------------Новая версия---------------------
   { key: "facebeauty", name: "Лицо", src: makeup },
   { key: "hairstyle", name: "Прически", src: hair },
+  { key: "size", name: "Размеры", src: size },
 ];
 
 export const ButtonsInstruments = [
@@ -766,6 +767,35 @@ export const subFilters = {
       img: filter,
       hair_style: 1301,
       numFilters: 0,
+    },
+  ],
+  size: [
+    {
+      id: 0,
+      name: "Размер лица",
+      img: filter,
+      filed: "shrink_face",
+      numFilters: 0,
+      rangeType: true,
+      rangeFilters: 3,
+    },
+    {
+      id: 1,
+      name: "Большие глаза",
+      img: filter,
+      filed: "enlarge_eye",
+      numFilters: 0,
+      rangeType: true,
+      rangeFilters: 3,
+    },
+    {
+      id: 2,
+      name: "Подбородок",
+      img: filter,
+      filed: "thinface",
+      numFilters: 0,
+      rangeType: true,
+      rangeFilters: 3,
     },
   ],
 };

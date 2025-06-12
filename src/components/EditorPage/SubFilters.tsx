@@ -104,6 +104,13 @@ export default function SubFilters({
           imgSrc,
           currentOption?.hair_style
         );
+      } else if (activeFilter === "size" && currentOption) {
+        console.log(currentOption);
+        response = await EFFECT_FUNCTIONS[activeFilter](
+          imgSrc,
+          currentOption?.field,
+          rangeValue / 100
+        );
       }
 
       // --------------Старая версия-------------------------
