@@ -98,6 +98,11 @@ export default function SubFilters({
           currentOption?.field,
           (rangeValue * 1.5) / 100
         );
+      } else if (activeFilter === "hairstyle" && currentOption?.hair_style) {
+        console.log(currentOption);
+        response = await EFFECT_FUNCTIONS[activeFilter](
+          currentOption?.hair_style
+        );
       }
 
       // --------------Старая версия-------------------------

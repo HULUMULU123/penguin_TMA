@@ -2,7 +2,7 @@
 // Типы поддерживаемых эффектов
 export type EffectType =
   | "filter"
-  | "hairstyle"
+  | "hairstyle_old"
   | "haircolor"
   | "smile"
   | "retouch"
@@ -11,12 +11,13 @@ export type EffectType =
   | "enhance"
   | "gender"
   | "age"
-  | "facebeauty";
+  | "facebeauty"
+  | "hairstyle";
 
 // URL API для каждого типа эффекта
 const API_ENDPOINTS: Record<EffectType, string> = {
   filter: "https://tgbotface.fun/api/face-filter",
-  hairstyle: "https://tgbotface.fun/api/hairstyle",
+  hairstyle_old: "https://tgbotface.fun/api/hairstyle",
   haircolor: "https://tgbotface.fun/api/hairstyle",
   smile: "https://tgbotface.fun/api/emotion-editor",
   retouch: "https://tgbotface.fun/api/smart-beauty",
@@ -26,6 +27,7 @@ const API_ENDPOINTS: Record<EffectType, string> = {
   gender: "https://tgbotface.fun/api/face-attribute",
   age: "https://tgbotface.fun/api/face-attribute",
   facebeauty: "https://tgbotface.fun/api/face-beauty-pro",
+  hairstyle: "https://tgbotface.fun/api/hairstyle-editor",
 };
 
 function pickParams<T>(
@@ -218,53 +220,53 @@ export async function applyFilter(
   return sendFormData("filter", { image: resolved }, params);
 }
 
-export async function applyHairstyle(
-  image: File | string,
-  hair_style: string,
-  color: string = "",
-  rawParams: any = {}
-): Promise<string> {
-  const resolved = await resolveImageInput(image);
-  let params;
-  if (color === "") {
-    params = pickParams<HairstyleParams>(
-      rawParams,
-      ["task_type", "hair_style", "auto", "color", "image_size"],
-      {
-        task_type: "async",
-        hair_style: hair_style,
-        auto: 1,
-        image_size: 1,
-      }
-    );
-  } else {
-    params = pickParams<HairstyleParams>(
-      rawParams,
-      ["task_type", "hair_style", "auto", "color", "image_size"],
-      {
-        task_type: "async",
-        hair_style: hair_style,
-        color: color,
-        auto: 1,
-        image_size: 1,
-      }
-    );
-  }
-  console.log(params);
-  const responseData = await sendFormData(
-    "hairstyle",
-    { image: resolved },
-    params
-  );
+// export async function applyHairstyle(
+//   image: File | string,
+//   hair_style: string,
+//   color: string = "",
+//   rawParams: any = {}
+// ): Promise<string> {
+//   const resolved = await resolveImageInput(image);
+//   let params;
+//   if (color === "") {
+//     params = pickParams<HairstyleParams>(
+//       rawParams,
+//       ["task_type", "hair_style", "auto", "color", "image_size"],
+//       {
+//         task_type: "async",
+//         hair_style: hair_style,
+//         auto: 1,
+//         image_size: 1,
+//       }
+//     );
+//   } else {
+//     params = pickParams<HairstyleParams>(
+//       rawParams,
+//       ["task_type", "hair_style", "auto", "color", "image_size"],
+//       {
+//         task_type: "async",
+//         hair_style: hair_style,
+//         color: color,
+//         auto: 1,
+//         image_size: 1,
+//       }
+//     );
+//   }
+//   console.log(params);
+//   const responseData = await sendFormData(
+//     "hairstyle",
+//     { image: resolved },
+//     params
+//   );
 
-  if (!responseData?.task_id) {
-    throw new Error("task_id не получен от API");
-  }
+//   if (!responseData?.task_id) {
+//     throw new Error("task_id не получен от API");
+//   }
 
-  // Дожидаемся результата
-  const resultUrl = await pollAsyncResult(responseData.task_id);
-  return resultUrl;
-}
+//   // Дожидаемся результата
+//   const resultUrl = await pollAsyncResult(responseData.task_id);
+//   return resultUrl;
+// }
 
 export async function applySmile(
   image: File | string,
@@ -401,7 +403,7 @@ export async function applyAge(
   );
   return sendFormData("age", { image: resolved }, params);
 }
-
+// ----------Новая версия ---------------------------
 export async function applyFaceBeautyFilter(
   image: File | string,
   field: string,
@@ -415,6 +417,21 @@ export async function applyFaceBeautyFilter(
   };
   console.log(params, "params in facebeauty");
   return sendFormData("facebeauty", { image: resolved }, params);
+}
+
+export async function applyHairstyle(
+  image: File | string,
+  hair_type: number,
+
+  rawParams: any = {}
+): Promise<string> {
+  const resolved = await resolveImageInput(image);
+  console.log(hair_type);
+  const params = {
+    hair_type: hair_type, // динамический ключ
+  };
+  console.log(params, "params in facebeauty");
+  return sendFormData("hairstyle", { image: resolved }, params);
 }
 
 // === GENERIC REQUESTS ===
