@@ -92,10 +92,11 @@ export default function SubFilters({
       let response;
 
       if (activeFilter === "facebeauty" && currentOption) {
+        console.log(currentOption);
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
           currentOption?.field,
-          (currentOption?.rangeParam * 1.5) / 100
+          (rangeValue * 1.5) / 100
         );
       }
 
