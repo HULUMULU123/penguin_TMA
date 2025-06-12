@@ -562,6 +562,8 @@ async function sendRequest(
     });
   }
 
+  console.log(response);
+
   const data = await response.json();
   console.log(data);
   if (data.error_code === 0) {
