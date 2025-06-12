@@ -562,14 +562,14 @@ async function sendRequest(
     });
   }
 
-  console.log(response);
+  console.log(response, "here is response");
 
   const data = await response.json();
   console.log(data);
   if (data.error_code === 0) {
     return data;
   } else {
-    throw new Error("Ошибка обработки изображения");
+    throw new Error("Ошибка обработки изображения, response:", response);
   }
 }
 
