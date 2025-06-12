@@ -615,7 +615,7 @@ export const subFilters = {
       name: "Отбеливание",
       field: "whitening",
       img: filter,
-      numfilters: 0,
+      numFilters: 0,
       rangeType: true,
     },
     {
@@ -623,7 +623,7 @@ export const subFilters = {
       name: "Смягчение кожи",
       field: "smoothing",
       img: filter,
-      numfilters: 0,
+      numFilters: 0,
       rangeType: true,
     },
     {
@@ -631,7 +631,7 @@ export const subFilters = {
       name: "Узкое лицо",
       field: "thinface",
       img: filter,
-      numfilters: 0,
+      numFilters: 0,
       rangeType: true,
     },
     {
@@ -639,7 +639,7 @@ export const subFilters = {
       name: "Маленькое лицо",
       field: "shrink_face",
       img: filter,
-      numfilters: 0,
+      numFilters: 0,
       rangeType: true,
     },
     {
@@ -647,7 +647,7 @@ export const subFilters = {
       name: "Большие глаза",
       field: "enlarge_eye",
       img: filter,
-      numfilters: 0,
+      numFilters: 0,
       rangeType: true,
     },
     {
@@ -655,7 +655,7 @@ export const subFilters = {
       name: "Удаление бровей",
       field: "remove_eyebrow",
       img: filter,
-      numfilters: 0,
+      numFilters: 0,
       rangeType: true,
     },
   ],
