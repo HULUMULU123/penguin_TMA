@@ -14,7 +14,8 @@ export type EffectType =
   | "facebeauty"
   | "hairstyle"
   | "size"
-  | "makeup";
+  | "makeup"
+  | "face";
 
 // URL API для каждого типа эффекта
 const API_ENDPOINTS: Record<EffectType, string> = {
@@ -32,6 +33,7 @@ const API_ENDPOINTS: Record<EffectType, string> = {
   hairstyle: "https://tgbotface.fun/api/hairstyle-editor",
   size: "https://tgbotface.fun/api/face-beauty-pro",
   makeup: "https://tgbotface.fun/api/face-makeup",
+  face: "https://tgbotface.fun/api/face-tidyup",
 };
 
 function pickParams<T>(
