@@ -270,16 +270,16 @@ export async function applyFilter(
 //   return resultUrl;
 // }
 
-export async function applySmile(
-  image: File | string,
-  rawParams: any = {}
-): Promise<string> {
-  const resolved = await resolveImageInput(image);
-  const params = pickParams<SmileParams>(rawParams, ["service_choice"], {
-    service_choice: 10,
-  });
-  return sendFormData("smile", { image_target: resolved }, params);
-}
+// export async function applySmile(
+//   image: File | string,
+//   rawParams: any = {}
+// ): Promise<string> {
+//   const resolved = await resolveImageInput(image);
+//   const params = pickParams<SmileParams>(rawParams, ["service_choice"], {
+//     service_choice: 10,
+//   });
+//   return sendFormData("smile", { image_target: resolved }, params);
+// }
 
 export async function applyRetouch(
   image: File | string,
@@ -448,6 +448,18 @@ export async function applySize(
   };
   console.log(params, "params in size");
   return sendFormData("facebeauty", { image: resolved }, params);
+}
+
+export async function applySmile(
+  image: File | string,
+  rawParams: any = {}
+): Promise<string> {
+  const resolved = await resolveImageInput(image);
+  const params = pickParams<SmileParams>(rawParams, ["service_choice"], {
+    service_choice: 10,
+  });
+  console.log(params, "smile");
+  return sendFormData("smile", { image_target: resolved }, params);
 }
 
 // === GENERIC REQUESTS ===

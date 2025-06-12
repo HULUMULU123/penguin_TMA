@@ -31,6 +31,7 @@ export const ButtonsFace = [
   { key: "facebeauty", name: "Лицо", src: makeup },
   { key: "hairstyle", name: "Прически", src: hair },
   { key: "size", name: "Размеры", src: size },
+  { key: "smile", name: "Улыбки", src: smile },
 ];
 
 export const ButtonsInstruments = [
@@ -437,72 +438,72 @@ export const subFilters = {
   //   { id: 21, name: "Тёмно-зелёный", img: filter, hair_color: "darkGreen" },
   // ],
 
-  // smile: [
-  //   {
-  //     id: 0,
-  //     name: "Оригинал",
-  //     img: filter,
-  //     service_choice: "Original",
-  //     numFilters: 0,
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "Улыбка с ямочками",
-  //     img: filter,
-  //     service_choice: 10,
-  //     numFilters: 0,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Грушевидная форма",
-  //     img: filter,
-  //     service_choice: 11,
-  //     numFilters: 0,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Широкая улыбка",
-  //     img: filter,
-  //     service_choice: 12,
-  //     numFilters: 0,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Обычная улыбка",
-  //     img: filter,
-  //     service_choice: 13,
-  //     numFilters: 0,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Крутая",
-  //     img: filter,
-  //     service_choice: 14,
-  //     numFilters: 0,
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Грусть",
-  //     img: filter,
-  //     service_choice: 15,
-  //     numFilters: 0,
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Вынужденная",
-  //     img: filter,
-  //     service_choice: 16,
-  //     numFilters: 0,
-  //   },
+  smile: [
+    {
+      id: 0,
+      name: "Оригинал",
+      img: filter,
+      service_choice: "Original",
+      numFilters: 0,
+    },
+    {
+      id: 1,
+      name: "Улыбка с ямочками",
+      img: filter,
+      service_choice: 10,
+      numFilters: 0,
+    },
+    {
+      id: 2,
+      name: "Грушевидная форма",
+      img: filter,
+      service_choice: 11,
+      numFilters: 0,
+    },
+    {
+      id: 3,
+      name: "Широкая улыбка",
+      img: filter,
+      service_choice: 12,
+      numFilters: 0,
+    },
+    {
+      id: 4,
+      name: "Обычная улыбка",
+      img: filter,
+      service_choice: 13,
+      numFilters: 0,
+    },
+    {
+      id: 5,
+      name: "Крутая",
+      img: filter,
+      service_choice: 14,
+      numFilters: 0,
+    },
+    {
+      id: 6,
+      name: "Грусть",
+      img: filter,
+      service_choice: 15,
+      numFilters: 0,
+    },
+    {
+      id: 7,
+      name: "Вынужденная",
+      img: filter,
+      service_choice: 16,
+      numFilters: 0,
+    },
 
-  //   {
-  //     id: 8,
-  //     name: "Открытые глаза",
-  //     img: filter,
-  //     service_choice: 100,
-  //     numFilters: 0,
-  //   },
-  // ],
+    {
+      id: 8,
+      name: "Открытые глаза",
+      img: filter,
+      service_choice: 100,
+      numFilters: 0,
+    },
+  ],
   // retouch: [
   //   {
   //     id: 0,

@@ -29,7 +29,7 @@ export default function SubFilters({
   const [activeItem, setActiveItem] = useState(0);
   const [localActiveFilter, setLocalActiveFilter] = useState(0);
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_LOAD);
-  const [rangeValue, setRangeValue] = useState(50);
+  const [rangeValue, setRangeValue] = useState(20);
   const [rgbaValue, setRgbaValue] = useState({ r: 255, g: 0, b: 0, a: 1 });
   const [loading, setLoading] = useState(false);
 
@@ -75,7 +75,7 @@ export default function SubFilters({
 
   useEffect(() => {
     setLocalActiveFilter(0);
-    setRangeValue(0);
+    setRangeValue(20);
     setRgbaValue({ r: 255, g: 0, b: 0, a: 1 });
   }, [activeItem]);
 
@@ -111,6 +111,12 @@ export default function SubFilters({
           currentOption?.field,
           rangeValue / 100
         );
+      } else {
+        const optionToApply =
+          currentOption.numFilters && currentOption.numFilters > 1
+            ? { ...currentOption, selectedFilter: localActiveFilter }
+            : currentOption;
+        response = await EFFECT_FUNCTIONS[activeFilter](imgSrc, optionToApply);
       }
 
       // --------------Старая версия-------------------------
