@@ -539,6 +539,14 @@ async function sendRequest(
   const token = sessionStorage.getItem("token");
   let url;
   let response;
+  const test = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  };
+  console.log(test, "here is response");
   if (effectType === "skin") {
     if (field === "whitening" || field === "smoothing") {
       url = "https://tgbotface.fun/api/face-beauty-pro";
@@ -562,14 +570,12 @@ async function sendRequest(
     });
   }
 
-  console.log(response, "here is response");
-
   const data = await response.json();
   console.log(data);
   if (data.error_code === 0) {
     return data;
   } else {
-    throw new Error("Ошибка обработки изображения, response:", response);
+    throw new Error("Ошибка обработки изображения");
   }
 }
 
