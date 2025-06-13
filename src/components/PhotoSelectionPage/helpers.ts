@@ -1,6 +1,6 @@
+// @ts-nocheck
 import { ButtonsFace } from "../EditorPage/photoTools";
 
-// @ts-nocheck
 export const handleFileUpload = (
   e: React.ChangeEvent<HTMLInputElement>,
   uploadPhoto: any
