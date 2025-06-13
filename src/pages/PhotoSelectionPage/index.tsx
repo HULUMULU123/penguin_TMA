@@ -239,7 +239,7 @@ export default function ProfilePage() {
                     borderRadius: "15px",
                   }}
                   onClick={() => handleClick(photo.url || photo.image || photo)}
-                  {...longPressBind()}
+                  {...longPressBind}
                 />
                 {showModalDelete && (
                   <div
