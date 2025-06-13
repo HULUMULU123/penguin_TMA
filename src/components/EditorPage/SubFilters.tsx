@@ -86,7 +86,7 @@ export default function SubFilters({
   }, [activeItem]);
 
   useEffect(() => {
-    if ((filterItems.length > 0 && activeItem > 0) || rangeValue > 0) {
+    if ((filterItems.length > 0 && activeItem >= 0) || rangeValue > 0) {
       applyEffect();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
