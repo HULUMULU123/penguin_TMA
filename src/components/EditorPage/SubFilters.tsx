@@ -96,7 +96,7 @@ export default function SubFilters({
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
           currentOption?.field,
-          (rangeValue * 1.5) / 100
+          rangeValue * 1.5
         );
       } else if (activeFilter === "hairstyle" && currentOption?.hair_style) {
         console.log(currentOption);
