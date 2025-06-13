@@ -28,12 +28,12 @@ export const ButtonsFace = [
   // { key: "makeup", name: "Макияж", src: makeup },
   // { key: "glasses", name: "Очки", src: glasses },
   // --------------Новая версия---------------------
-  { key: "facebeauty", name: "Лицо", src: skin },
+  { key: "facebeauty", name: "Импрессия", src: skin },
   { key: "hairstyle", name: "Прически", src: hair },
   { key: "size", name: "Размеры", src: size },
-  { key: "smile", name: "Улыбки", src: smile },
+  { key: "smile", name: "Улыбка", src: smile },
   { key: "makeup", name: "Макияж", src: makeup },
-  { key: "face", name: "Черты", src: face },
+  { key: "face", name: "Черты лица", src: face },
   { key: "skin", name: "Кожа", src: skin },
 ];
 

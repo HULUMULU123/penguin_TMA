@@ -14,6 +14,7 @@ import { EFFECT_FUNCTIONS } from "../../utils/ailabApi";
 // import LipsColorSlider from "./LipsColorSlider";
 import ProgressBar from "./ProgressBar";
 import SelectVariationRange from "./SetVariationRange";
+import useGlobal from "../../hooks/useGlobal";
 
 const ITEMS_PER_LOAD = 6;
 
@@ -34,6 +35,7 @@ export default function SubFilters({
   const [loading, setLoading] = useState(false);
 
   const observerRef = useRef(null);
+  const userData = useGlobal((state) => state.userData);
 
   // Мемоизируем currentOption
   const currentOption = useMemo(
@@ -90,9 +92,13 @@ export default function SubFilters({
     setLoading(true);
     try {
       let response;
-
+      let filter_name = getNameByKey(activeFilter);
+      let mode;
+      let level;
       if (activeFilter === "facebeauty" && currentOption) {
         console.log(currentOption);
+        mode = currentOption?.field;
+        level = rangeValue;
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
           currentOption?.field,
@@ -100,12 +106,16 @@ export default function SubFilters({
         );
       } else if (activeFilter === "hairstyle" && currentOption?.hair_style) {
         console.log(currentOption);
+        mode = currentOption?.hair_style;
+        level = 0;
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
           currentOption?.hair_style
         );
       } else if (activeFilter === "size" && currentOption) {
         console.log(currentOption);
+        mode = currentOption?.field;
+        level = rangeValue;
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
           currentOption?.field,
@@ -113,6 +123,8 @@ export default function SubFilters({
         );
       } else if (activeFilter === "makeup" && currentOption?.resource_type) {
         console.log(currentOption);
+        mode = currentOption?.resource_type;
+        level = rangeValue / 100;
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
           currentOption?.resource_type,
@@ -120,6 +132,8 @@ export default function SubFilters({
         );
       } else if (activeFilter === "face" && currentOption?.shape_type) {
         console.log(currentOption);
+        mode = currentOption?.shape_type;
+        level = rangeValue / 100;
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
           currentOption?.shape_type,
@@ -131,6 +145,8 @@ export default function SubFilters({
           currentOption?.field === "whitening" ||
           currentOption?.field === "smoothing"
         ) {
+          mode = currentOption?.field;
+          level = rangeValue;
           response = await EFFECT_FUNCTIONS[activeFilter](
             imgSrc,
             currentOption?.field,
@@ -141,6 +157,8 @@ export default function SubFilters({
           currentOption?.field === "retouch_degree"
         ) {
           {
+            mode = currentOption?.field;
+            level = (rangeValue * 1.5) / 100;
             response = await EFFECT_FUNCTIONS[activeFilter](
               imgSrc,
               currentOption?.field,
@@ -149,6 +167,8 @@ export default function SubFilters({
           }
         }
       } else {
+        mode = localActiveFilter;
+        level = 0;
         const optionToApply =
           currentOption.numFilters && currentOption.numFilters > 1
             ? { ...currentOption, selectedFilter: localActiveFilter }
@@ -229,6 +249,15 @@ export default function SubFilters({
 
       console.log(newImg, "newIMG");
       if (newImg) {
+        sendUserGenerations({
+          count_generations: userData.count_generations,
+          count_video_generations: userData.count_video_generations,
+          filter_name: filter_name,
+          mode: mode,
+          level: level,
+          usage_count_generations: 1,
+          usage_count_video_generations: 0,
+        });
         // Обновляем изображение
         setActiveSave(true);
         setCurrentImgSrc(newImg);
