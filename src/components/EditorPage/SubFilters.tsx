@@ -31,7 +31,7 @@ export default function SubFilters({
   setActiveHairStyle,
   activeHairStyle,
 }) {
-  const [activeItem, setActiveItem] = useState(null);
+  const [activeItem, setActiveItem] = useState(-1);
   const [localActiveFilter, setLocalActiveFilter] = useState(0);
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_LOAD);
   const [rangeValue, setRangeValue] = useState(0);
@@ -40,7 +40,9 @@ export default function SubFilters({
 
   const observerRef = useRef(null);
   const userData = useGlobal((state) => state.userData);
-
+  const updateUserDataGenerations = useGlobal(
+    (state) => state.updateUserDataGenerations
+  );
   // Мемоизируем currentOption
   const currentOption = useMemo(
     () => filterItems.find((item) => item.id === activeItem),
@@ -253,15 +255,17 @@ export default function SubFilters({
 
       console.log(newImg, "newIMG");
       if (newImg) {
-        sendUserGenerations({
+        const newGenerations = await sendUserGenerations({
           count_generations: userData.count_generations,
           count_video_generations: userData.count_video_generations,
           filter_name: filter_name,
-          mode: mode,
+          mode: mode.toString(),
           level: level.toString(),
           usage_count_generations: 1,
           usage_count_video_generations: 0,
         });
+        updateUserDataGenerations(newGenerations);
+        console.log(userData, "new");
         // Обновляем изображение
         setActiveSave(true);
         setCurrentImgSrc(newImg);

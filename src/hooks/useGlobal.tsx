@@ -12,6 +12,10 @@ type GlobalState = {
   uploadPhoto: (file: File | string) => Promise<void>;
   fetchPhotos: () => Promise<void>;
   deletePhoto: (photoId: number) => Promise<void>;
+  updateUserDataGenerations: (
+    count_generations: number,
+    count_video_generations: number
+  ) => Promise<void>;
 };
 
 const useGlobal = create<GlobalState>((set, get) => ({
@@ -160,6 +164,18 @@ const useGlobal = create<GlobalState>((set, get) => ({
         error.response?.data?.detail || error.message || "Ошибка удаления фото";
       set({ error: msg });
     }
+  },
+  updateUserDataGenerations: async (
+    count_generations: number,
+    count_video_generations: number
+  ) => {
+    set((state) => ({
+      userData: {
+        ...state.userData, // сохраняем остальные поля
+        count_generations,
+        count_video_generations,
+      },
+    }));
   },
 }));
 

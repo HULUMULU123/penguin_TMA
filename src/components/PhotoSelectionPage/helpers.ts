@@ -61,6 +61,7 @@ export const sendUserGenerations = async (
     );
 
     console.log("✅ Данные успешно отправлены:", response.data);
+    return response.data;
   } catch (error) {
     console.error(
       "❌ Ошибка при отправке данных:",
