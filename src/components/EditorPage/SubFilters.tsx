@@ -15,7 +15,10 @@ import { EFFECT_FUNCTIONS } from "../../utils/ailabApi";
 import ProgressBar from "./ProgressBar";
 import SelectVariationRange from "./SetVariationRange";
 import useGlobal from "../../hooks/useGlobal";
-import { getNameByKey } from "../PhotoSelectionPage/helpers";
+import {
+  getNameByKey,
+  sendUserGenerations,
+} from "../PhotoSelectionPage/helpers";
 
 const ITEMS_PER_LOAD = 6;
 
@@ -78,12 +81,12 @@ export default function SubFilters({
 
   useEffect(() => {
     setLocalActiveFilter(0);
-    setRangeValue(20);
+    setRangeValue(0);
     setRgbaValue({ r: 255, g: 0, b: 0, a: 1 });
   }, [activeItem]);
 
   useEffect(() => {
-    if ((filterItems.length > 0 && activeItem !== 0) || rangeValue !== 0) {
+    if ((filterItems.length > 0 && activeItem > 0) || rangeValue > 0) {
       applyEffect();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -273,7 +276,7 @@ export default function SubFilters({
   const handleClick = (option) => {
     setActiveItem(option.id);
     setLocalActiveFilter(0);
-    setRangeValue(20);
+    setRangeValue(0);
     if (option.rgba) {
       setRgbaValue(option.rgba); // если есть rgba, устанавливаем его
     } else {
