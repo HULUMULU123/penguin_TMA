@@ -138,7 +138,7 @@ export default function ProfilePage() {
 
       <BottomSheet
         peekHeightPercent={20}
-        maxHeightPercent={80}
+        maxHeightPercent={70}
         setWindowHeightMain={setWindowHeight}
       >
         <div
@@ -155,7 +155,6 @@ export default function ProfilePage() {
             backgroundColor: "#fff",
             padding: "0.3rem 0.5rem",
             borderRadius: "30px",
-            touchAction: "none",
           }}
         >
           <span style={{ color: "#000", fontSize: "11.56px" }}>Баланс</span>
@@ -165,6 +164,7 @@ export default function ProfilePage() {
           style={{
             display: "flex",
             justifyContent: "space-between",
+            touchAction: "none",
           }}
         >
           {/* <BottomButton onClick={notify}>
