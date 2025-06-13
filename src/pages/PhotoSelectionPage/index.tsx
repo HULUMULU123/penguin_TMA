@@ -85,6 +85,7 @@ export default function ProfilePage() {
   const longPressBind = useLongPress(
     () => {
       setShowModalDelete(true);
+      console.log("long press");
     },
     {
       threshold: 600, // сколько мс удерживать (0.6 секунды)
