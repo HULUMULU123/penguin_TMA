@@ -141,7 +141,12 @@ export default function ProfilePage() {
 
       <Grid>
         {photos?.map((img) => (
-          <PhotoComponent img={img} />
+          <PhotoComponent
+            key={img.id}
+            img={img}
+            onClick={handleClick}
+            onLongPress={setDeletePhotoId}
+          />
           // <>
           //   <Image
           //     key={img.id}
@@ -189,6 +194,35 @@ export default function ProfilePage() {
           <Placeholder key={`placeholder-${idx}`} />
         ))}
       </Grid>
+      {deletePhotoId && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "rgba(0,0,0,0.5)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              padding: 20,
+              borderRadius: 10,
+              minWidth: 200,
+            }}
+          >
+            <p>Удалить фото?</p>
+            <button onClick={handleDelete}>Удалить</button>
+            <button onClick={() => setDeletePhotoId(null)}>Отмена</button>
+          </div>
+        </div>
+      )}
 
       <BottomSheet
         peekHeightPercent={20}
