@@ -140,13 +140,13 @@ export default function ProfilePage() {
       <Grid>
         {photos?.map((img) => (
           <>
-            <Image
-              key={img.id}
-              src={img.url}
-              alt={`img-${img.id}`}
+            <div
+              style={{ margin: 0, padding: 0 }}
               {...longPressBind}
               onClick={() => handleClick(img.url)}
-            />
+            >
+              <Image key={img.id} src={img.url} alt={`img-${img.id}`} />
+            </div>
             {showModalDelete && (
               <div
                 style={{
