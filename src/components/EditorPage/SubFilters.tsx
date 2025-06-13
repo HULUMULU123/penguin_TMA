@@ -31,7 +31,7 @@ export default function SubFilters({
   setActiveHairStyle,
   activeHairStyle,
 }) {
-  const [activeItem, setActiveItem] = useState(0);
+  const [activeItem, setActiveItem] = useState(null);
   const [localActiveFilter, setLocalActiveFilter] = useState(0);
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_LOAD);
   const [rangeValue, setRangeValue] = useState(0);
