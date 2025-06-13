@@ -158,7 +158,11 @@ export default function ProfilePage() {
           }}
         >
           <span style={{ color: "#000", fontSize: "11.56px" }}>Баланс</span>
-          <PostCount>{userData?.count_generations || 0}</PostCount>
+          <PostCount>
+            {typeof userData?.count_generations === "number"
+              ? userData.count_generations
+              : 0}
+          </PostCount>
         </div>
         <div
           style={{

@@ -31,8 +31,10 @@ export default function Header() {
     <StyledHeader>
       <Avatar src={userData?.photo_url} alt="avatar" />
       <UserInfo>
-        <Username>{`${userData?.first_name} ${userData?.last_name}`}</Username>
-        <Nickname>@{userData?.username}</Nickname>
+        <Username>
+          {userData?.first_name || ""} {userData?.last_name || ""}
+        </Username>
+        <Nickname>@{userData?.username || "неизвестный"}</Nickname>
       </UserInfo>
       {/* <PostCount>{userData?.count_generations}</PostCount> */}
       <div
