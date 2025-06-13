@@ -137,7 +137,7 @@ export default function ProfilePage() {
       </Grid>
 
       <BottomSheet
-        peekHeightPercent={30}
+        peekHeightPercent={20}
         maxHeightPercent={80}
         setWindowHeightMain={setWindowHeight}
       >
@@ -155,6 +155,7 @@ export default function ProfilePage() {
             backgroundColor: "#fff",
             padding: "0.3rem 0.5rem",
             borderRadius: "30px",
+            touchAction: "none",
           }}
         >
           <span style={{ color: "#000", fontSize: "11.56px" }}>Баланс</span>
