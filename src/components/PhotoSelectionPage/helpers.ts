@@ -1,4 +1,5 @@
 // @ts-nocheck
+import axios from "axios";
 import { ButtonsFace } from "../EditorPage/photoTools";
 
 export const handleFileUpload = (
