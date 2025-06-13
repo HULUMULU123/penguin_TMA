@@ -94,7 +94,7 @@ export default function ProfilePage() {
   );
   const handleDelete = (photoId) => {
     deletePhoto(photoId);
-    setShowModal(false);
+    setShowModalDelete(false);
   };
   useEffect(() => {
     const permission = localStorage.getItem("photoPermission");
@@ -240,7 +240,7 @@ export default function ProfilePage() {
                   onClick={() => handleClick(photo.url || photo.image || photo)}
                   {...longPressBind()}
                 />
-                {showModal && (
+                {showModalDelete && (
                   <div
                     style={{
                       position: "fixed",
@@ -267,7 +267,7 @@ export default function ProfilePage() {
                       <button onClick={() => handleDelete(photo.id)}>
                         Удалить
                       </button>
-                      <button onClick={() => setShowModal(false)}>
+                      <button onClick={() => setShowModalDelete(false)}>
                         Отмена
                       </button>
                     </div>
