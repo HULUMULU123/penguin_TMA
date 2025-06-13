@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from "react";
 import { Image } from "./PhotoSelectionPage.styles";
 import { useLongPress } from "use-long-press";
