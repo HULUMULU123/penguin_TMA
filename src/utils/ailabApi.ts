@@ -438,7 +438,7 @@ export async function applyHairstyle(
     hair_type: hair_type, // динамический ключ
   };
   console.log(params, "params in hair");
-  return sendFormData("hairstyle", { image: resolved }, params);
+  return sendFormData("hairstyle", { image_target: resolved }, params);
 }
 
 export async function applySize(
@@ -564,6 +564,7 @@ async function sendRequest(
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
+        Accept: "application/json",
       },
       body: formData,
     });
@@ -572,6 +573,7 @@ async function sendRequest(
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
+        Accept: "application/json",
       },
       body: formData,
     });
