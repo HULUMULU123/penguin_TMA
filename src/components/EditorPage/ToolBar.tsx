@@ -22,7 +22,7 @@ export default function ToolBar({
   return (
     <BottomSheet
       peekHeightPercent={30}
-      maxHeightPercent={80}
+      maxHeightPercent={70}
       onPositionChange={(percent) => setPercents(percent)}
       isPersistent={showToolBar}
       setWindowHeightMain={setWindowHeightMain}
