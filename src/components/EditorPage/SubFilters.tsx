@@ -258,7 +258,7 @@ export default function SubFilters({
           count_video_generations: userData.count_video_generations,
           filter_name: filter_name,
           mode: mode,
-          level: level,
+          level: level.toString(),
           usage_count_generations: 1,
           usage_count_video_generations: 0,
         });
