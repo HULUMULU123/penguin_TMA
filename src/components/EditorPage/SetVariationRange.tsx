@@ -15,7 +15,7 @@ export default function SelectVariationRange({
   setValue,
   steps = 5, // по умолчанию 5 частей
 }: SelectVariationRangeProps) {
-  const [activeVariation, setActiveVariation] = useState(0);
+  const [activeVariation, setActiveVariation] = useState(-1);
 
   // Генерация массива значений от 100 / steps до 100
   const values = useMemo(() => {

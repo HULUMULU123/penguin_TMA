@@ -15,6 +15,7 @@ import { EFFECT_FUNCTIONS } from "../../utils/ailabApi";
 import ProgressBar from "./ProgressBar";
 import SelectVariationRange from "./SetVariationRange";
 import useGlobal from "../../hooks/useGlobal";
+import { getNameByKey } from "../PhotoSelectionPage/helpers";
 
 const ITEMS_PER_LOAD = 6;
 
@@ -30,7 +31,7 @@ export default function SubFilters({
   const [activeItem, setActiveItem] = useState(0);
   const [localActiveFilter, setLocalActiveFilter] = useState(0);
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_LOAD);
-  const [rangeValue, setRangeValue] = useState(20);
+  const [rangeValue, setRangeValue] = useState(0);
   const [rgbaValue, setRgbaValue] = useState({ r: 255, g: 0, b: 0, a: 1 });
   const [loading, setLoading] = useState(false);
 
@@ -92,7 +93,7 @@ export default function SubFilters({
     setLoading(true);
     try {
       let response;
-      let filter_name = getNameByKey(activeFilter);
+      const filter_name = getNameByKey(activeFilter);
       let mode;
       let level;
       if (activeFilter === "facebeauty" && currentOption) {
