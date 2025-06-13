@@ -49,6 +49,7 @@ export const Toolbar = styled.div`
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
   margin-top: -1.5rem;
+  touch-action: none;
 
   /* Стили для скроллбара в WebKit */
   &::-webkit-scrollbar {

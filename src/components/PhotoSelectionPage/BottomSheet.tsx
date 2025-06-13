@@ -124,9 +124,12 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
           onDragEnd={handleDragEnd}
           animate={controls}
           initial={{ y: bottomY }}
+          dragListener={true}
         >
           {/* Можно оставить индикатор, но drag будет работать по всей области */}
-          <DragIndicator />
+          <DragHandleArea>
+            <DragIndicator />
+          </DragHandleArea>
           <SheetContent>{children}</SheetContent>
         </SheetWrapper>
       )}
