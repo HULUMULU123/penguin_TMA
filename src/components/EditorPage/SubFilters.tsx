@@ -134,7 +134,7 @@ export default function SubFilters({
           response = await EFFECT_FUNCTIONS[activeFilter](
             imgSrc,
             currentOption?.field,
-            rangeValue / 100
+            rangeValue
           );
         } else if (
           currentOption?.field === "whitening_degree" ||
