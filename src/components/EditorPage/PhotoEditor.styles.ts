@@ -179,7 +179,7 @@ export const SubFilterSpan = styled.span`
 
 export const BottomWrapper = styled.div`
   position: fixed; /* если ты хочешь привязать к низу экрана */
-  bottom: 4rem;
+  bottom: 0rem;
   left: 0;
   right: 0;
 

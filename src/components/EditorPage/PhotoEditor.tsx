@@ -108,7 +108,7 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
           initialScale={1}
           initialPositionY={0}
         >
-          <TransformComponent wrapperStyle={{ width: "100%", height: "90%" }}>
+          <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
             <img
               src={currentImgSrc}
               alt="To edit"
