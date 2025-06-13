@@ -40,7 +40,7 @@ const DragIndicator = styled.div`
 `;
 
 const SheetContent = styled.div`
-  padding: 0 16px;
+  /* padding: 0 16px; */
   background: white;
   height: 100%;
   overflow: auto;

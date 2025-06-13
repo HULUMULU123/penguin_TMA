@@ -136,7 +136,11 @@ export default function ProfilePage() {
         ))}
       </Grid>
 
-      <BottomSheet setWindowHeightMain={setWindowHeight}>
+      <BottomSheet
+        peekHeightPercent={30}
+        maxHeightPercent={80}
+        setWindowHeightMain={setWindowHeight}
+      >
         <div
           style={{
             position: "absolute",
