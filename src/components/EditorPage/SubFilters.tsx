@@ -213,9 +213,9 @@ export default function SubFilters({
       console.log("Response data:", response?.data);
       const base64 =
         response?.result?.image ||
+        response?.result ||
         response?.data?.image ||
-        response?.result_image ||
-        response?.result;
+        response?.result_image;
       let newImg;
       if (base64) {
         newImg = `data:image/png;base64,${base64}`;
