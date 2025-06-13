@@ -109,7 +109,7 @@ export default function SubFilters({
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
           currentOption?.field,
-          rangeValue / 100
+          rangeValue
         );
       } else if (activeFilter === "makeup" && currentOption?.resource_type) {
         console.log(currentOption);
