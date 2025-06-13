@@ -34,7 +34,7 @@ import {
 } from "../../components/PhotoSelectionPage/helpers";
 import Header from "../../components/PhotoSelectionPage/Header";
 import Filters from "../../components/PhotoSelectionPage/Filters";
-
+import { useLongPress } from "use-long-press";
 export const Placeholder = styled.div`
   width: calc((100% - 2 * 3px) / 3);
   aspect-ratio: 9 / 13; /* или другая пропорция под твои фото */
@@ -75,11 +75,27 @@ export default function ProfilePage() {
   const webApp = useWebApp();
 
   const fetchPhotos = useGlobal((state) => state.fetchPhotos);
+  const deletePhoto = useGlobal((state) => state.deletePhoto);
   const photos = useGlobal((state) => state.photos);
   const uploadPhoto = useGlobal((state) => state.uploadPhoto);
   const userData = useGlobal((state) => state.userData);
   const [windowHeight, setWindowHeight] = useState(0);
+  const [showModalDelete, setShowModalDelete] = useState(false);
 
+  const longPressBind = useLongPress(
+    () => {
+      setShowModalDelete(true);
+    },
+    {
+      threshold: 600, // сколько мс удерживать (0.6 секунды)
+      captureEvent: true,
+      cancelOnMovement: true,
+    }
+  );
+  const handleDelete = (photoId) => {
+    deletePhoto(photoId);
+    setShowModal(false);
+  };
   useEffect(() => {
     const permission = localStorage.getItem("photoPermission");
     setHasPermission(permission === "true");
@@ -209,19 +225,55 @@ export default function ProfilePage() {
             }}
           >
             {photos.slice(0, 3).map((photo, index) => (
-              <img
-                key={photo.id || index}
-                src={photo.url || photo.image || photo}
-                alt={`Recent photo ${index + 1}`}
-                style={{
-                  width: 100,
-                  height: 100,
-                  objectFit: "cover",
-                  marginRight: 8,
-                  borderRadius: "15px",
-                }}
-                onClick={() => handleClick(photo.url || photo.image || photo)}
-              />
+              <>
+                <img
+                  key={photo.id || index}
+                  src={photo.url || photo.image || photo}
+                  alt={`Recent photo ${index + 1}`}
+                  style={{
+                    width: 100,
+                    height: 100,
+                    objectFit: "cover",
+                    marginRight: 8,
+                    borderRadius: "15px",
+                  }}
+                  onClick={() => handleClick(photo.url || photo.image || photo)}
+                  {...longPressBind()}
+                />
+                {showModal && (
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: "rgba(0,0,0,0.5)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      zIndex: 1000,
+                    }}
+                  >
+                    <div
+                      style={{
+                        background: "#fff",
+                        padding: 20,
+                        borderRadius: 10,
+                        minWidth: 200,
+                      }}
+                    >
+                      <p>Удалить фото?</p>
+                      <button onClick={() => handleDelete(photo.id)}>
+                        Удалить
+                      </button>
+                      <button onClick={() => setShowModal(false)}>
+                        Отмена
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
             ))}
 
             {/* Если фото меньше 3, показываем placeholder'ы на оставшиеся места */}
