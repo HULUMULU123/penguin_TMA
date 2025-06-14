@@ -109,7 +109,7 @@ export default function ProfilePage() {
         console.log("isIntersecting");
         setIsSticky(!entry.isIntersecting);
       },
-      { threshold: 0, rootMargin: "-1px 0px 0px 0px" }
+      { threshold: 0, rootMargin: "-30px 0px 0px 0px" }
     );
 
     if (ref.current) {
