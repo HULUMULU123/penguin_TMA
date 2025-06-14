@@ -51,8 +51,10 @@ export default function PhotoComponent({
   handleClick,
   setDeletePhotoId,
   setShowModalDelete,
+  setIsPressed,
+  isPressed,
 }) {
-  const [isPressed, setIsPressed] = useState(null);
+  // const [isPressed, setIsPressed] = useState(null);
 
   const longPressBind = useLongPress(
     () => {
