@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import check from "../../assets/icons/check.svg";
 import { useLongPress } from "use-long-press";
