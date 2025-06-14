@@ -84,18 +84,8 @@ export default function ProfilePage() {
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [deletePhotoId, setDeletePhotoId] = useState(null);
   const [isPressedPhoto, setIsPressedPhoto] = useState(null);
-  const longPressBind = useLongPress(
-    (imgId) => {
-      setShowModalDelete(true);
-      console.log("long press");
-      setDeletePhotoId(imgId);
-    },
-    {
-      threshold: 600, // сколько мс удерживать (0.6 секунды)
-      captureEvent: true,
-      cancelOnMovement: true,
-    }
-  );
+  const [isSticky, setIsSticky] = useState(false);
+
   const handleDelete = (photoId) => {
     deletePhoto(photoId);
     setShowModalDelete(false);
@@ -106,7 +96,22 @@ export default function ProfilePage() {
   }, [hasPermission]);
   useEffect(() => {
     fetchPhotos();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsSticky(!entry.isIntersecting);
+      },
+      { threshold: 0, rootMargin: "-1px 0px 0px 0px" }
+    );
 
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
     console.log(photos);
   }, [userData]);
 
@@ -145,7 +150,7 @@ export default function ProfilePage() {
             display: "flex",
             width: "100vw",
             height: "3rem",
-            position: "relative",
+            position: isSticky ? "fixed" : "relative",
             background: "#fff6fd",
           }}
         >
