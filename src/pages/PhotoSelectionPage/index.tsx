@@ -121,7 +121,7 @@ export default function ProfilePage() {
         observer.unobserve(ref.current);
       }
     };
-  }, []);
+  }, [isPressedPhoto]);
 
   const handleClick = (imgSrc: string) => {
     console.log("imgSrc", imgSrc);
