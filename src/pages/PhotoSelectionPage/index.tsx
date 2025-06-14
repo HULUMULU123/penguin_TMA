@@ -213,7 +213,7 @@ export default function ProfilePage() {
             <PhotoComponent
               img={img}
               setDeletePhotoId={setDeletePhotoId}
-              handeClick={handleClick}
+              handleClick={handleClick}
               setShowModalDelete={setShowModalDelete}
               setIsPressed={setIsPressedPhoto}
               isPressed={isPressedPhoto}
