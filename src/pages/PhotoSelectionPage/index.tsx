@@ -85,7 +85,7 @@ export default function ProfilePage() {
   const [deletePhotoId, setDeletePhotoId] = useState(null);
   const [isPressedPhoto, setIsPressedPhoto] = useState(null);
   const [isSticky, setIsSticky] = useState(false);
-
+  const ref = useRef(null);
   const handleDelete = (photoId) => {
     deletePhoto(photoId);
     setShowModalDelete(false);
