@@ -90,7 +90,7 @@ export default function ProfilePage() {
     deletePhoto(photoId);
     setShowModalDelete(false);
     setIsPressedPhoto(null);
-    deletePhotoId(null);
+    setDeletePhotoId(null);
   };
   useEffect(() => {
     const permission = localStorage.getItem("photoPermission");
