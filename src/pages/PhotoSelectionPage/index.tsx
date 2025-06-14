@@ -227,87 +227,86 @@ export default function ProfilePage() {
                 {...longPressBind(img.id)}
                 onClick={() => handleClick(img.url)}
               /> */}
-            {showModalDelete && (
-              <div
+          </>
+        ))}{" "}
+        {showModalDelete && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: "rgba(0,0,0,0.2)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 1000,
+            }}
+          >
+            <div
+              style={{
+                background: "#fff",
+                padding: "24px 20px",
+                borderRadius: "16px",
+                minWidth: "280px",
+                textAlign: "center",
+                fontFamily: "sans-serif",
+              }}
+            >
+              <p
                 style={{
-                  position: "fixed",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: "rgba(0,0,0,0.2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  zIndex: 1000,
+                  marginBottom: "24px",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  color: "#222",
                 }}
               >
-                <div
+                Вы уверены, что хотите удалить это?
+              </p>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "12px",
+                }}
+              >
+                <button
+                  onClick={() => handleDelete(deletePhotoId)}
                   style={{
-                    background: "#fff",
-                    padding: "24px 20px",
-                    borderRadius: "16px",
-                    minWidth: "280px",
-                    textAlign: "center",
-                    fontFamily: "sans-serif",
+                    background: "#c11fbe",
+                    color: "#fff",
+                    padding: "10px 24px",
+                    borderRadius: "30px",
+                    border: "none",
+                    fontWeight: 600,
+                    fontSize: "14px",
+                    cursor: "pointer",
                   }}
                 >
-                  <p
-                    style={{
-                      marginBottom: "24px",
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      color: "#222",
-                    }}
-                  >
-                    Вы уверены, что хотите удалить это?
-                  </p>
+                  Удалить
+                </button>
 
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: "12px",
-                    }}
-                  >
-                    <button
-                      onClick={() => handleDelete(deletePhotoId)}
-                      style={{
-                        background: "#c11fbe",
-                        color: "#fff",
-                        padding: "10px 24px",
-                        borderRadius: "30px",
-                        border: "none",
-                        fontWeight: 600,
-                        fontSize: "14px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Удалить
-                    </button>
-
-                    <button
-                      onClick={() => setShowModalDelete(false)}
-                      style={{
-                        background: "#F2F2F2",
-                        color: "#999",
-                        padding: "10px 24px",
-                        borderRadius: "30px",
-                        border: "none",
-                        fontWeight: 600,
-                        fontSize: "14px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Отмена
-                    </button>
-                  </div>
-                </div>
+                <button
+                  onClick={() => setShowModalDelete(false)}
+                  style={{
+                    background: "#F2F2F2",
+                    color: "#999",
+                    padding: "10px 24px",
+                    borderRadius: "30px",
+                    border: "none",
+                    fontWeight: 600,
+                    fontSize: "14px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Отмена
+                </button>
               </div>
-            )}
-          </>
-        ))}
-
+            </div>
+          </div>
+        )}
         {/* Добавим заглушки */}
         {Array.from({ length: 12 - (photos?.length || 0) }).map((_, idx) => (
           <Placeholder key={`placeholder-${idx}`} />
