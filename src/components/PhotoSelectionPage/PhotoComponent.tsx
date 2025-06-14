@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import check from "../../assets/icons/check.svg";
 import { useLongPress } from "use-long-press";
@@ -51,14 +51,14 @@ export default function PhotoComponent({
   handleClick,
   setDeletePhotoId,
   setShowModalDelete,
-  isPressed,
-  setIsPressed,
 }) {
+  const [isPressed, setIsPressed] = useState(null);
+
   const longPressBind = useLongPress(
     () => {
       setShowModalDelete(false);
       setDeletePhotoId(img.id);
-      setIsPressed(true);
+      setIsPressed(img.id);
     },
     {
       threshold: 600,
@@ -75,8 +75,8 @@ export default function PhotoComponent({
         onClick={() => handleClick(img.url)}
         draggable={false}
       />
-      {isPressed && <Overlay />}
-      {isPressed && check && (
+      {isPressed === img.id && <Overlay />}
+      {isPressed === img.id && check && (
         <CheckCircle>
           <CheckImage src={check} alt="check icon" />
         </CheckCircle>

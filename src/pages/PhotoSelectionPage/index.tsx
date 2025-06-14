@@ -83,7 +83,7 @@ export default function ProfilePage() {
   const [windowHeight, setWindowHeight] = useState(0);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [deletePhotoId, setDeletePhotoId] = useState(null);
-  const [isPressedPhoto, setIsPressedPhoto] = useState(false);
+
   const longPressBind = useLongPress(
     (imgId) => {
       setShowModalDelete(true);
@@ -148,9 +148,6 @@ export default function ProfilePage() {
                 img={img}
                 setDeletePhotoId={setDeletePhotoId}
                 handeClick={handleClick}
-                setShowModalDelete={setShowModalDelete}
-                setIsPressed={setIsPressedPhoto}
-                isPressed={isPressedPhoto}
               />
               {/* <Image
                 key={img.id}
