@@ -142,7 +142,8 @@ export default function ProfilePage() {
       <div
         style={{
           display: "flex",
-          width: "100%",
+          width: "100vw",
+          height: "3rem",
           position: "relative",
           background: "#fff6fd",
         }}
@@ -150,19 +151,22 @@ export default function ProfilePage() {
         <div
           style={{
             position: "absolute",
-            left: "1rem",
+            right: "1rem",
             display: "flex",
             gap: "0.5rem",
+            top: "50%",
+            transform: "translateY(-50%)",
           }}
         >
           <button
             style={{
-              padding: "0.25rem 0.5rem",
+              padding: "0.5rem 0.75rem",
               color: "white",
               borderRadius: "100px",
               border: "none",
               background: "rgba(239, 63, 66, 1)",
               fontSize: "12px",
+              fontFamily: "Unbounded, sans-serif",
             }}
             onClick={() => setShowModalDelete(true)}
           >
@@ -176,6 +180,7 @@ export default function ProfilePage() {
               border: "none",
               background: "rgba(255, 255, 255, 1)",
               fontSize: "12px",
+              fontFamily: "Unbounded, sans-serif",
             }}
             onClick={() => setIsPressedPhoto(null)}
           >
