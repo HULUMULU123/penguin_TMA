@@ -154,7 +154,7 @@ export default function ProfilePage() {
       </Grid> */}
       {isPressedPhoto && (
         <>
-          <div ref={ref} style={{ height: isSticky ? 1 : "3rem" }} />
+          <div ref={ref} style={{ height: !isSticky ? "1px" : "3rem" }} />
           <div
             style={{
               display: "flex",
