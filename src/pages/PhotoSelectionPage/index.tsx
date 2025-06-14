@@ -247,21 +247,25 @@ export default function ProfilePage() {
             <div
               style={{
                 background: "#fff",
-                padding: "24px 20px",
+                padding: "15px 5px",
                 borderRadius: "16px",
                 minWidth: "280px",
                 textAlign: "center",
                 fontFamily: "Unbounded, sans-serif",
+                width: "75%",
+                paddingTop: "5px",
               }}
             >
               <p
                 style={{
-                  marginBottom: "24px",
+                  marginBottom: "1rem 0",
                   fontSize: "15px",
                   fontWeight: "500",
                   color: "#222",
                   lineHeight: "22px",
                   textAlign: "center",
+                  width: "75%",
+                  margin: "1rem auto",
                 }}
               >
                 Вы уверены, что хотите удалить это?
