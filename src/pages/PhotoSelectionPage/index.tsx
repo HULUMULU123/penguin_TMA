@@ -96,8 +96,14 @@ export default function ProfilePage() {
   }, [hasPermission]);
   useEffect(() => {
     fetchPhotos();
+
+    console.log(photos);
+  }, [userData]);
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
+        console.log("isIntersecting");
         setIsSticky(!entry.isIntersecting);
       },
       { threshold: 0, rootMargin: "-1px 0px 0px 0px" }
@@ -112,8 +118,7 @@ export default function ProfilePage() {
         observer.unobserve(ref.current);
       }
     };
-    console.log(photos);
-  }, [userData]);
+  }, []);
 
   const handleClick = (imgSrc: string) => {
     console.log("imgSrc", imgSrc);
