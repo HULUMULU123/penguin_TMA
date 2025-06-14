@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import check from "../../assets/icons/check.svg";
 import { useLongPress } from "use-long-press";
@@ -51,9 +51,9 @@ export default function PhotoComponent({
   handleClick,
   setDeletePhotoId,
   setShowModalDelete,
+  isPressed,
+  setIsPressed,
 }) {
-  const [isPressed, setIsPressed] = useState(false);
-
   const longPressBind = useLongPress(
     () => {
       setShowModalDelete(false);
@@ -64,8 +64,6 @@ export default function PhotoComponent({
       threshold: 600,
       captureEvent: true,
       cancelOnMovement: true,
-      onCancel: () => setIsPressed(false),
-      onFinish: () => setIsPressed(false),
     }
   );
 
