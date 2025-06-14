@@ -237,11 +237,11 @@ export default function ProfilePage() {
               left: 0,
               right: 0,
               bottom: 0,
-              background: "rgba(0,0,0,0.2)",
+              background: "rgba(0,0,0,0.4)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              zIndex: 1000,
+              zIndex: 10000,
             }}
           >
             <div
@@ -251,15 +251,17 @@ export default function ProfilePage() {
                 borderRadius: "16px",
                 minWidth: "280px",
                 textAlign: "center",
-                fontFamily: "sans-serif",
+                fontFamily: "Unbounded, sans-serif",
               }}
             >
               <p
                 style={{
                   marginBottom: "24px",
-                  fontSize: "14px",
+                  fontSize: "15px",
                   fontWeight: "500",
                   color: "#222",
+                  lineHeight: "22px",
+                  textAlign: "center",
                 }}
               >
                 Вы уверены, что хотите удалить это?
