@@ -128,7 +128,7 @@ export default function ProfilePage() {
     navigate("/editor", { state: { imgSrc } });
   };
 
-  const notify = () => toast.error("Камера в данный момент недоступна");
+  const notify = () => toast.error("Успешно удалено");
 
   if (hasPermission === null || !userData) return <Loader />; // можно показывать лоадер
   if (!hasPermission)
@@ -279,7 +279,10 @@ export default function ProfilePage() {
                 }}
               >
                 <button
-                  onClick={() => handleDelete(deletePhotoId)}
+                  onClick={() => {
+                    handleDelete(deletePhotoId);
+                    notify();
+                  }}
                   style={{
                     background: "#c11fbe",
                     color: "#fff",
