@@ -146,6 +146,7 @@ export default function ProfilePage() {
       </Grid> */}
       {isPressedPhoto && (
         <div
+          ref={ref}
           style={{
             display: "flex",
             width: "100vw",
