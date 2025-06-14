@@ -145,57 +145,59 @@ export default function ProfilePage() {
           ))}
       </Grid> */}
       {isPressedPhoto && (
-        <div
-          ref={ref}
-          style={{
-            display: "flex",
-            width: "100vw",
-            height: "3rem",
-            position: isSticky ? "fixed" : "relative",
-            background: "#fff6fd",
-          }}
-        >
+        <>
+          <div ref={ref} style={{ height: 1 }} />
           <div
             style={{
-              position: "absolute",
-              right: "1rem",
               display: "flex",
-              gap: "0.5rem",
-              top: "50%",
-              transform: "translateY(-50%)",
+              width: "100vw",
+              height: "3rem",
+              position: isSticky ? "fixed" : "relative",
+              background: "#fff6fd",
             }}
           >
-            <button
+            <div
               style={{
-                padding: "0.5rem 0.75rem",
-                color: "white",
-                borderRadius: "100px",
-                border: "none",
-                background: "rgba(239, 63, 66, 1)",
-                fontSize: "12px",
-                fontFamily: "Unbounded, sans-serif",
+                position: "absolute",
+                right: "1rem",
+                display: "flex",
+                gap: "0.5rem",
+                top: "50%",
+                transform: "translateY(-50%)",
               }}
-              onClick={() => setShowModalDelete(true)}
             >
-              Удалить
-            </button>
-            <button
-              style={{
-                padding: "0.25rem 0.5rem",
-                color: "white",
-                borderRadius: "100px",
-                border: "none",
-                background: "rgba(255, 255, 255, 1)",
-                fontSize: "12px",
-                fontFamily: "Unbounded, sans-serif",
-                color: "black",
-              }}
-              onClick={() => setIsPressedPhoto(null)}
-            >
-              Отмена
-            </button>
+              <button
+                style={{
+                  padding: "0.5rem 0.75rem",
+                  color: "white",
+                  borderRadius: "100px",
+                  border: "none",
+                  background: "rgba(239, 63, 66, 1)",
+                  fontSize: "12px",
+                  fontFamily: "Unbounded, sans-serif",
+                }}
+                onClick={() => setShowModalDelete(true)}
+              >
+                Удалить
+              </button>
+              <button
+                style={{
+                  padding: "0.25rem 0.5rem",
+                  color: "white",
+                  borderRadius: "100px",
+                  border: "none",
+                  background: "rgba(255, 255, 255, 1)",
+                  fontSize: "12px",
+                  fontFamily: "Unbounded, sans-serif",
+                  color: "black",
+                }}
+                onClick={() => setIsPressedPhoto(null)}
+              >
+                Отмена
+              </button>
+            </div>
           </div>
-        </div>
+        </>
       )}
       <Grid>
         {photos?.map((img) => (
