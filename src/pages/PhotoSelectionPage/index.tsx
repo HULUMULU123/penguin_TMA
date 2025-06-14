@@ -101,6 +101,9 @@ export default function ProfilePage() {
   }, [userData]);
 
   useEffect(() => {
+    console.log("useEffect triggered");
+    console.log("ref.current before observe:", ref.current);
+    if (!ref.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         console.log("isIntersecting");
