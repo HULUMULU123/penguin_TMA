@@ -128,7 +128,7 @@ export default function ProfilePage() {
     navigate("/editor", { state: { imgSrc } });
   };
 
-  const notify = () => toast.error("Успешно удалено");
+  const notify = () => toast.success("Успешно удалено");
 
   if (hasPermission === null || !userData) return <Loader />; // можно показывать лоадер
   if (!hasPermission)
@@ -481,22 +481,20 @@ export default function ProfilePage() {
       </BottomSheet>
       <Toaster
         position="top-center"
-        toastOptions={
-          {
-            // style: {
-            //   background: "rgba(193, 31, 190, 1)",
-            //   padding: "0.5rem",
-            //   color: "white",
-            //   textAlign: "center",
-            //   borderRadius: "30px",
-            //   fontSize: "15px",
-            // },
-            // iconTheme: {
-            //   primary: "white",
-            //   secondary: "rgba(193, 31, 190, 1)",
-            // },
-          }
-        }
+        toastOptions={{
+          style: {
+            background: "rgba(193, 31, 190, 1)",
+            padding: "0.5rem",
+            color: "white",
+            textAlign: "center",
+            borderRadius: "30px",
+            fontSize: "15px",
+          },
+          iconTheme: {
+            primary: "white",
+            secondary: "rgba(193, 31, 190, 1)",
+          },
+        }}
         containerStyle={{ bottom: "10rem" }}
       />
     </Container>
