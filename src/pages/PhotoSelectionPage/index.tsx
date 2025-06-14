@@ -35,6 +35,7 @@ import {
 import Header from "../../components/PhotoSelectionPage/Header";
 import Filters from "../../components/PhotoSelectionPage/Filters";
 import { useLongPress } from "use-long-press";
+import PhotoComponent from "../../components/PhotoSelectionPage/PhotoComponent";
 export const Placeholder = styled.div`
   width: calc((100% - 2 * 3px) / 3);
   aspect-ratio: 9 / 13; /* или другая пропорция под твои фото */
@@ -143,13 +144,18 @@ export default function ProfilePage() {
         {photos?.map((img) => {
           return (
             <>
-              <Image
+              <PhotoComponent
+                img={img}
+                setDeletePhotoId={setDeletePhotoId}
+                handeClick={handleClick}
+              />
+              {/* <Image
                 key={img.id}
                 src={img.url}
                 alt={`img-${img.id}`}
                 {...longPressBind(img.id)}
                 onClick={() => handleClick(img.url)}
-              />
+              /> */}
               {showModalDelete && (
                 <div
                   style={{
