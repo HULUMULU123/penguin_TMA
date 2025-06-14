@@ -139,62 +139,103 @@ export default function ProfilePage() {
             />
           ))}
       </Grid> */}
-
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          position: "relative",
+          background: "#fff6fd",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            left: "1rem",
+            display: "flex",
+            gap: "0.5rem",
+          }}
+        >
+          <button
+            style={{
+              padding: "0.25rem 0.5rem",
+              color: "white",
+              borderRadius: "100px",
+              border: "none",
+              background: "rgba(239, 63, 66, 1)",
+              fontSize: "12px",
+            }}
+            onClick={() => setShowModalDelete(true)}
+          >
+            Удалить
+          </button>
+          <button
+            style={{
+              padding: "0.25rem 0.5rem",
+              color: "white",
+              borderRadius: "100px",
+              border: "none",
+              background: "rgba(255, 255, 255, 1)",
+              fontSize: "12px",
+            }}
+            onClick={() => setIsPressedPhoto(null)}
+          >
+            Отмена
+          </button>
+        </div>
+      </div>
       <Grid>
-        {photos?.map((img) => {
-          return (
-            <>
-              <PhotoComponent
-                img={img}
-                setDeletePhotoId={setDeletePhotoId}
-                handeClick={handleClick}
-                setShowModalDelete={setShowModalDelete}
-                setIsPressed={setIsPressedPhoto}
-                isPressed={isPressedPhoto}
-              />
-              {/* <Image
+        {photos?.map((img) => (
+          <>
+            <PhotoComponent
+              img={img}
+              setDeletePhotoId={setDeletePhotoId}
+              handeClick={handleClick}
+              setShowModalDelete={setShowModalDelete}
+              setIsPressed={setIsPressedPhoto}
+              isPressed={isPressedPhoto}
+            />
+            {/* <Image
                 key={img.id}
                 src={img.url}
                 alt={`img-${img.id}`}
                 {...longPressBind(img.id)}
                 onClick={() => handleClick(img.url)}
               /> */}
-              {showModalDelete && (
+            {showModalDelete && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: "rgba(0,0,0,0.5)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 1000,
+                }}
+              >
                 <div
                   style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: "rgba(0,0,0,0.5)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    zIndex: 1000,
+                    background: "#fff",
+                    padding: 20,
+                    borderRadius: 10,
+                    minWidth: 200,
                   }}
                 >
-                  <div
-                    style={{
-                      background: "#fff",
-                      padding: 20,
-                      borderRadius: 10,
-                      minWidth: 200,
-                    }}
-                  >
-                    <p>Удалить фото?</p>
-                    <button onClick={() => handleDelete(deletePhotoId)}>
-                      Удалить
-                    </button>
-                    <button onClick={() => setShowModalDelete(false)}>
-                      Отмена
-                    </button>
-                  </div>
+                  <p>Удалить фото?</p>
+                  <button onClick={() => handleDelete(deletePhotoId)}>
+                    Удалить
+                  </button>
+                  <button onClick={() => setShowModalDelete(false)}>
+                    Отмена
+                  </button>
                 </div>
-              )}
-            </>
-          );
-        })}
+              </div>
+            )}
+          </>
+        ))}
 
         {/* Добавим заглушки */}
         {Array.from({ length: 12 - (photos?.length || 0) }).map((_, idx) => (
