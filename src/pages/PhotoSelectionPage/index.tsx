@@ -148,6 +148,7 @@ export default function ProfilePage() {
                 img={img}
                 setDeletePhotoId={setDeletePhotoId}
                 handeClick={handleClick}
+                setShowModalDelete={setShowModalDelete}
               />
               {/* <Image
                 key={img.id}

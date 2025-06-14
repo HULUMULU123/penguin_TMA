@@ -3,9 +3,16 @@ import React from "react";
 import { Image } from "./PhotoSelectionPage.styles";
 import { useLongPress } from "use-long-press";
 
-export default function PhotoComponent({ img, handleClick, setDeletePhotoId }) {
+export default function PhotoComponent({
+  img,
+  handleClick,
+  setDeletePhotoId,
+  setShowModalDelete,
+}) {
   const longPressBind = useLongPress(
     () => {
+      setShowModalDelete(true);
+      console.log("long press");
       setDeletePhotoId(img.id);
     },
     {
