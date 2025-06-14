@@ -84,9 +84,10 @@ export default function ProfilePage() {
   const [deletePhotoId, setDeletePhotoId] = useState(null);
 
   const longPressBind = useLongPress(
-    () => {
+    (imgId) => {
       setShowModalDelete(true);
       console.log("long press");
+      setDeletePhotoId(imgId);
     },
     {
       threshold: 600, // сколько мс удерживать (0.6 секунды)
@@ -139,48 +140,52 @@ export default function ProfilePage() {
       </Grid> */}
 
       <Grid>
-        {photos?.map((img) => (
-          <>
-            <Image
-              key={img.id}
-              src={img.url}
-              alt={`img-${img.id}`}
-              {...longPressBind()}
-              onClick={() => handleClick(img.url)}
-            />
-            {showModalDelete && (
-              <div
-                style={{
-                  position: "fixed",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: "rgba(0,0,0,0.5)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  zIndex: 1000,
-                }}
-              >
+        {photos?.map((img) => {
+          return (
+            <>
+              <Image
+                key={img.id}
+                src={img.url}
+                alt={`img-${img.id}`}
+                {...longPressBind(img.id)}
+                onClick={() => handleClick(img.url)}
+              />
+              {showModalDelete && (
                 <div
                   style={{
-                    background: "#fff",
-                    padding: 20,
-                    borderRadius: 10,
-                    minWidth: 200,
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: "rgba(0,0,0,0.5)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    zIndex: 1000,
                   }}
                 >
-                  <p>Удалить фото?</p>
-                  <button onClick={() => handleDelete(img.id)}>Удалить</button>
-                  <button onClick={() => setShowModalDelete(false)}>
-                    Отмена
-                  </button>
+                  <div
+                    style={{
+                      background: "#fff",
+                      padding: 20,
+                      borderRadius: 10,
+                      minWidth: 200,
+                    }}
+                  >
+                    <p>Удалить фото?</p>
+                    <button onClick={() => handleDelete(deletePhotoId)}>
+                      Удалить
+                    </button>
+                    <button onClick={() => setShowModalDelete(false)}>
+                      Отмена
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
-          </>
-        ))}
+              )}
+            </>
+          );
+        })}
 
         {/* Добавим заглушки */}
         {Array.from({ length: 12 - (photos?.length || 0) }).map((_, idx) => (
