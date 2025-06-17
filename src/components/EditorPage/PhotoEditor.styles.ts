@@ -95,7 +95,7 @@ export const SectionTitle = styled.h4<{ opacity: number }>`
 export const ButtonsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  justify-content: space-between;
 `;
 
 // Каждая кнопка
