@@ -35,11 +35,13 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
   const [activeInstrument, setActiveInstrument] = useState<string | null>(null);
   const [activeSave, setActiveSave] = useState(false);
   const [currentImgSrc, setCurrentImgSrc] = useState(src);
+  const [localImgSrc, setLocalImgSrc] = useState(currentImgSrc);
   const [activeHairStyle, setActiveHairStyle] = useState("");
   const uploadPhoto = useGlobal((state) => state.uploadPhoto);
   // Сброс изображения при смене src
   useEffect(() => {
     setCurrentImgSrc(src);
+    setLocalImgSrc(src);
   }, [src]);
 
   // Уведомление об успешном сохранении
@@ -59,6 +61,8 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
           activeSave={activeSave}
           notify={notify}
           imageUrl={currentImgSrc}
+          setCurrentImgSrc={setCurrentImgSrc}
+          localImgSrc={localImgSrc}
         />
       );
     }
@@ -110,7 +114,7 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
         >
           <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
             <img
-              src={currentImgSrc}
+              src={localImgSrc}
               alt="To edit"
               style={{
                 width: "100%",
@@ -146,9 +150,10 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
         <SubFilters
           filterItems={subFilters[activeFilter]}
           setActiveSave={setActiveSave}
-          imgSrc={currentImgSrc}
           activeFilter={activeFilter}
-          setCurrentImgSrc={setCurrentImgSrc}
+          imgSrc={currentImgSrc}
+          localImgSrc={localImgSrc}
+          setLocalImgSrc={setLocalImgSrc}
           setActiveHairStyle={setActiveHairStyle}
           activeHairStyle={activeHairStyle}
         />

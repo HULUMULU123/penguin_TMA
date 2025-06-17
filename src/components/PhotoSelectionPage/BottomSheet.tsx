@@ -40,7 +40,7 @@ const DragIndicator = styled.div`
 `;
 
 const SheetContent = styled.div`
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
   background: white;
   height: 100%;

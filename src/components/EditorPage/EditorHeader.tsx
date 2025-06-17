@@ -22,6 +22,8 @@ export default function EditorHeader({
   activeSave,
   notify,
   imageUrl,
+  setCurrentImgSrc,
+  localImgSrc,
 }: EditorHeaderProps) {
   const navigate = useNavigate();
   const uploadPhoto = useGlobal((state) => state.uploadPhoto);
@@ -94,6 +96,7 @@ export default function EditorHeader({
             onClick={() => {
               setActiveFilter(null);
               setActiveInstrument(null);
+              setCurrentImgSrc(localImgSrc);
             }}
           >
             <img src={back} style={{ width: "100%", height: "100%" }} />

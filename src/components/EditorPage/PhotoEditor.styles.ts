@@ -45,7 +45,7 @@ export const Toolbar = styled.div`
   justify-content: flex-start; /* space-around лучше заменить */
   height: 70%; /* или конкретная высота, например 400px */
   overflow-y: auto;
-  padding-right: 8px; /* чтобы scrollbar не налезал на контент */
+
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
   margin-top: -1.5rem;
@@ -110,6 +110,7 @@ export const ToolButton = styled.button`
   font-size: 14px;
   color: #000;
   transition: transform 0.2s;
+  padding: 0;
 `;
 
 // Иконка
