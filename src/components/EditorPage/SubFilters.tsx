@@ -38,7 +38,7 @@ export default function SubFilters({
   const [rangeValue, setRangeValue] = useState(0);
   const [rgbaValue, setRgbaValue] = useState({ r: 255, g: 0, b: 0, a: 1 });
   const [loading, setLoading] = useState(false);
-  const [localImgSrc, setLocalImgSrc] = useState(currentImgSrc);
+
   const observerRef = useRef(null);
   const userData = useGlobal((state) => state.userData);
   const updateUserDataGenerations = useGlobal(
