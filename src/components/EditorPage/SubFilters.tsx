@@ -289,7 +289,7 @@ export default function SubFilters({
   const handleClick = (option) => {
     setActiveItem(option.id);
     setLocalActiveFilter(0);
-    setRangeValue(0);
+    setRangeValue(-1);
     if (option.rgba) {
       setRgbaValue(option.rgba); // если есть rgba, устанавливаем его
     } else {
