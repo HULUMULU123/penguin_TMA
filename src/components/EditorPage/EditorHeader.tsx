@@ -14,7 +14,7 @@ interface EditorHeaderProps {
   notify: () => void;
   imageUrl: string;
   setCurrentImgSrc: (value: string) => void;
-  localImgSr: string;
+  localImgSrc: string;
 }
 
 export default function EditorHeader({
