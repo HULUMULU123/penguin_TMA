@@ -16,6 +16,7 @@ export default function SelectVariationRange({
   value,
   steps = 5, // по умолчанию 5 частей
 }: SelectVariationRangeProps) {
+  useEffect(() => {}, [value]);
   const [activeVariation, setActiveVariation] = useState(value);
 
   // Генерация массива значений от 100 / steps до 100
