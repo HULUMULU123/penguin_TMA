@@ -92,7 +92,6 @@ export default function SubFilters({
     if ((filterItems.length > 0 && activeItem >= 0) || rangeValue > 0) {
       applyEffect();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeItem, rangeValue]);
 
   const applyEffect = async () => {
@@ -102,7 +101,7 @@ export default function SubFilters({
       const filter_name = getNameByKey(activeFilter);
       let mode;
       let level;
-      if (activeFilter === "facebeauty" && currentOption) {
+      if (activeFilter === "facebeauty" && currentOption && rangeValue > 0) {
         console.log(currentOption);
         mode = currentOption?.field;
         level = rangeValue;
@@ -119,7 +118,7 @@ export default function SubFilters({
           imgSrc,
           currentOption?.hair_style
         );
-      } else if (activeFilter === "size" && currentOption) {
+      } else if (activeFilter === "size" && currentOption && rangeValue > 0) {
         console.log(currentOption);
         mode = currentOption?.field;
         level = rangeValue;
@@ -128,7 +127,11 @@ export default function SubFilters({
           currentOption?.field,
           rangeValue
         );
-      } else if (activeFilter === "makeup" && currentOption?.resource_type) {
+      } else if (
+        activeFilter === "makeup" &&
+        currentOption?.resource_type &&
+        rangeValue > 0
+      ) {
         console.log(currentOption);
         mode = currentOption?.resource_type;
         level = rangeValue / 100;
@@ -137,7 +140,11 @@ export default function SubFilters({
           currentOption?.resource_type,
           rangeValue / 100
         );
-      } else if (activeFilter === "face" && currentOption?.shape_type) {
+      } else if (
+        activeFilter === "face" &&
+        currentOption?.shape_type &&
+        rangeValue > 0
+      ) {
         console.log(currentOption);
         mode = currentOption?.shape_type;
         level = rangeValue / 100;
@@ -146,7 +153,7 @@ export default function SubFilters({
           currentOption?.shape_type,
           rangeValue / 100
         );
-      } else if (activeFilter === "skin" && currentOption) {
+      } else if (activeFilter === "skin" && currentOption && rangeValue > 0) {
         console.log(currentOption);
         if (
           currentOption?.field === "whitening" ||
@@ -173,7 +180,7 @@ export default function SubFilters({
             );
           }
         }
-      } else {
+      } else if (activeFilter === "smile") {
         mode = localActiveFilter;
         level = 0;
         const optionToApply =
@@ -270,7 +277,7 @@ export default function SubFilters({
         // Обновляем изображение
         setActiveSave(true);
         setLocalImgSrc(newImg);
-        setCurrentImgSrc(newImg);
+        // setCurrentImgSrc(newImg);
       }
     } catch (error) {
       console.error("Ошибка при применении эффекта:", error);
