@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   SelectVariationWrapper,
   VariationItem,
@@ -13,9 +13,10 @@ interface SelectVariationRangeProps {
 
 export default function SelectVariationRange({
   setValue,
+  value,
   steps = 5, // по умолчанию 5 частей
 }: SelectVariationRangeProps) {
-  const [activeVariation, setActiveVariation] = useState(-1);
+  const [activeVariation, setActiveVariation] = useState(value);
 
   // Генерация массива значений от 100 / steps до 100
   const values = useMemo(() => {

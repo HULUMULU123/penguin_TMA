@@ -84,7 +84,7 @@ export default function SubFilters({
 
   useEffect(() => {
     setLocalActiveFilter(0);
-    setRangeValue(0);
+    setRangeValue(-1);
     setRgbaValue({ r: 255, g: 0, b: 0, a: 1 });
   }, [activeItem]);
 
@@ -310,6 +310,7 @@ export default function SubFilters({
         // <RangeSlider value={rangeValue} onChange={setRangeValue} />
         <SelectVariationRange
           setValue={setRangeValue}
+          value={rangeValue}
           steps={currentOption?.rangeFilters}
         />
       ) : (
