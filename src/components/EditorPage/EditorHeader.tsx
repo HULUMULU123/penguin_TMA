@@ -13,6 +13,8 @@ interface EditorHeaderProps {
   activeSave: boolean;
   notify: () => void;
   imageUrl: string;
+  setCurrentImgSrc: (value: string) => void;
+  localImgSr: string;
 }
 
 export default function EditorHeader({
