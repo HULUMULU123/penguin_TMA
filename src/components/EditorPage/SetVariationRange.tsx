@@ -13,11 +13,10 @@ interface SelectVariationRangeProps {
 
 export default function SelectVariationRange({
   setValue,
-  value,
+
   steps = 5, // по умолчанию 5 частей
 }: SelectVariationRangeProps) {
-  useEffect(() => {}, [value]);
-  const [activeVariation, setActiveVariation] = useState(value);
+  const [activeVariation, setActiveVariation] = useState(-1);
 
   // Генерация массива значений от 100 / steps до 100
   const values = useMemo(() => {

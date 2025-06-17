@@ -309,8 +309,8 @@ export default function SubFilters({
       currentOption?.rangeFilters ? (
         // <RangeSlider value={rangeValue} onChange={setRangeValue} />
         <SelectVariationRange
+          key={currentOption?.id}
           setValue={setRangeValue}
-          value={rangeValue}
           steps={currentOption?.rangeFilters}
         />
       ) : (
