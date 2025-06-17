@@ -212,8 +212,10 @@ export const VariationList = styled.ul`
 `;
 
 export const VariationItem = styled.li<{ active: boolean }>`
-  padding: 0.25rem 0.6rem;
+  padding: 0.25rem 0;
   border-radius: 50%;
+  min-width: 2rem;
+  text-align: center;
   background: ${(props) =>
     props.active ? "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0.3)"};
   color: ${(props) =>
