@@ -24,7 +24,7 @@ export default function Header() {
       rgba(72, 22, 218, 1) 100%
     )`,
     borderRadius: "4px",
-    height: "3px",
+    height: "2.45px",
     display: "inline-block",
   };
   return (
@@ -45,8 +45,8 @@ export default function Header() {
           gap: "4px",
         }}
       >
-        <span style={{ ...gradientStyle, width: "30px" }}></span>
-        <span style={{ ...gradientStyle, width: "20px" }}></span>
+        <span style={{ ...gradientStyle, width: "27px" }}></span>
+        <span style={{ ...gradientStyle, width: "21px" }}></span>
       </div>
     </StyledHeader>
   );

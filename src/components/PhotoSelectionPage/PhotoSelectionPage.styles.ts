@@ -11,12 +11,12 @@ export const Container = styled.div`
 export const StyledHeader = styled.div`
   display: flex;
   align-items: center;
-  padding: 16px;
+  padding: 12px 17px;
 `;
 
 export const Avatar = styled.img`
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   margin-right: 12px;
   object-fit: cover;
@@ -27,14 +27,14 @@ export const UserInfo = styled.div`
 `;
 
 export const Username = styled.h1`
-  font-size: 18px;
+  font-size: 14.72px;
   font-weight: 500;
   margin: 0;
   color: #010b00;
 `;
 
 export const Nickname = styled.p`
-  font-size: 14px;
+  font-size: 11.56px;
   color: gray;
   margin: 0;
 `;
@@ -50,7 +50,7 @@ export const PostCount = styled.div`
   color: white;
   font-size: 12px;
   font-weight: 600;
-  padding: 0.6rem 1rem;
+  padding: 8px 14.5px;
   border-radius: 24px;
 `;
 
@@ -93,12 +93,14 @@ export const FilterButton = styled.button<{ active: boolean }>`
 
 export const Grid = styled.div`
   margin-top: 0.2rem;
-  display: flex;
+  /* display: flex; */
   flex-wrap: wrap;
   gap: 3px;
   padding: 0px;
   flex-grow: 0;
   padding-bottom: 15rem;
+  displayL grid;
+  grid-template-columns: repeat(3, 1fr);
 `;
 
 export const Image = styled.img`

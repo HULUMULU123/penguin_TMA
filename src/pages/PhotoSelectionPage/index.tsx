@@ -37,8 +37,6 @@ import Filters from "../../components/PhotoSelectionPage/Filters";
 import { useLongPress } from "use-long-press";
 import PhotoComponent from "../../components/PhotoSelectionPage/PhotoComponent";
 export const Placeholder = styled.div`
-  width: calc((100% - 2 * 3px) / 3);
-  aspect-ratio: 9 / 13; /* или другая пропорция под твои фото */
   background-color: #f5eaea;
   border-radius: 4px;
   pointer-events: none;
@@ -337,10 +335,10 @@ export default function ProfilePage() {
 
             justifyContent: "space-between",
             alignItems: "center",
-            gap: "0.5rem",
+            gap: "9px",
 
             backgroundColor: "#fff",
-            padding: "0.3rem 0.5rem",
+            padding: "4px",
             borderRadius: "30px",
           }}
         >

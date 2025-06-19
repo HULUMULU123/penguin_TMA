@@ -26,17 +26,18 @@ const SheetWrapper = styled(motion.div)`
 const DragHandleArea = styled.div`
   height: 36px;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   cursor: grab;
   user-select: none;
 `;
 
 const DragIndicator = styled.div`
-  width: 40px;
-  height: 5px;
-  background-color: #ccc;
+  width: 32px;
+  height: 3px;
+  background-color: rgba(229, 229, 229, 1);
   border-radius: 2.5px;
+  margin-top: 6px;
 `;
 
 const SheetContent = styled.div`

@@ -6,13 +6,13 @@ import { useLongPress } from "use-long-press";
 
 const ImageWrapper = styled.div`
   position: relative;
-  width: calc((100% - 2 * 3px) / 3);
+
   margin-bottom: 0;
 `;
 
 const StyledImage = styled.img`
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
   display: block;
   user-select: none;
