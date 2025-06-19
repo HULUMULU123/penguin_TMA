@@ -434,7 +434,7 @@ export async function applyFaceBeautyFilter(
   // const params = {
   //   [field]: rangeParam, // динамический ключ
   // };
-  let params;
+  const params: Record<string, number> = {}; // Инициализация объекта
   for (const key in faceBeautyFields) {
     if (key === field) {
       params[key] = rangeParam;
@@ -471,7 +471,7 @@ export async function applySize(
   // const params = {
   //   [field]: rangeParam, // динамический ключ
   // };
-  let params;
+  const params: Record<string, number> = {}; // Инициализация объекта
   for (const key in sizeFields) {
     if (key === field) {
       params[key] = rangeParam;
