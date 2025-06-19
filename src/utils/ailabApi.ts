@@ -472,12 +472,12 @@ export async function applySize(
   //   [field]: rangeParam, // динамический ключ
   // };
   const params: Record<string, number> = {}; // Инициализация объекта
-  for (const key in faceBeautyFields) {
-    console.log(key, faceBeautyFields);
-    if (key === field) {
-      params[key] = rangeParam;
+  for (const value of faceBeautyFields) {
+    console.log(value, faceBeautyFields);
+    if (value === field) {
+      params[value] = rangeParam;
     } else {
-      params[key] = 1;
+      params[value] = 1;
     }
   }
   console.log(params, "params in size");
