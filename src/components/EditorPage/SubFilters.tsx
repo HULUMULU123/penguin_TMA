@@ -108,7 +108,7 @@ export default function SubFilters({
       let level;
       if (activeFilter === "facebeauty" && currentOption && rangeValue > 0) {
         console.log(currentOption);
-        mode = currentOption?.field;
+        mode = currentOption?.name;
         level = rangeValue;
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
@@ -117,7 +117,7 @@ export default function SubFilters({
         );
       } else if (activeFilter === "hairstyle" && currentOption?.hair_style) {
         console.log(currentOption);
-        mode = currentOption?.hair_style;
+        mode = currentOption?.name;
         level = 0;
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
@@ -125,7 +125,7 @@ export default function SubFilters({
         );
       } else if (activeFilter === "size" && currentOption && rangeValue > 0) {
         console.log(currentOption);
-        mode = currentOption?.field;
+        mode = currentOption?.name;
         level = rangeValue;
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
@@ -138,7 +138,7 @@ export default function SubFilters({
         rangeValue > 0
       ) {
         console.log(currentOption);
-        mode = currentOption?.resource_type;
+        mode = currentOption?.name;
         level = rangeValue / 100;
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
@@ -151,11 +151,11 @@ export default function SubFilters({
         rangeValue > 0
       ) {
         console.log(currentOption);
-        mode = currentOption?.shape_type;
+        mode = currentOption?.name;
         level = rangeValue / 100;
         response = await EFFECT_FUNCTIONS[activeFilter](
           imgSrc,
-          currentOption?.shape_type,
+          currentOption?.name,
           rangeValue / 100
         );
       } else if (activeFilter === "skin" && currentOption && rangeValue > 0) {
@@ -164,7 +164,7 @@ export default function SubFilters({
           currentOption?.field === "whitening" ||
           currentOption?.field === "smoothing"
         ) {
-          mode = currentOption?.field;
+          mode = currentOption?.name;
           level = rangeValue;
           response = await EFFECT_FUNCTIONS[activeFilter](
             imgSrc,
@@ -176,7 +176,7 @@ export default function SubFilters({
           currentOption?.field === "retouch_degree"
         ) {
           {
-            mode = currentOption?.field;
+            mode = currentOption?.name;
             level = (rangeValue * 1.5) / 100;
             response = await EFFECT_FUNCTIONS[activeFilter](
               imgSrc,
@@ -269,7 +269,7 @@ export default function SubFilters({
       console.log(newImg, "newIMG");
       if (newImg) {
         console.log("testJson", {
-          count_generations: userData.count_generations,
+          count_generations: userData.count_generations - 1,
           count_video_generations: userData.count_video_generations,
           filter_name: filter_name,
           mode: mode.toString(),
@@ -278,7 +278,7 @@ export default function SubFilters({
           usage_count_video_generations: 0,
         });
         const newGenerations = await sendUserGenerations({
-          count_generations: userData.count_generations,
+          count_generations: userData.count_generations - 1,
           count_video_generations: userData.count_video_generations,
           filter_name: filter_name,
           mode: mode.toString(),
