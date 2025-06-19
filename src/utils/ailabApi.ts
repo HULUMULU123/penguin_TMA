@@ -473,6 +473,7 @@ export async function applySize(
   // };
   const params: Record<string, number> = {}; // Инициализация объекта
   for (const key in faceBeautyFields) {
+    console.log(key, faceBeautyFields);
     if (key === field) {
       params[key] = rangeParam;
     } else {
