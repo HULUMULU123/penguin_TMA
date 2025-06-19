@@ -472,7 +472,7 @@ export async function applySize(
   //   [field]: rangeParam, // динамический ключ
   // };
   const params: Record<string, number> = {}; // Инициализация объекта
-  for (const key in sizeFields) {
+  for (const key in faceBeautyFields) {
     if (key === field) {
       params[key] = rangeParam;
     } else {
