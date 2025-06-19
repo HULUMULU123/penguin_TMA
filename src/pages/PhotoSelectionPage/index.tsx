@@ -330,7 +330,7 @@ export default function ProfilePage() {
           style={{
             position: "absolute",
             top: "-50px",
-            right: "30px",
+            right: "16.82px",
             display: "flex",
 
             justifyContent: "space-between",
