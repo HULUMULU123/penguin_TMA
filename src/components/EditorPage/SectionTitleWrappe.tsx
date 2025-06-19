@@ -25,7 +25,6 @@ export const SectionTitleWrapper = ({
         fontWeight: 500,
         fontSize: "15px",
         marginLeft: "0.5rem",
-        transition: "opacity 0.2s ease-out, margin-bottom 0.2s ease-out",
       }}
     >
       {children}

@@ -228,7 +228,7 @@ export const VariationItem = styled.li<{ active: boolean }>`
 // ===========CropperFooter================
 
 export const CropperFooterDiv = styled.div`
-  width: 80%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   margin: auto;
