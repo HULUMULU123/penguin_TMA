@@ -214,7 +214,7 @@ export default function PhotoEditor({ src }: PhotoEditorProps) {
             secondary: "rgba(193, 31, 190, 1)",
           },
         }}
-        containerStyle={{ bottom: "13rem" }}
+        containerStyle={{ bottom: "15rem" }}
       />
     </EditorContainer>
   );
