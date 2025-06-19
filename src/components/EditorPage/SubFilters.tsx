@@ -268,6 +268,15 @@ export default function SubFilters({
 
       console.log(newImg, "newIMG");
       if (newImg) {
+        console.log("testJson", {
+          count_generations: userData.count_generations,
+          count_video_generations: userData.count_video_generations,
+          filter_name: filter_name,
+          mode: mode.toString(),
+          level: level.toString(),
+          usage_count_generations: 1,
+          usage_count_video_generations: 0,
+        });
         const newGenerations = await sendUserGenerations({
           count_generations: userData.count_generations,
           count_video_generations: userData.count_video_generations,
