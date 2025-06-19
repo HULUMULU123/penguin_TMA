@@ -342,7 +342,11 @@ export default function ProfilePage() {
             borderRadius: "30px",
           }}
         >
-          <span style={{ color: "#000", fontSize: "11.56px" }}>Баланс</span>
+          <span
+            style={{ color: "#000", fontSize: "11.56px", marginLeft: "10px" }}
+          >
+            Баланс
+          </span>
           <PostCount>
             {typeof userData?.count_generations === "number"
               ? userData.count_generations

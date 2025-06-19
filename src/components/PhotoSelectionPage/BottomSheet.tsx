@@ -24,7 +24,7 @@ const SheetWrapper = styled(motion.div)`
 `;
 
 const DragHandleArea = styled.div`
-  height: 36px;
+  height: 19px;
   display: flex;
   /* align-items: center; */
   justify-content: center;

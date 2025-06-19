@@ -236,6 +236,7 @@ export const CropperFooterDiv = styled.div`
 
 export const CropperButton = styled.button<{ saveBtn: boolean }>`
   color: ${(props) => (props.saveBtn ? "#fff" : "rgba(255, 255, 255, 0.58)")};
+  font-family: "Unbounded", sans-serif;
   font-size: 14.72px;
   font-weight: 500;
   background: transparent;
