@@ -287,7 +287,10 @@ export default function SubFilters({
           usage_count_video_generations: 0,
         });
         console.log("newGen", newGenerations);
-        updateUserDataGenerations(newGenerations);
+        updateUserDataGenerations(
+          newGenerations.count_generations,
+          newGenerations.count_video_generations
+        );
         console.log(userData, "new");
         // Обновляем изображение
         setActiveSave(true);
