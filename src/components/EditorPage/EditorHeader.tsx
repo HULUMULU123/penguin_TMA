@@ -92,7 +92,7 @@ export default function EditorHeader({
               border: "none",
               background: "white",
               fontWeight: 900,
-
+              padding: 0,
               height: "34px",
             }}
             onClick={() => {
