@@ -38,6 +38,17 @@ const API_ENDPOINTS: Record<EffectType, string> = {
   skin: "",
 };
 
+const faceBeautyFields = [
+  "whitening",
+  "smoothing",
+  "thinface",
+  "shrink_face",
+  "enlarge_eye",
+  "remove_eyebrow",
+];
+
+const sizeFields = ["shrink_face", "enlarge_eye", "thinface"];
+
 function pickParams<T>(
   params: Partial<T>,
   keys: (keyof T)[],
@@ -420,9 +431,17 @@ export async function applyFaceBeautyFilter(
 ): Promise<string> {
   const resolved = await resolveImageInput(image);
   console.log(field, rangeParam);
-  const params = {
-    [field]: rangeParam, // динамический ключ
-  };
+  // const params = {
+  //   [field]: rangeParam, // динамический ключ
+  // };
+
+  for (const key in faceBeautyFields) {
+    if (key === field) {
+      params[key] = rangeParam;
+    } else {
+      params[key] = 1;
+    }
+  }
   console.log(params, "params in facebeauty");
   return sendFormData("facebeauty", { image: resolved }, params);
 }
@@ -449,9 +468,17 @@ export async function applySize(
 ): Promise<string> {
   const resolved = await resolveImageInput(image);
   console.log(field, rangeParam);
-  const params = {
-    [field]: rangeParam, // динамический ключ
-  };
+  // const params = {
+  //   [field]: rangeParam, // динамический ключ
+  // };
+
+  for (const key in sizeFields) {
+    if (key === field) {
+      params[key] = rangeParam;
+    } else {
+      params[key] = 1;
+    }
+  }
   console.log(params, "params in size");
   return sendFormData("facebeauty", { image: resolved }, params);
 }
@@ -500,6 +527,7 @@ export async function applySkin(
   const params = {
     [field]: rangeParam, // динамический ключ
   };
+
   return sendFormData("skin", { image: resolved }, params);
 }
 // === GENERIC REQUESTS ===

@@ -17,8 +17,10 @@ import SelectVariationRange from "./SetVariationRange";
 import useGlobal from "../../hooks/useGlobal";
 import {
   getNameByKey,
+  handleClickBuyCredits,
   sendUserGenerations,
 } from "../PhotoSelectionPage/helpers";
+import { useWebApp } from "@vkruglikov/react-telegram-web-app";
 
 const ITEMS_PER_LOAD = 6;
 
@@ -38,6 +40,8 @@ export default function SubFilters({
   const [rangeValue, setRangeValue] = useState(0);
   const [rgbaValue, setRgbaValue] = useState({ r: 255, g: 0, b: 0, a: 1 });
   const [loading, setLoading] = useState(false);
+
+  const webApp = useWebApp();
 
   const observerRef = useRef(null);
   const userData = useGlobal((state) => state.userData);
@@ -89,7 +93,8 @@ export default function SubFilters({
   }, [activeItem]);
 
   useEffect(() => {
-    if ((filterItems.length > 0 && activeItem >= 0) || rangeValue > 0) {
+    if (userData.count_generations <= 0) handleClickBuyCredits(webApp);
+    else if ((filterItems.length > 0 && activeItem >= 0) || rangeValue > 0) {
       applyEffect();
     }
   }, [activeItem, rangeValue]);
@@ -272,6 +277,7 @@ export default function SubFilters({
           usage_count_generations: 1,
           usage_count_video_generations: 0,
         });
+        console.log("newGen", newGenerations);
         updateUserDataGenerations(newGenerations);
         console.log(userData, "new");
         // Обновляем изображение
