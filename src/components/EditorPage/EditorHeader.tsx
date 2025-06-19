@@ -104,7 +104,7 @@ export default function EditorHeader({
             <img src={back} style={{ width: "100%", height: "100%" }} />
           </button>
         )}
-        Редактор фото
+        <span style={{ fontSize: "14.72px" }}>Редактор фото</span>
         <button
           style={{
             fontSize: 20,
