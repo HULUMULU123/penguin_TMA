@@ -93,7 +93,7 @@ export default function SubFilters({
   }, [activeItem]);
 
   useEffect(() => {
-    if (userData.count_generations <= 650) handleClickBuyCredits(webApp);
+    if (userData.count_generations <= 0) handleClickBuyCredits(webApp);
     else if ((filterItems.length > 0 && activeItem >= 0) || rangeValue > 0) {
       applyEffect();
     }

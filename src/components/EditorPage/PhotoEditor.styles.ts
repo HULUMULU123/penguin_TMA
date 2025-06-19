@@ -115,9 +115,8 @@ export const ToolButton = styled.button`
 
 // Иконка
 export const ToolIcon = styled.div`
-  width: 50px;
-  height: 50px;
-  margin-bottom: 8px;
+  width: 49px;
+  height: 49px;
 
   img {
     width: 100%;
@@ -128,8 +127,8 @@ export const ToolIcon = styled.div`
 
 export const ToolText = styled.p`
   font-family: "Unbounded", sans-serif;
-  font-size: 12px;
-  margin: 1rem 0;
+  font-size: 10px;
+  margin: 20px 0 25px 0;
 `;
 
 // ===============SubFilters====================
@@ -212,9 +211,13 @@ export const VariationList = styled.ul`
 `;
 
 export const VariationItem = styled.li<{ active: boolean }>`
-  padding: 0.25rem 0;
+  padding: 0;
   border-radius: 50%;
-  min-width: 2rem;
+  min-width: 28.45px;
+  height: 28.45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   background: ${(props) =>
     props.active ? "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0.3)"};
@@ -233,7 +236,7 @@ export const CropperFooterDiv = styled.div`
 
 export const CropperButton = styled.button<{ saveBtn: boolean }>`
   color: ${(props) => (props.saveBtn ? "#fff" : "rgba(255, 255, 255, 0.58)")};
-  font-size: 16px;
+  font-size: 14.72px;
   font-weight: 500;
   background: transparent;
   border: none;
