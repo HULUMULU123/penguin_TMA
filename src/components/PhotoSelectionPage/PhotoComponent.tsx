@@ -16,6 +16,7 @@ const StyledImage = styled.img`
   object-fit: cover;
   display: block;
   user-select: none;
+  border-radius: 4px;
 `;
 
 const Overlay = styled.div`

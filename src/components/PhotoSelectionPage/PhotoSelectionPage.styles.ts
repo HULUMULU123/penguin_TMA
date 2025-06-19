@@ -95,11 +95,11 @@ export const Grid = styled.div`
   margin-top: 0.2rem;
   /* display: flex; */
   flex-wrap: wrap;
-  gap: 3px;
+  gap: 2.19px;
   padding: 0px;
   flex-grow: 0;
   padding-bottom: 15rem;
-  displayL grid;
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
 `;
 
