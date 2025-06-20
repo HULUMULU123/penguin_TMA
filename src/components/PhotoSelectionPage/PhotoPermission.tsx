@@ -51,7 +51,7 @@ const GradientContainer = styled.div`
 `;
 
 const TextContainer = styled.div`
-  width: 65%;
+  width: 80%;
   z-index: 2;
 `;
 
@@ -117,11 +117,17 @@ const ModalButton = styled.button`
 const AllowButton = styled(ModalButton)`
   background-color: #c11fbe;
   color: white;
+  padding: 13px 21px;
+  font-size: 11.5px;
+  font-weight: 500;
 `;
 
 const DenyButton = styled(ModalButton)`
   background-color: #ccc;
   color: #333;
+  padding: 13px 30px;
+  font-size: 11.5px;
+  font-weight: 500;
 `;
 
 export default function PhotoSelection({ setHasPermission }) {
@@ -150,13 +156,13 @@ export default function PhotoSelection({ setHasPermission }) {
       <Sheet
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        snapPoints={[0.3]}
+        snapPoints={[0.25]}
         initialSnap={0}
       >
         <Sheet.Container>
           <Sheet.Header />
           <Sheet.Content>
-            <div style={{ padding: "24px", textAlign: "center" }}>
+            <div style={{ padding: "0px", textAlign: "center" }}>
               <ModalTitle>Предоставить доступ к фотографиям?</ModalTitle>
               <div>
                 <AllowButton onClick={handleAllowAccess}>Разрешить</AllowButton>
