@@ -12,6 +12,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow: hidden;
 `;
 
 const GridBackground = styled.div`
@@ -22,14 +23,14 @@ const GridBackground = styled.div`
   bottom: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 5px;
-  padding: 20px;
+  grid-gap: 10px;
+  padding: 20px 17px;
   z-index: 0;
 `;
 
 const GridCell = styled.div`
   background-color: white;
-  border-radius: 10px;
+  border-radius: 20px;
   aspect-ratio: 1 / 1;
   max-width: 113px;
   max-height: 113px;
@@ -149,8 +150,8 @@ export default function PhotoSelection({ setHasPermission }) {
       <Sheet
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        snapPoints={[0.25]} // 40% высоты экрана
-        initialSnap={0} // начальная позиция — 40%
+        snapPoints={[0.3]}
+        initialSnap={0}
       >
         <Sheet.Container>
           <Sheet.Header />

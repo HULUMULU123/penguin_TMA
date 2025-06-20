@@ -71,7 +71,7 @@ const Subtitle = styled.p`
 
 const StartButton = styled.button`
   font-family: "Unbounded", sans-serif;
-  width: 90%;
+  width: 95%;
   max-width: 340px;
   padding: 1.4rem 0;
   font-size: 16px;
@@ -79,7 +79,7 @@ const StartButton = styled.button`
   background-color: #c11fbe;
   color: white;
   border: none;
-  border-radius: 30px;
+  border-radius: 100px;
   box-shadow: 0 6px 20px rgba(193, 31, 190, 0.4);
   text-align: center;
 
