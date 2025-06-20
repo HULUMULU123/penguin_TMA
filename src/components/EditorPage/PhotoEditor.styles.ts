@@ -155,6 +155,12 @@ export const SubFilterItem = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 89px;
+  height: 104px;
+  & img {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 export const SubFilterImg = styled.img<{ active: boolean }>`
