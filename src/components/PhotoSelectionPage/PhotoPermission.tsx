@@ -156,7 +156,7 @@ export default function PhotoSelection({ setHasPermission }) {
       <Sheet
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        snapPoints={[0.25]}
+        snapPoints={[0.2]}
         initialSnap={0}
       >
         <Sheet.Container>

@@ -38,7 +38,7 @@ const ImageUploadBottomSheet = ({
   const photos = useGlobal((state) => state.photos);
   console.log(photos, "test photossss");
   return (
-    <BottomSheet>
+    <BottomSheet peekHeightPercent={10}>
       <ButtonContainer>
         {/* <BottomSheetButton onClick={notify}>
         <img src={camera} alt="Camera Icon" />
