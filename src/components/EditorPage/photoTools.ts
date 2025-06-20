@@ -13,6 +13,42 @@ import background from "../../assets/icons/background.svg";
 
 import filter from "../../assets/filter.jpg";
 
+// волосы
+import bang from "../../assets/bang.jpeg";
+import long_hair from "../../assets/long hair.jpeg";
+import heavy_curling from "../../assets/heavy curling.jpeg";
+import short_hair from "../../assets/short hair.jpeg";
+import straight_hair from "../../assets/straight hair.jpeg";
+import heavy_hair from "../../assets/heavy hair.jpeg";
+
+// размеры
+import shrink_face from "../../assets/shrink face 100.jpg";
+import enlarge_eye from "../../assets/enlarge eye100.jpg";
+import thin_face from "../../assets/thinface100.jpg";
+
+// макияж
+import base from "../../assets/base-0.6.jpg";
+import elegant from "../../assets/elegant-0.6.jpg";
+import teenage from "../../assets/teenage-0.6.jpg";
+import whole from "../../assets/whole0.6.jpg";
+
+// Черты лица
+import nosewin from "../../assets/nosewing0.6.jpg";
+import lipwidth from "../../assets/lipwidth0.6.jpg";
+import lipheight from "../../assets/lipheight-0.6.jpg";
+import eyedistance from "../../assets/eyedistance1.0.jpg";
+import chinshortening from "../../assets/chinshortening1.0.jpg";
+
+// Улыбка
+import standart_grin from "../../assets/standart grin.jpeg";
+import pear_dimple from "../../assets/pear dimple smile.jpeg";
+import dimple_simple from "../../assets/Dimple smile.jpeg";
+
+//ретушь
+import retoch from "../../assets/retoch1.jpg";
+import retoch14 from "../../assets/retouch1.4.jpg";
+import whitening from "../../assets/whitening1.4.jpg";
+
 export const ButtonsFace = [
   // { key: "skin", name: "Кожа", src: skin },
   // { key: "size", name: "Размеры", src: size },
@@ -453,14 +489,14 @@ export const subFilters = {
     {
       id: 0,
       name: "С ямочками",
-      img: filter,
+      img: pear_dimple,
       service_choice: 10,
       numFilters: 0,
     },
     {
       id: 1,
       name: "Большая",
-      img: filter,
+      img: dimple_simple,
       service_choice: 11,
       numFilters: 0,
     },
@@ -474,7 +510,7 @@ export const subFilters = {
     {
       id: 3,
       name: "Обычная",
-      img: filter,
+      img: standart_grin,
       service_choice: 13,
       numFilters: 0,
     },
@@ -675,11 +711,11 @@ export const subFilters = {
   //   },
   // ],
   hairstyle: [
-    { id: 0, name: "Чёлка", img: filter, hair_style: 101, numFilters: 0 },
+    { id: 0, name: "Чёлка", img: bang, hair_style: 101, numFilters: 0 },
     {
       id: 1,
       name: "Длинные волосы",
-      img: filter,
+      img: long_hair,
       hair_style: 201,
       numFilters: 0,
     },
@@ -707,7 +743,7 @@ export const subFilters = {
     {
       id: 5,
       name: "Кудрявые",
-      img: filter,
+      img: heavy_hair,
       hair_style: 403,
       numFilters: 0,
     },
@@ -721,14 +757,14 @@ export const subFilters = {
     {
       id: 7,
       name: "Волнистые",
-      img: filter,
+      img: heavy_curling,
       hair_style: 503,
       numFilters: 0,
     },
     {
       id: 8,
       name: "Короткие",
-      img: filter,
+      img: short_hair,
       hair_style: 603,
       numFilters: 0,
     },
@@ -742,7 +778,7 @@ export const subFilters = {
     {
       id: 10,
       name: "Прямые",
-      img: filter,
+      img: straight_hair,
       hair_style: 901,
       numFilters: 0,
     },
@@ -779,7 +815,7 @@ export const subFilters = {
     {
       id: 0,
       name: "Размер лица",
-      img: filter,
+      img: shrink_face,
       field: "shrink_face",
       numFilters: 0,
       rangeType: true,
@@ -788,7 +824,7 @@ export const subFilters = {
     {
       id: 1,
       name: "Большие глаза",
-      img: filter,
+      img: enlarge_eye,
       field: "enlarge_eye",
       numFilters: 0,
       rangeType: true,
@@ -797,7 +833,7 @@ export const subFilters = {
     {
       id: 2,
       name: "Подбородок",
-      img: filter,
+      img: thin_face,
       field: "thinface",
       numFilters: 0,
       rangeType: true,
@@ -807,27 +843,27 @@ export const subFilters = {
   makeup: [
     {
       id: 0,
-      name: "Базовый",
+      name: "Весь",
       resource_type: "0",
-      img: filter,
+      img: whole,
       numFilters: 0,
       rangeType: true,
       rangeFilters: 5,
     },
     {
       id: 1,
-      name: "С веснушками",
+      name: "Базовый",
       resource_type: "1",
-      img: filter,
+      img: base,
       numFilters: 0,
       rangeType: true,
       rangeFilters: 5,
     },
     {
       id: 2,
-      name: "Элегантный",
+      name: "Подростковый",
       resource_type: "2",
-      img: filter,
+      img: teenage,
       numFilters: 0,
       rangeType: true,
       rangeFilters: 5,
@@ -841,15 +877,15 @@ export const subFilters = {
     //   rangeType: true,
     //   rangeFilters: 5,
     // },
-    // {
-    //   id: 4,
-    //   name: "Элегантный",
-    //   resource_type: "4",
-    //   img: filter,
-    //   numFilters: 0,
-    //   rangeType: true,
-    //   rangeFilters: 5,
-    // },
+    {
+      id: 4,
+      name: "Элегантный",
+      resource_type: "4",
+      img: elegant,
+      numFilters: 0,
+      rangeType: true,
+      rangeFilters: 5,
+    },
     // {
     //   id: 5,
     //   name: "Гламур",
@@ -910,7 +946,7 @@ export const subFilters = {
       id: 4,
       name: "Высота подбородка",
       shape_type: "4",
-      img: filter,
+      img: chinshortening,
       numFilters: 0,
       rangeType: true,
       rangeFilters: 5,
@@ -964,7 +1000,7 @@ export const subFilters = {
       id: 10,
       name: "Расположение глаз",
       shape_type: "10",
-      img: filter,
+      img: eyedistance,
       numFilters: 0,
       rangeType: true,
       rangeFilters: 5,
@@ -1009,7 +1045,7 @@ export const subFilters = {
       id: 15,
       name: "Уменьшение носа",
       shape_type: "15",
-      img: filter,
+      img: nosewin,
       numFilters: 0,
       rangeType: true,
       rangeFilters: 5,
@@ -1036,7 +1072,7 @@ export const subFilters = {
       id: 18,
       name: "Ширина губ",
       shape_type: "18",
-      img: filter,
+      img: lipwidth,
       numFilters: 0,
       rangeType: true,
       rangeFilters: 5,
@@ -1054,7 +1090,7 @@ export const subFilters = {
       id: 20,
       name: "Размер губ",
       shape_type: "20",
-      img: filter,
+      img: lipheight,
       numFilters: 0,
       rangeType: true,
       rangeFilters: 5,
@@ -1073,7 +1109,7 @@ export const subFilters = {
     {
       id: 0,
       name: "Очищение кожи",
-      img: filter,
+      img: retoch,
       field: "retouch_degree",
       numFilters: 0,
       rangeType: true,
@@ -1082,7 +1118,7 @@ export const subFilters = {
     {
       id: 1,
       name: "Белизна кожи",
-      img: filter,
+      img: whitening,
       field: "whitening_degree",
       numFilters: 0,
       rangeType: true,
@@ -1100,7 +1136,7 @@ export const subFilters = {
     {
       id: 3,
       name: "Блеск",
-      img: filter,
+      img: retoch14,
       field: "smoothing",
       numFilters: 0,
       rangeType: true,
